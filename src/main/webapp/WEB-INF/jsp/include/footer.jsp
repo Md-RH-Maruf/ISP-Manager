@@ -57,6 +57,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-select.js"></script>
 
 <!-- Page level plugins -->
+ <script type="text/javascript" src="${pageContext.request.contextPath}/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- <script type="text/javascript" src="vendor/chart.js/Chart.min.js"></script> -->
 
 <!-- Page level custom scripts -->

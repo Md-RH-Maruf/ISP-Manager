@@ -1,5 +1,3 @@
-<%@page import="com.manager.example.shareModel.Priority"%>
-<%@page import="com.manager.example.shareModel.Packages"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
@@ -17,46 +15,7 @@
 				<div class="col-md-12 ">
 					<div class="p-5">
 						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Complain TMS</h1>
-						</div>
-
-						<div class="row my-1">
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="applicantName">Customer Id</label></span>
-									</div>
-									<input id="applicantName" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-									<div class="input-group-append">
-										<button class="btn btn-primary" type="button">
-											<i class="fas fa-search fa-sm"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="problemType">problem Type</label></span>
-									</div>
-									<select id="problemType" class="form-control selectpicker"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm"
-										data-live-search="true"
-										data-style="btn-light btn-sm border-secondary form-control-sm">
-										<option value="0">Select Buyer</option>
-										<c:forEach items="${buyerList}" var="buyer">
-											<option value="${buyer.buyerid}">${buyer.buyername}</option>
-										</c:forEach>
-									</select>
-
-								</div>
-							</div>
-
+							<h1 class="h4 text-gray-900 mb-4">Customer Monthly Invoice</h1>
 						</div>
 
 						<div class="row my-1">
@@ -69,9 +28,21 @@
 									<input id="customerName" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
-
 								</div>
 							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="customerId">Customer Id</label></span>
+									</div>
+									<input id="customerId" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+						</div>
+						<div class="row my-1">
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
@@ -81,41 +52,90 @@
 									<input id="area" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
 
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="billDate">Bill Date</label></span>
+									</div>
+									<input id="billDate" type="date" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row my-1">
+
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="package">Package</label></span>
+									</div>
+									<input id="package" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="activeDate">Active Date</label></span>
+									</div>
+									<input id="activeDate" type="date" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+						</div>
+						
+						<div class="row my-1">
+
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="price">Price</label></span>
+									</div>
+									<input id="price" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="amount">Amount</label></span>
+									</div>
+									<input id="amount" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
 								</div>
 							</div>
 						</div>
 						<div class="row my-1">
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="complainDetails">Complain Details</label></span>
-									</div>
-									<textarea id="complainDetails" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm"></textarea>
-								</div>
-							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="priority">Priority</label></span>
-									</div>
-									<select class="form-control" id="package">
-										<%
-												for (Priority priority : Priority.values()) {
-											%>
+							
+							<div class="col-md-6 ">
+								<button type="button" id="btnAdd" class="btn btn-primary btn-sm"
+									onclick="addAction()">Submit Invoice</button>
 
-										<option value="<%=priority.getType()%>"><%=priority.name()%></option>
-										<%
-												}
-											%>
-									</select>
-								</div>
+								<button type="button" id="btnEdit"
+									class="btn btn-success btn-sm" onclick="editAction()"
+									style="display: none;">Edit</button>
+								<button type="button" id="btnRefresh"
+									class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
+
 							</div>
+
 						</div>
+
 						<div class="alert alert-success alert-dismissible fade show"
 							style="display: none;">
 							<p id="successAlert" class="mb-0">
@@ -135,9 +155,8 @@
 								<strong>Wrong!</strong> Something Wrong...
 							</p>
 						</div>
-						<button type="button" onclick="submitComplain()"
-							class="btn btn-primary btn-user btn-block">Submit
-							Complain</button>
+
+						
 
 					</div>
 				</div>
@@ -220,4 +239,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/complain-tms.js"></script>
+	src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>

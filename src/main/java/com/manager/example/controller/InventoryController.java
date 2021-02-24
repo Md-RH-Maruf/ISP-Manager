@@ -115,4 +115,25 @@ public class InventoryController {
 		return obj;
 	}
 	
+	@RequestMapping(value={"/inventory/reseller-information"})
+	public ModelAndView reseller_information(ModelMap map,HttpSession session) {
+		
+		ModelAndView view = new ModelAndView("inventory/reseller-information");
+		map.addAttribute("maxId",customerService.getMaxCustomerId());
+		map.addAttribute("customerList",customerService.getCustomerList());
+		
+		return view;
+	}
+	
+	
+	@RequestMapping(value={"/inventory/service-create"})
+	public ModelAndView service_create(ModelMap map,HttpSession session) {
+		
+		ModelAndView view = new ModelAndView("inventory/service-create");
+		map.addAttribute("maxId",customerService.getMaxCustomerId());
+		map.addAttribute("customerList",customerService.getCustomerList());
+		
+		return view;
+	}
+	
 }

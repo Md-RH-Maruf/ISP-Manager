@@ -28,7 +28,7 @@
 <!-- Custom styles for this template-->
 <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/bootstrap-select.css" rel="stylesheet" type="text/css">
-
+<link href="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
 </head>
 <%
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -78,11 +78,13 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/support/activation-tms">Activation TMS</a> <a
-							class="collapse-item" href="${pageContext.request.contextPath}/support/complain-tms">Client Complain
-							TMS</a>
+						
 						<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/customer">Customer</a>										
 						<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/employee">Employee</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/reseller-information">Reseller Information</a>
+							<a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/service-create">Service Create</a>
 					</div>
 				</div></li>
 
@@ -95,9 +97,12 @@
 					aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
+						<a class="collapse-item" href="${pageContext.request.contextPath}/support/activation-tms">Activation TMS</a> <a
+							class="collapse-item" href="${pageContext.request.contextPath}/support/complain-tms">Client Complain
+							TMS</a>
+							<a class="collapse-item" href="${pageContext.request.contextPath}/support/tms-report-list">TMS Report List</a>
 						<a class="collapse-item" href="${pageContext.request.contextPath}/support/connection-point">Connection
-							Point</a> <a class="collapse-item"
-							href="${pageContext.request.contextPath}/support/reseller-information">Reseller Information</a> <a
+							Point</a>  <a
 							class="collapse-item" href="${pageContext.request.contextPath}/support/olt-mc-position">OLT/MC
 							Position</a>
 					</div>
@@ -121,9 +126,9 @@
 						<!--  <h6 class="collapse-header">Login Screens:</h6> -->
 						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/create-ledger">Create
 							Ledger</a> <a class="collapse-item" href="${pageContext.request.contextPath}/accounts/create-bill">Create
-							Bill</a> <a class="collapse-item" href="${pageContext.request.contextPath}/accounts/service">Receive
-							Bill</a> <a class="collapse-item" href="${pageContext.request.contextPath}/accounts/payment">Payment
-							Bill</a>
+							Bill</a> <a class="collapse-item" href="${pageContext.request.contextPath}/accounts/pending-bill">Pending
+							Bills</a> <a class="collapse-item" href="${pageContext.request.contextPath}/accounts/approved-bill">Approved
+							Bills</a><a class="collapse-item" href="${pageContext.request.contextPath}/accounts/cash-transaction">Cash Transaction</a>
 
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Report:</h6>
@@ -148,14 +153,14 @@
 							Product Create</a> <a class="collapse-item"
 							href="${pageContext.request.contextPath}/store/create-product-requisition">Product Requisition</a> <a
 							class="collapse-item" href="${pageContext.request.contextPath}/store/purchase-product">Purchase
-							Product</a> <a class="collapse-item" href="${pageContext.request.contextPath}/store/issue-product">Issue
+							Product</a><a class="collapse-item" href="${pageContext.request.contextPath}/store/product-requisition-list">Product Requisition List</a> <a class="collapse-item" href="${pageContext.request.contextPath}/store/issue-product">Issue
 							Product</a>
 
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Report:</h6>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/customer-bill-info">Product
+						<a class="collapse-item" href="${pageContext.request.contextPath}/store/product-stock">Product
 							Stock</a> <a class="collapse-item"
-							href="${pageContext.request.contextPath}/accounts/customer-monthly-invoice">Product Transaction</a>
+							href="${pageContext.request.contextPath}/store/product-transaction">Product Transaction</a>
 					</div>
 				</div></li>
 			<!-- Nav Item - Charts -->
