@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.manager.inventory.entity.Customer;
 import com.manager.inventory.entity.Employee;
+import com.manager.inventory.entity.Reseller;
 import com.manager.inventory.services.CustomerService;
 import com.manager.inventory.services.EmployeeService;
+import com.manager.inventory.services.ResellerService;
 import com.manager.security.entity.Role;
 import com.manager.security.entityModel.MyUserDetails;
 
@@ -30,6 +32,8 @@ public class InventoryController {
 	CustomerService customerService;
 	@Autowired
 	EmployeeService employeeService;
+	@Autowired
+	ResellerService resellerService;
 
 	@RequestMapping(value={"/inventory/customer"})
 	public ModelAndView customer(ModelMap map,HttpSession session) {
@@ -119,11 +123,44 @@ public class InventoryController {
 	public ModelAndView reseller_information(ModelMap map,HttpSession session) {
 		
 		ModelAndView view = new ModelAndView("inventory/reseller-information");
-		map.addAttribute("maxId",customerService.getMaxCustomerId());
-		map.addAttribute("customerList",customerService.getCustomerList());
+		map.addAttribute("maxId",resellerService.getMaxResellerId());
+		map.addAttribute("resellerList",resellerService.getResellerList());
 		
 		return view;
 	}
+	
+	@RequestMapping(value= {"/saveReseller"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> saveReseller(Reseller reseller) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		reseller.setResellerId(resellerService.getMaxResellerId());
+		reseller.setEntryTime(new Timestamp(new Date().getTime()));
+		reseller.setEntryBy(userDetails.getId());
+		obj.put("result", resellerService.saveReseller(reseller));
+		obj.put("resellerList",resellerService.getResellerList());
+		
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/editReseller"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> editReseller(Reseller reseller) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
+		reseller.setEntryTime(new Timestamp(new Date().getTime()));
+		reseller.setEntryBy(userDetails.getId());
+		obj.put("result", resellerService.saveReseller(reseller));
+		obj.put("resellerList",resellerService.getResellerList());
+		
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/getReseller"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getReseller(String id){
+		Map<String, Object> obj = new HashMap();
+		obj.put("resellerInfo",resellerService.findById(Long.valueOf(id)));
+		return obj;
+	}
+	
 	
 	
 	@RequestMapping(value={"/inventory/service-create"})

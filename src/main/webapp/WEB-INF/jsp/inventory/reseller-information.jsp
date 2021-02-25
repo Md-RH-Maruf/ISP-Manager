@@ -1,3 +1,4 @@
+<%@page import="com.manager.example.shareModel.ResellerType"%>
 <%@page import="com.manager.example.shareModel.CustomerType"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -144,7 +145,7 @@
 										</div>
 										<select class="form-control" id="resellerType">
 											<%
-												for (CustomerType reseller : CustomerType.values()) {
+												for (ResellerType reseller : ResellerType.values()) {
 											%>
 
 											<option value="<%=reseller.getType()%>"><%=reseller.toString()%></option>
