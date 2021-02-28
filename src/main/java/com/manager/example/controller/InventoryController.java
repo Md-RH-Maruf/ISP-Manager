@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.manager.inventory.entity.Customer;
 import com.manager.inventory.entity.Employee;
 import com.manager.inventory.entity.Reseller;
+import com.manager.inventory.entity.Service;
 import com.manager.inventory.services.CustomerService;
 import com.manager.inventory.services.EmployeeService;
+import com.manager.inventory.services.PackageService;
 import com.manager.inventory.services.ResellerService;
 import com.manager.security.entity.Role;
 import com.manager.security.entityModel.MyUserDetails;
@@ -34,6 +36,8 @@ public class InventoryController {
 	EmployeeService employeeService;
 	@Autowired
 	ResellerService resellerService;
+	@Autowired
+	PackageService packageService;
 
 	@RequestMapping(value={"/inventory/customer"})
 	public ModelAndView customer(ModelMap map,HttpSession session) {
@@ -41,7 +45,7 @@ public class InventoryController {
 		ModelAndView view = new ModelAndView("inventory/customer");
 		map.addAttribute("maxId",customerService.getMaxCustomerId());
 		map.addAttribute("customerList",customerService.getCustomerList());
-		
+		map.addAttribute("packageList",packageService.getServiceList());
 		return view;
 	}
 	
@@ -167,10 +171,50 @@ public class InventoryController {
 	public ModelAndView service_create(ModelMap map,HttpSession session) {
 		
 		ModelAndView view = new ModelAndView("inventory/service-create");
-		map.addAttribute("maxId",customerService.getMaxCustomerId());
-		map.addAttribute("customerList",customerService.getCustomerList());
+		view.addObject("packageList",packageService.getServiceList());
 		
 		return view;
+	}
+	
+	@RequestMapping(value= {"/saveService"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> saveService(Service service) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if(!packageService.isServiceExist(service.getServiceName(), 0)) {
+			service.setEntryTime(new Timestamp(new Date().getTime()));
+			service.setEntryBy(userDetails.getId());
+			obj.put("result", packageService.saveService(service));
+			obj.put("serviceList",packageService.getServiceList());
+		}else {
+			obj.put("result","duplicate");
+		}
+		
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/editService"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> editService(Service service) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
+		if(!packageService.isServiceExist(service.getServiceName(), service.getId())) {
+			service.setEntryTime(new Timestamp(new Date().getTime()));
+			service.setEntryBy(userDetails.getId());
+			obj.put("result", packageService.saveService(service));
+			obj.put("serviceList",packageService.getServiceList());
+		}else {
+			obj.put("result","duplicate");
+		}
+		
+		
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/getService"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getService(String id){
+		Map<String, Object> obj = new HashMap();
+		obj.put("serviceInfo",packageService.findById(Long.valueOf(id)));
+		return obj;
 	}
 	
 }

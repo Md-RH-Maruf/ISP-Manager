@@ -22,6 +22,7 @@ public class Customer {
 	private String address;
 	private String email;
 	private String contactNo;
+	private int packageId;
 	private int customerType;
 	private Date serviceStartDate;
 	private int status;
@@ -126,6 +127,14 @@ public class Customer {
 
 	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
+	}
+
+	public int getPackageId() {
+		return packageId;
+	}
+
+	public void setPackageId(int packageId) {
+		this.packageId = packageId;
 	}
 	
 }

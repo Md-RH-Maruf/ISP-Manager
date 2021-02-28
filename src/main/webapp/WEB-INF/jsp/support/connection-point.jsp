@@ -29,7 +29,7 @@
 				<strong>Wrong!</strong> Something Wrong...
 			</p>
 		</div>
-		<input type="hidden" id="customerAutoId" value="0">
+		<input type="hidden" id="connectionPointAutoId" value="0">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="card-box">
@@ -43,19 +43,7 @@
 							</div>
 							<hr>
 
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="connectionPointId">Connection Point ID</label></span>
-										</div>
-										<input id="connectionPointId" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" value="${maxId }" readonly>
-									</div>
-								</div>
-							</div>
+							
 							<div class="row my-1">
 								<div class='col-md-12 px-1'>
 									<div class="input-group input-group-sm mb-1">
@@ -235,14 +223,14 @@
 												<th>Status</th>
 											</tr>
 										</thead>
-										<tbody id="customerList">
-											<c:forEach items="${customerList}" var="customer" varStatus="counter">
+										<tbody id="connectionPointList">
+											<c:forEach items="${connectionList}" var="connection" varStatus="counter">
 												<tr style="cursor: pointer;"
-													onclick="setCustomerData('${customer.id}')">
-													<td>${customer.customerId}</td>
-													<td>${customer.name}</td>
-													<td>${customer.customerType }</td>
-													<td>${customer.status }</td>
+													onclick="setConnectionPointData('${connection.id}')">
+													<td>${connection.connectionPointName}</td>
+													<td>${connection.clientName}</td>
+													<td>${connection.server }</td>
+													<td>${connection.activeStatus }</td>
 												</tr>
 											</c:forEach>
 										</tbody>

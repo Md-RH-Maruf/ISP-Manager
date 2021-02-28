@@ -28,7 +28,7 @@
 				<strong>Wrong!</strong> Something Wrong...
 			</p>
 		</div>
-		<input type="hidden" id="customerAutoId" value="0">
+		<input type="hidden" id="oltMcPositionAutoId" value="0">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="card-box">
@@ -37,32 +37,20 @@
 
 							<div class="row ">
 								<h2>
-									<b>Customer Create</b>
+									<b>OLT/MC Position</b>
 								</h2>
 							</div>
 							<hr>
 
+							
 							<div class="row my-1">
 								<div class='col-md-12 px-1'>
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="customerId">Customer ID</label></span>
+												class='my-0' for="oltMcName">OLT/MC Name</label></span>
 										</div>
-										<input id="customerId" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" value="${maxId }" readonly>
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="customerName">Customer Name</label></span>
-										</div>
-										<input id="customerName" type="text" class="form-control"
+										<input id="oltMcName" type="text" class="form-control"
 											aria-label="Sizing example input"
 											aria-describedby="inputGroup-sizing-sm" >
 									</div>
@@ -73,27 +61,15 @@
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="companyName">Company Name</label></span>
+												class='my-0' for="area">Area</label></span>
 										</div>
-										<input id="companyName" type="text" class="form-control"
+										<input id="area" type="text" class="form-control"
 											aria-label="Sizing example input"
 											aria-describedby="inputGroup-sizing-sm" >
 									</div>
 								</div>
 							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="keyPerson">Key Person</label></span>
-										</div>
-										<input id="keyPerson" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm">
-									</div>
-								</div>
-							</div>
+							
 							<div class="row my-1">
 								<div class='col-md-12 px-1'>
 									<div class="input-group input-group-sm mb-1">
@@ -104,90 +80,6 @@
 										<textarea id="address" type="text" class="form-control"
 											aria-label="Sizing example input"
 											aria-describedby="inputGroup-sizing-sm"></textarea>
-									</div>
-								</div>
-							</div>
-
-							
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="email">Email</label></span>
-										</div>
-										<input id="email" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="contactNo">Contact No</label></span>
-										</div>
-										<input id="contactNo" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-6 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="customerType">Customer Type</label></span>
-										</div>
-										<select class="form-control" id="customerType">
-											<%
-												for (CustomerType customer : CustomerType.values()) {
-											%>
-
-											<option value="<%=customer.getType()%>"><%=customer.toString()%></option>
-											<%
-												}
-											%>
-										</select>
-									</div>
-								</div>
-								<div class='col-md-6 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="serviceStartDate">Ser. S.Date</label></span>
-										</div>
-										<input type="date" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" id="serviceStartDate" />
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-6 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="activeStatus">Active Status</label></span>
-										</div>
-										<select class="form-control" id="activeStatus">
-											<option value="1">Active</option>
-											<option value="2">Inactive</option>
-										</select>
-									</div>
-								</div>
-								<div class='col-md-6 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="reference">Reference</label></span>
-										</div>
-										<input id="reference" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
 									</div>
 								</div>
 							</div>
@@ -223,20 +115,20 @@
 									<table class="table table-hover table-bordered table-sm">
 										<thead>
 											<tr>
-												<th>Customer Id</th>
-												<th>Customer Name</th>
-												<th>Customer Type</th>
-												<th>Status</th>
+												<th>OLT/MC Name</th>
+												<th>Area</th>
+												<th>Address</th>
+												
 											</tr>
 										</thead>
-										<tbody id="customerList">
-											<c:forEach items="${customerList}" var="customer" varStatus="counter">
+										<tbody id="oltMcPositionList">
+											<c:forEach items="${oltMcList}" var="oltMc" varStatus="counter">
 												<tr style="cursor: pointer;"
-													onclick="setCustomerData('${customer.id}')">
-													<td>${customer.customerId}</td>
-													<td>${customer.name}</td>
-													<td>${customer.customerType }</td>
-													<td>${customer.status }</td>
+													onclick="setOltMcPositionData('${oltMc.id}')">
+													<td>${oltMc.oltMcName}</td>
+													<td>${oltMc.area}</td>
+													<td>${oltMc.address }</td>
+													
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -329,4 +221,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/inventory/olt-mc-position.js"></script>
+	src="${pageContext.request.contextPath}/js/support/olt-mc-position.js"></script>

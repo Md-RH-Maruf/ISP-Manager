@@ -91,7 +91,7 @@
 											aria-describedby="inputGroup-sizing-sm"></textarea>
 									</div>
 								</div>
-								<div class='col-md-6'>
+								<%-- <div class='col-md-6'>
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
@@ -108,7 +108,7 @@
 											%>
 										</select>
 									</div>
-								</div>
+								</div> --%>
 							</div>
 							<div class="alert alert-success alert-dismissible fade show"
 								style="display: none;">

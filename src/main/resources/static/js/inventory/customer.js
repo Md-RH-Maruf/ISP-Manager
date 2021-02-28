@@ -24,6 +24,7 @@ function setCustomerData(id) {
         $("#address").val(customer.address);
         $("#email").val(customer.email);
         $("#contactNo").val(customer.contactNo);
+        $("#package").val(customer.packageId);
         $("#customerType").val(customer.customerType);
         $("#serviceStartDate").val(customer.serviceStartDate);
         $("#activeStatus").val(customer.status);
@@ -45,6 +46,7 @@ function setCustomerData(id) {
     let address = $("#address").val();
     let email = $("#email").val();
     let contactNo = $("#contactNo").val();
+    let packageId = $("#package").val();
     let customerType = $("#customerType").val();
     let serviceStartDate = $("#serviceStartDate").val();
     let activeStatus = $("#activeStatus").val();
@@ -64,6 +66,7 @@ function setCustomerData(id) {
                         address: address,
                         email: email,
                         contactNo: contactNo,
+                        packageId: packageId,
                         customerType: customerType,
                         serviceStartDate: serviceStartDate,
                         status: activeStatus,
@@ -109,6 +112,7 @@ function setCustomerData(id) {
     let address = $("#address").val();
     let email = $("#email").val();
     let contactNo = $("#contactNo").val();
+    let packageId = $("#package").val();
     let customerType = $("#customerType").val();
     let serviceStartDate = $("#serviceStartDate").val();
     let activeStatus = $("#activeStatus").val();
@@ -130,6 +134,7 @@ function setCustomerData(id) {
                         address: address,
                         email: email,
                         contactNo: contactNo,
+                        packageId: packageId,
                         customerType: customerType,
                         serviceStartDate: serviceStartDate,
                         status: activeStatus,

@@ -32,12 +32,13 @@ function setServiceData(id) {
     
     let serviceName = $("#serviceName").val();
     let servicePrice = $("#servicePrice").val();
-    let serviceVat = $("#serviceVat").val();
+    let serviceVat = $("#serviceVat").val()==''?0:$("#serviceVat").val();
     let activeStatus = $("#activeStatus").val();
    
     if (serviceName != '') {
         if (servicePrice) {
             if(confirm("Are you sure to save Service?")){
+             
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
@@ -55,7 +56,7 @@ function setServiceData(id) {
                         dangerAlert("Duplicate Service Name..This Service Name Allreary Exist")
                       } else {
               
-                        if (data.result.serviceId) {
+                        if (data.result.serviceName) {
                           successAlert("Service Save Successfully");
                           $("#serviceList").empty();
                           $("#serviceList").append(drawServiceTable(data.serviceList));
@@ -106,7 +107,7 @@ function setServiceData(id) {
                         dangerAlert("Duplicate Service Name..This Service Name Allreary Exist")
                       } else {
               
-                        if (data.result.serviceId) {
+                        if (data.result.serviceName) {
                           successAlert("Service Edit Successfully");
                           $("#serviceList").empty();
                           $("#serviceList").append(drawServiceTable(data.serviceList));
@@ -144,7 +145,7 @@ function drawServiceTable(data) {
     <td>${service.id}</td>
     <td>${service.serviceName}</td>
     <td>${service.servicePrice }</td>
-    <td>${service.status }</td>
+    <td>${service.activeStatus }</td>
 </tr>`
   }
 

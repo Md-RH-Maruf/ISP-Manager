@@ -25,9 +25,9 @@
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="applicantName">Customer Id</label></span>
+											class='my-0' for="customerId">Customer Id</label></span>
 									</div>
-									<input id="applicantName" type="text" class="form-control"
+									<input id="customerId" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 									<div class="input-group-append">
@@ -43,16 +43,9 @@
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
 											class='my-0' for="problemType">problem Type</label></span>
 									</div>
-									<select id="problemType" class="form-control selectpicker"
+									<input id="problemType" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm"
-										data-live-search="true"
-										data-style="btn-light btn-sm border-secondary form-control-sm">
-										<option value="0">Select Buyer</option>
-										<c:forEach items="${buyerList}" var="buyer">
-											<option value="${buyer.buyerid}">${buyer.buyername}</option>
-										</c:forEach>
-									</select>
+										aria-describedby="inputGroup-sizing-sm">
 
 								</div>
 							</div>
@@ -103,7 +96,7 @@
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
 											class='my-0' for="priority">Priority</label></span>
 									</div>
-									<select class="form-control" id="package">
+									<select class="form-control" id="priority">
 										<%
 												for (Priority priority : Priority.values()) {
 											%>

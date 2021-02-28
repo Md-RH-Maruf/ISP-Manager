@@ -136,6 +136,22 @@
 								</div>
 							</div>
 							<div class="row my-1">
+								<div class='col-md-12 px-1'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="package">Package</label></span>
+									</div>
+									<select class="form-control" id="package">
+										<c:forEach items="${packageList}" var="package"
+											varStatus="counter">
+											<option value='${package.id}'>${package.serviceName }</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+							</div>
+							<div class="row my-1">
 								<div class='col-md-6 px-1'>
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">

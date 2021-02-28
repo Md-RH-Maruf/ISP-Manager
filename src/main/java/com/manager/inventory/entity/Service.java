@@ -50,6 +50,9 @@ public class Service {
 	public void setServiceVat(int serviceVat) {
 		this.serviceVat = serviceVat;
 	}
+	public void setServiceVat(String serviceVat) {
+		this.serviceVat = Integer.valueOf(serviceVat);
+	}
 	public int getActiveStatus() {
 		return activeStatus;
 	}

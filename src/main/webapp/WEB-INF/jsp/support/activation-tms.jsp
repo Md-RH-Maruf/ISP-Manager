@@ -36,16 +36,9 @@
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
 											class='my-0' for="area">Area</label></span>
 									</div>
-									<select id="area" class="form-control selectpicker"
+									<input id="area" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm"
-										data-live-search="true"
-										data-style="btn-light btn-sm border-secondary form-control-sm">
-										<option value="0">Select Area</option>
-										<c:forEach items="${buyerList}" var="buyer">
-											<option value="${buyer.buyerid}">${buyer.buyername}</option>
-										</c:forEach>
-									</select>
+										aria-describedby="inputGroup-sizing-sm">
 
 								</div>
 							</div>
@@ -77,18 +70,8 @@
 						</div>
 
 						<div class="row my-1">
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="address">Address</label></span>
-									</div>
-									<textarea id="address" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm"></textarea>
-								</div>
-							</div>
-							<div class='col-md-6'>
+
+							<div class='col-md-12'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
@@ -108,7 +91,10 @@
 											class='my-0' for="package">Package</label></span>
 									</div>
 									<select class="form-control" id="package">
-
+										<c:forEach items="${packageList}" var="package"
+											varStatus="counter">
+											<option value='${package.id}'>${package.serviceName }</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>
@@ -168,8 +154,7 @@
 							</p>
 						</div>
 						<button type="button" onclick="submitRequest()"
-							class="btn btn-primary btn-user btn-block">Submit
-							TMS</button>
+							class="btn btn-primary btn-user btn-block">Submit TMS</button>
 
 					</div>
 				</div>
@@ -251,4 +236,5 @@
 </div>
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>

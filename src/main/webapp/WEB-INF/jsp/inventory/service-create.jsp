@@ -41,20 +41,6 @@
 								</h2>
 							</div>
 							<hr>
-
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="serviceId">Service ID</label></span>
-										</div>
-										<input id="serviceId" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" value="${maxId }" readonly>
-									</div>
-								</div>
-							</div>
 							<div class="row my-1">
 								<div class='col-md-12 px-1'>
 									<div class="input-group input-group-sm mb-1">
@@ -75,7 +61,7 @@
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
 												class='my-0' for="servicePrice">Service Price</label></span>
 										</div>
-										<input id="servicePrice" type="text" class="form-control"
+										<input id="servicePrice" type="number" class="form-control"
 											aria-label="Sizing example input"
 											aria-describedby="inputGroup-sizing-sm" >
 									</div>
@@ -88,7 +74,7 @@
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
 												class='my-0' for="serviceVat">Service Vat</label></span>
 										</div>
-										<input id="serviceVat" type="text" class="form-control"
+										<input id="serviceVat" type="number" class="form-control"
 											aria-label="Sizing example input"
 											aria-describedby="inputGroup-sizing-sm">
 									</div>
@@ -149,13 +135,13 @@
 											</tr>
 										</thead>
 										<tbody id="serviceList">
-											<c:forEach items="${serviceList}" var="service" varStatus="counter">
+											<c:forEach items="${packageList}" var="pkg" varStatus="counter">
 												<tr style="cursor: pointer;"
-													onclick="setServiceData('${service.id}')">
-													<td>${service.serviceId}</td>
-													<td>${service.name}</td>
-													<td>${service.serviceType }</td>
-													<td>${service.status }</td>
+													onclick="setServiceData('${pkg.id}')">
+													<td>${pkg.id}</td>
+													<td>${pkg.serviceName}</td>
+													<td>${pkg.servicePrice}</td>
+													<td>${pkg.activeStatus }</td>
 												</tr>
 											</c:forEach>
 										</tbody>
