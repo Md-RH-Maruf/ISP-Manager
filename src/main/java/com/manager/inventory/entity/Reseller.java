@@ -17,15 +17,20 @@ public class Reseller {
 	private Long id;
 	private String resellerId;
 	private String name;
-	private String companyName;
-	private String keyPerson;
 	private String address;
+	private String publicIp;
+	private String scrNo;
 	private String email;
 	private String contactNo;
-	private int resellerType;
+	private String mikrotikUserName;
+	private String mikrotikPassword;
+	private String internetBandwidth;
+	private String facebookBandwidth;
+	private String youtubeBandwidth;
+	private String bdixBandwidth;
+	private double monthlyPayment;
 	private Date serviceStartDate;
 	private int status;
-	private String reference;
 	private Timestamp entryTime;
 	private Long entryBy;
 	
@@ -45,18 +50,7 @@ public class Reseller {
 	public void setResellerId(String resellerId) {
 		this.resellerId = resellerId;
 	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	public String getKeyPerson() {
-		return keyPerson;
-	}
-	public void setKeyPerson(String keyPerson) {
-		this.keyPerson = keyPerson;
-	}
+	
 	public String getAddress() {
 		return address;
 	}
@@ -96,20 +90,70 @@ public class Reseller {
 		this.name = name;
 	}
 
-	public String getReference() {
-		return reference;
-	}
-
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
 	
-	public int getResellerType() {
-		return resellerType;
+
+	public String getPublicIp() {
+		return publicIp;
 	}
 
-	public void setResellerType(int resellerType) {
-		this.resellerType = resellerType;
+	public void setPublicIp(String publicIp) {
+		this.publicIp = publicIp;
+	}
+
+	public String getScrNo() {
+		return scrNo;
+	}
+
+	public void setScrNo(String scrNo) {
+		this.scrNo = scrNo;
+	}
+
+	public String getMikrotikUserName() {
+		return mikrotikUserName;
+	}
+
+	public void setMikrotikUserName(String mikrotikUserName) {
+		this.mikrotikUserName = mikrotikUserName;
+	}
+
+	public String getMikrotikPassword() {
+		return mikrotikPassword;
+	}
+
+	public void setMikrotikPassword(String mikrotikPassword) {
+		this.mikrotikPassword = mikrotikPassword;
+	}
+
+	public String getInternetBandwidth() {
+		return internetBandwidth;
+	}
+
+	public void setInternetBandwidth(String internetBandwidth) {
+		this.internetBandwidth = internetBandwidth;
+	}
+
+	public String getFacebookBandwidth() {
+		return facebookBandwidth;
+	}
+
+	public void setFacebookBandwidth(String facebookBandwidth) {
+		this.facebookBandwidth = facebookBandwidth;
+	}
+
+	public String getBdixBandwidth() {
+		return bdixBandwidth;
+	}
+
+	public void setBdixBandwidth(String bdixBandwidth) {
+		this.bdixBandwidth = bdixBandwidth;
+	}
+
+	public double getMonthlyPayment() {
+		return monthlyPayment;
+	}
+
+	public void setMonthlyPayment(double monthlyPayment) {
+		this.monthlyPayment = monthlyPayment;
 	}
 
 	public String getEmail() {
@@ -126,6 +170,14 @@ public class Reseller {
 
 	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
+	}
+
+	public String getYoutubeBandwidth() {
+		return youtubeBandwidth;
+	}
+
+	public void setYoutubeBandwidth(String youtubeBandwidth) {
+		this.youtubeBandwidth = youtubeBandwidth;
 	}
 	
 }

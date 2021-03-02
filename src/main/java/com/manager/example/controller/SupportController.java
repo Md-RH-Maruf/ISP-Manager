@@ -24,11 +24,13 @@ import com.manager.security.entityModel.MyUserDetails;
 import com.manager.support.entity.ActivationTMS;
 import com.manager.support.entity.ComplainTMS;
 import com.manager.support.entity.ConnectionPoint;
-import com.manager.support.entity.OltMcPosition;
+import com.manager.support.entity.McInformation;
+import com.manager.support.entity.OltInformation;
 import com.manager.support.services.ActivationTMSService;
 import com.manager.support.services.ComplainTMSService;
 import com.manager.support.services.ConnectionPointService;
-import com.manager.support.services.OltMcPositionService;
+import com.manager.support.services.McInfoService;
+import com.manager.support.services.OltInfoService;
 
 @Controller
 public class SupportController {
@@ -36,7 +38,9 @@ public class SupportController {
 	@Autowired
 	ConnectionPointService connPointService;
 	@Autowired
-	OltMcPositionService oltMcService;
+	OltInfoService oltInfoService;
+	@Autowired
+	McInfoService mcInfoService;
 	@Autowired
 	ActivationTMSService activationService;
 	@Autowired
@@ -87,7 +91,7 @@ public class SupportController {
 		return obj;
 	}
 
-	@RequestMapping(value={"/support/tms-report-list"})
+	@RequestMapping(value={"/support/tms-list"})
 	public ModelAndView tms_report_list(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView view = new ModelAndView("support/tms-report-list");
@@ -158,42 +162,82 @@ public class SupportController {
 	}
 
 
-	// OLT/MC Position
-	@RequestMapping(value={"/support/olt-mc-position"})
-	public ModelAndView olt_mc_position(ModelMap map,HttpSession session) {
+	// OLT Position
+	@RequestMapping(value={"/support/olt-information"})
+	public ModelAndView olt_position(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ModelAndView view = new ModelAndView("support/olt-mc-position");
-		map.addAttribute("oltMcList",oltMcService.getOltMcPositions());
+		ModelAndView view = new ModelAndView("support/olt-information");
+		map.addAttribute("oltInfoList",oltInfoService.getOltInformations());
 		//map.addAttribute("resourceList",resourceService.getResourceList());
 		return view;
 	}
 
-	@RequestMapping(value= {"/saveOltMcPosition"},method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> saveOltMcPosition(OltMcPosition oltMcPosition) {
+	@RequestMapping(value= {"/saveOltInfo"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> saveOltInfo(OltInformation oltMcPosition) {
 		Map<String, Object> obj = new HashMap();
 		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		oltMcPosition.setEntryTime(new Timestamp(new Date().getTime()));
 		oltMcPosition.setEntryBy(userDetails.getId());
-		obj.put("result", oltMcService.saveOltMcPosition(oltMcPosition));
-		obj.put("oltMcList",oltMcService.getOltMcPositions());
+		obj.put("result", oltInfoService.saveOltInformation(oltMcPosition));
+		obj.put("oltInfoList",oltInfoService.getOltInformations());
 		return obj;
 	}
 
-	@RequestMapping(value= {"/editOltMcPosition"},method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> editOltMcPosition(OltMcPosition oltMcPosition) {
+	@RequestMapping(value= {"/editOltInfo"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> editOltInfo(OltInformation oltMcPosition) {
 		Map<String, Object> obj = new HashMap();
 		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		oltMcPosition.setEntryTime(new Timestamp(new Date().getTime()));
 		oltMcPosition.setEntryBy(userDetails.getId());
-		obj.put("result", oltMcService.saveOltMcPosition(oltMcPosition));
-		obj.put("oltMcList",oltMcService.getOltMcPositions());
+		obj.put("result", oltInfoService.saveOltInformation(oltMcPosition));
+		obj.put("oltInfoList",oltInfoService.getOltInformations());
 		return obj;
 	}
 
-	@RequestMapping(value= {"/getOltMcPosition"},method=RequestMethod.GET)
-	public @ResponseBody Map<String, Object> getOltMcPosition(String id){
+	@RequestMapping(value= {"/getOltInfo"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getOltInfo(String id){
 		Map<String, Object> obj = new HashMap();
-		obj.put("oltMcPositionInfo",oltMcService.getOltMcPosition(Long.valueOf(id)));
+		obj.put("oltInfo",oltInfoService.getOltInformation(Long.valueOf(id)));
 		return obj;
 	}
+	
+	
+	// MC Position
+		@RequestMapping(value={"/support/mc-information"})
+		public ModelAndView mc_position(ModelMap map,HttpSession session) {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			ModelAndView view = new ModelAndView("support/mc-information");
+			map.addAttribute("mcInfoList",mcInfoService.getMcInformations());
+			//map.addAttribute("resourceList",resourceService.getResourceList());
+			return view;
+		}
+
+		@RequestMapping(value= {"/saveMcInfo"},method=RequestMethod.POST)
+		public @ResponseBody Map<String, Object> saveMcInfo(McInformation mcInfo) {
+			Map<String, Object> obj = new HashMap();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			mcInfo.setEntryTime(new Timestamp(new Date().getTime()));
+			mcInfo.setEntryBy(userDetails.getId());
+			obj.put("result", mcInfoService.saveMcInformation(mcInfo));
+			obj.put("mcInfoList",mcInfoService.getMcInformations());
+			return obj;
+		}
+
+		@RequestMapping(value= {"/editMcInfo"},method=RequestMethod.POST)
+		public @ResponseBody Map<String, Object> editMcInfo(McInformation mcInfo) {
+			Map<String, Object> obj = new HashMap();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			mcInfo.setEntryTime(new Timestamp(new Date().getTime()));
+			mcInfo.setEntryBy(userDetails.getId());
+			obj.put("result", mcInfoService.saveMcInformation(mcInfo));
+			obj.put("mcInfoList",mcInfoService.getMcInformations());
+			return obj;
+		}
+
+		@RequestMapping(value= {"/getMcInfo"},method=RequestMethod.GET)
+		public @ResponseBody Map<String, Object> getMcInfo(String id){
+			Map<String, Object> obj = new HashMap();
+			obj.put("mcInfo",mcInfoService.getMcInformation(Long.valueOf(id)));
+			return obj;
+		}
 }

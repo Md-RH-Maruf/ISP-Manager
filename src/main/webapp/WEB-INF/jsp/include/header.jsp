@@ -81,8 +81,7 @@
 						
 						<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/customer">Customer</a>										
 						<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/employee">Employee</a>
-						<a class="collapse-item"
-							href="${pageContext.request.contextPath}/inventory/reseller-information">Reseller Information</a>
+						
 							<a class="collapse-item"
 							href="${pageContext.request.contextPath}/inventory/service-create">Service Create</a>
 					</div>
@@ -100,11 +99,16 @@
 						<a class="collapse-item" href="${pageContext.request.contextPath}/support/activation-tms">Activation TMS</a> <a
 							class="collapse-item" href="${pageContext.request.contextPath}/support/complain-tms">Client Complain
 							TMS</a>
-							<a class="collapse-item" href="${pageContext.request.contextPath}/support/tms-report-list">TMS Report List</a>
+							<a class="collapse-item" href="${pageContext.request.contextPath}/support/tms-list">TMS List</a>
 						<a class="collapse-item" href="${pageContext.request.contextPath}/support/connection-point">Connection
 							Point</a>  <a
-							class="collapse-item" href="${pageContext.request.contextPath}/support/olt-mc-position">OLT/MC
-							Position</a>
+							class="collapse-item" href="${pageContext.request.contextPath}/support/olt-information">OLT
+							Position Info</a>
+							<a
+							class="collapse-item" href="${pageContext.request.contextPath}/support/mc-information">MC
+							Information</a>
+							<a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/reseller-information">Reseller Information</a>
 					</div>
 				</div></li>
 
