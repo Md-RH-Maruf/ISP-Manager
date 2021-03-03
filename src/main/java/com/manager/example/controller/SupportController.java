@@ -91,19 +91,37 @@ public class SupportController {
 		return obj;
 	}
 
-	@RequestMapping(value={"/support/tms-list"})
-	public ModelAndView tms_report_list(ModelMap map,HttpSession session) {
+	@RequestMapping(value={"/support/activation-ticket-list"})
+	public ModelAndView activation_ticket_list(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ModelAndView view = new ModelAndView("support/tms-report-list");
+		ModelAndView view = new ModelAndView("support/activation-ticket-list");
+		//map.addAttribute("roleList",roleService.getRoleList());
+		//map.addAttribute("resourceList",resourceService.getResourceList());
+		return view;
+	}
+	
+	@RequestMapping(value={"/support/complain-ticket-list"})
+	public ModelAndView complain_ticket_list(ModelMap map,HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView view = new ModelAndView("support/complain-ticket-list");
 		//map.addAttribute("roleList",roleService.getRoleList());
 		//map.addAttribute("resourceList",resourceService.getResourceList());
 		return view;
 	}
 
-	@RequestMapping(value={"/tms-details/{tmsNo}"})
-	public ModelAndView tms_details(ModelMap map,HttpSession session,@PathVariable("tmsNo") String tmsNo) {
+	@RequestMapping(value={"/activation-tms-details/{ticketNo}"})
+	public ModelAndView tms_details(ModelMap map,HttpSession session,@PathVariable("ticketNo") String ticketNo) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ModelAndView view = new ModelAndView("support/tms-details");
+		ModelAndView view = new ModelAndView("support/activation-tms-details");
+		//map.addAttribute("roleList",roleService.getRoleList());
+		//map.addAttribute("resourceList",resourceService.getResourceList());
+		return view;
+	}
+	
+	@RequestMapping(value={"/complain-ticket-details/{ticketNo}"})
+	public ModelAndView complain_ticket_details(ModelMap map,HttpSession session,@PathVariable("ticketNo") String ticketNo) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView view = new ModelAndView("support/complain-ticket-details");
 		//map.addAttribute("roleList",roleService.getRoleList());
 		//map.addAttribute("resourceList",resourceService.getResourceList());
 		return view;

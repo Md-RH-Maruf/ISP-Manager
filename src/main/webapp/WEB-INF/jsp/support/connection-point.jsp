@@ -92,99 +92,7 @@
 								</div>
 								
 							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="clientName">Client Name</label></span>
-										</div>
-										<input id="clientName" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm">
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="server">Server</label></span>
-										</div>
-										<input id="server" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm">
-									</div>
-								</div>
-							</div>
-
 							
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="ipAddress">IP Address</label></span>
-										</div>
-										<input id="ipAddress" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="eponInterface">EPON Interface</label></span>
-										</div>
-										<input id="eponInterface" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="onuMac">ONU MAC</label></span>
-										</div>
-										<input id="onuMac" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="clientMac">Client MAC</label></span>
-										</div>
-										<input id="clientMac" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="graphId">Graph Id</label></span>
-										</div>
-										<input id="graphId" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" >
-									</div>
-								</div>
-							</div>
 							<div class="row">
 								<div class="col-md-12">
 									<button type="button" id="btnSave"
@@ -218,9 +126,8 @@
 										<thead>
 											<tr>
 												<th>Connection Name</th>
-												<th>Client Name</th>
-												<th>Server</th>
-												<th>Status</th>
+												<th>ConnectionType</th>
+												<th>Active Status</th>
 											</tr>
 										</thead>
 										<tbody id="connectionPointList">
@@ -228,8 +135,7 @@
 												<tr style="cursor: pointer;"
 													onclick="setConnectionPointData('${connection.id}')">
 													<td>${connection.connectionPointName}</td>
-													<td>${connection.clientName}</td>
-													<td>${connection.server }</td>
+													<td>${connection.connectionType}</td>
 													<td>${connection.activeStatus }</td>
 												</tr>
 											</c:forEach>

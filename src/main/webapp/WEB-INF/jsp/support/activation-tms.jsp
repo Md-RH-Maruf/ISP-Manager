@@ -134,6 +134,44 @@
 								</div>
 							</div>
 						</div>
+						<div class="row my-1">
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="reference">Reference</label></span>
+									</div>
+									<input id="reference" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="connectionType">Connection Type</label></span>
+									</div>
+									<input id="connectionType" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+								</div>
+							</div>
+							</div>
+							<div class="row my-1">
+
+							<div class='col-md-12'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="note">Note</label></span>
+									</div>
+									<textarea id="note" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm"></textarea>
+								</div>
+							</div>
+						</div>
 						<div class="alert alert-success alert-dismissible fade show"
 							style="display: none;">
 							<p id="successAlert" class="mb-0">

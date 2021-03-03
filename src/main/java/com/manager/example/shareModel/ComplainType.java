@@ -1,11 +1,13 @@
 package com.manager.example.shareModel;
 
-public enum ConnectionType {
+public enum ComplainType {
 
-	Epon(1),
-	P2P(2);
+	FIBER_CUT(1),
+	INTERNET_BREAKDOWN(2),
+	SLOW_INTERNET(3),
+	OTHER(4);
 	private int type;
-	private ConnectionType(int type) {
+	private ComplainType(int type) {
 		this.type = type;
 	}
 	public int getType() {

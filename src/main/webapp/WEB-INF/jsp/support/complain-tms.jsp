@@ -1,3 +1,4 @@
+<%@page import="com.manager.example.shareModel.ComplainType"%>
 <%@page import="com.manager.example.shareModel.Priority"%>
 <%@page import="com.manager.example.shareModel.Packages"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,21 +38,8 @@
 									</div>
 								</div>
 							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="problemType">problem Type</label></span>
-									</div>
-									<input id="problemType" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-
-								</div>
-							</div>
-
 						</div>
-
+						<hr class="mt-1">
 						<div class="row my-1">
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
@@ -60,6 +48,19 @@
 											class='my-0' for="customerName">Customer Name</label></span>
 									</div>
 									<input id="customerName" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm">
+
+								</div>
+							</div>
+
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="contactNumber">Contact Number</label></span>
+									</div>
+									<input id="contactNumber" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 
@@ -77,8 +78,170 @@
 
 								</div>
 							</div>
+
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="address">Address</label></span>
+									</div>
+									<textarea id="address" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm"></textarea>
+								</div>
+							</div>
 						</div>
 						<div class="row my-1">
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Present Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Total Complain</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Fiber Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											internet Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Slow Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Last Month Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row my-1">
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="accountStatus">Account Status</label></span>
+									</div>
+									<input id="accountStatus" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm" readonly>
+
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="connectionStatus">Connection Status</label></span>
+									</div>
+									<input id="connectionStatus" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm" readonly>
+
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="problemType">problem Type</label></span>
+									</div>
+									<select class="form-control" id="problemType">
+										<%
+											for (ComplainType complain : ComplainType.values()) {
+										%>
+
+										<option value="<%=complain.getType()%>"><%=complain.name()%></option>
+										<%
+											}
+										%>
+									</select>
+
+								</div>
+							</div>
+							
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="priority">Priority</label></span>
+									</div>
+									<select class="form-control" id="priority">
+										<%
+											for (Priority priority : Priority.values()) {
+										%>
+
+										<option value="<%=priority.getType()%>"><%=priority.name()%></option>
+										<%
+											}
+										%>
+									</select>
+								</div>
+							</div>
+							
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
@@ -88,24 +251,6 @@
 									<textarea id="complainDetails" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm"></textarea>
-								</div>
-							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="priority">Priority</label></span>
-									</div>
-									<select class="form-control" id="priority">
-										<%
-												for (Priority priority : Priority.values()) {
-											%>
-
-										<option value="<%=priority.getType()%>"><%=priority.name()%></option>
-										<%
-												}
-											%>
-									</select>
 								</div>
 							</div>
 						</div>

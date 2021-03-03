@@ -1,11 +1,13 @@
 package com.manager.example.shareModel;
 
-public enum ConnectionType {
+public enum Status {
 
-	Epon(1),
-	P2P(2);
+	OPEN(1),
+	PROCESSING(2),
+	CLOSED(3),
+	DELETED(4);
 	private int type;
-	private ConnectionType(int type) {
+	private Status(int type) {
 		this.type = type;
 	}
 	public int getType() {

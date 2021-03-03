@@ -256,6 +256,30 @@
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
+												class='my-0' for="academicQualification">Academic Qua.</label></span>
+										</div>
+										<input id="academicQualification" type="text" class="form-control"
+											aria-label="Sizing example input"
+											aria-describedby="inputGroup-sizing-sm" >
+									</div>
+								</div>
+								<div class='col-md-6 px-1'>
+									<div class="input-group input-group-sm mb-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-sm"><label
+												class='my-0' for="salary">Salary</label></span>
+										</div>
+										<input id="salary" type="text" class="form-control"
+											aria-label="Sizing example input"
+											aria-describedby="inputGroup-sizing-sm" >
+									</div>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class='col-md-6 px-1'>
+									<div class="input-group input-group-sm mb-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-sm"><label
 												class='my-0' for="designation">Designation</label></span>
 										</div>
 										<select class="form-control" id="designation">

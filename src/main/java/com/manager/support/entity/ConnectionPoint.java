@@ -18,13 +18,6 @@ public class ConnectionPoint {
 	private String connectionPointName;
 	private int connectionType;
 	private int activeStatus;
-	private String clientName;
-	private String server;
-	private String ipAddress;
-	private String eponInterface;
-	private String onuMac;
-	private String clientMac;
-	private String graphId;
 	private Timestamp entryTime;
 	private long entryBy;
 	
@@ -59,48 +52,7 @@ public class ConnectionPoint {
 	public void setActiveStatus(int activeStatus) {
 		this.activeStatus = activeStatus;
 	}
-	public String getClientName() {
-		return clientName;
-	}
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
-	public String getServer() {
-		return server;
-	}
-	public void setServer(String server) {
-		this.server = server;
-	}
-	public String getIpAddress() {
-		return ipAddress;
-	}
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-	public String getEponInterface() {
-		return eponInterface;
-	}
-	public void setEponInterface(String eponInterface) {
-		this.eponInterface = eponInterface;
-	}
-	public String getOnuMac() {
-		return onuMac;
-	}
-	public void setOnuMac(String onuMac) {
-		this.onuMac = onuMac;
-	}
-	public String getClientMac() {
-		return clientMac;
-	}
-	public void setClientMac(String clientMac) {
-		this.clientMac = clientMac;
-	}
-	public String getGraphId() {
-		return graphId;
-	}
-	public void setGraphId(String graphId) {
-		this.graphId = graphId;
-	}
+	
 	public Timestamp getEntryTime() {
 		return entryTime;
 	}
