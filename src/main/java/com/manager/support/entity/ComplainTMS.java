@@ -9,17 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="complain_tms")
+@Table(name="tb_complain_tms")
 public class ComplainTMS {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String tmsNo;
 	private String customerId;
+	private String subject;
 	private String problemType;
-	private String customerName;
-	private String area;
 	private String complainDetails;
 	private int priority;
+	private int status;
+	private String owner;
 	private Timestamp entryTime;
 	private long entryBy;
 	
@@ -46,17 +48,30 @@ public class ComplainTMS {
 	public void setProblemType(String problemType) {
 		this.problemType = problemType;
 	}
-	public String getCustomerName() {
-		return customerName;
+	
+	public String getTmsNo() {
+		return tmsNo;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setTmsNo(String tmsNo) {
+		this.tmsNo = tmsNo;
 	}
-	public String getArea() {
-		return area;
+	public String getSubject() {
+		return subject;
 	}
-	public void setArea(String area) {
-		this.area = area;
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 	public String getComplainDetails() {
 		return complainDetails;

@@ -1,4 +1,4 @@
-package com.manager.security.entity;
+package com.manager.support.entity;
 
 import java.sql.Timestamp;
 
@@ -9,18 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_resource")
-public class Resource {
+@Table(name="tb_work_team")
+public class WorkTeam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String resourceName;
-	private String resourceLink;
+	private String ticketId;
+	private String temaName;
 	private Timestamp entryTime;
-	private long entryBy;
+	private Long entryBy;
 	
-	
-	public Resource() {
+	public WorkTeam() {
 		super();
 	}
 	public Long getId() {
@@ -30,11 +29,17 @@ public class Resource {
 		this.id = id;
 	}
 	
-	public String getResourceName() {
-		return resourceName;
+	public String getTicketId() {
+		return ticketId;
 	}
-	public void setResourceName(String resourceName) {
-		this.resourceName = resourceName;
+	public void setTicketId(String ticketId) {
+		this.ticketId = ticketId;
+	}
+	public String getTemaName() {
+		return temaName;
+	}
+	public void setTemaName(String temaName) {
+		this.temaName = temaName;
 	}
 	public Timestamp getEntryTime() {
 		return entryTime;
@@ -42,19 +47,12 @@ public class Resource {
 	public void setEntryTime(Timestamp entryTime) {
 		this.entryTime = entryTime;
 	}
-	public long getEntryBy() {
+	public Long getEntryBy() {
 		return entryBy;
 	}
-	public void setEntryBy(long entryBy) {
+	public void setEntryBy(Long entryBy) {
 		this.entryBy = entryBy;
 	}
-	public String getResourceLink() {
-		return resourceLink;
-	}
-	public void setResourceLink(String resourceLink) {
-		this.resourceLink = resourceLink;
-	}
-	
 	
 	
 }

@@ -109,17 +109,17 @@
 
 								<div class="col-md-12">
 									<ul id="tree1">
-										<li style="cursor: pointer;">Accounts
+										<li style="cursor: pointer;">Products
 											<ul>
-												<li style="cursor: pointer;">Asset
+												<li style="cursor: pointer;">Wire
 													<ul>
-														<li style="cursor: pointer;">Fixed Asset</li>
-														<li style="cursor: pointer;">Operating Asset</li>
+														<li style="cursor: pointer;">Network Wire</li>
+														<li style="cursor: pointer;">Network Cable</li>
 													</ul>
 												</li>
-												<li style="cursor: pointer;">Liability</li>
-												<li style="cursor: pointer;">Revenue</li>
-												<li style="cursor: pointer;">Expense</li>
+												<li style="cursor: pointer;">Switch</li>
+												<li style="cursor: pointer;">Router</li>
+												<li style="cursor: pointer;">Server</li>
 											</ul>
 										</li>
 									</ul>
@@ -164,7 +164,7 @@
 												</div>
 												<input id="productName" type="text" class="form-control"
 													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm" value="${maxId }">
+													aria-describedby="inputGroup-sizing-sm">
 											</div>
 										</div>
 									</div>
@@ -182,20 +182,6 @@
 													aria-describedby="inputGroup-sizing-sm">
 											</div>
 										</div>
-										<div class='col-md-6 px-1'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="openingBalance">Opening Balance</label></span>
-												</div>
-												<input id="openingBalance" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm" value="${maxId}">
-											</div>
-										</div>
-									</div>
-
-									<div class="row my-1">
 										<div class='col-md-6 px-1''>
 											<div class="input-group input-group-sm mb-1">
 												<div class="input-group-prepend">
@@ -208,18 +194,8 @@
 												</select>
 											</div>
 										</div>
-										<div class='col-md-6 px-1'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="openingBalance">Opening Balance</label></span>
-												</div>
-												<input id="openingBalance" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm" value="${maxId}">
-											</div>
-										</div>
 									</div>
+
 									
 									<div class="row my-1">
 										<div class="col-md-6 px-1">

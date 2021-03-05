@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <input name="username" type="text" class="form-control form-control-user"
                                                 id="username" aria-describedby="emailHelp"
-                                                placeholder="Enter User Name..." value="maruf">
+                                                placeholder="Enter User Name..." value="kartiq">
                                         </div>
                                         <div class="form-group">
                                             <input name="password" type="password" class="form-control form-control-user"

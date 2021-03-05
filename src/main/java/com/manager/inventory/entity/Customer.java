@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "tb_customers")
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +19,23 @@ public class Customer {
 	private String name;
 	private String companyName;
 	private String keyPerson;
+	private String area;
 	private String address;
 	private String email;
 	private String contactNo;
 	private int packageId;
 	private int customerType;
+	private String otc;
+	private String mrc;
+	private String connectionType;
+	private String onuMac;
+	private String latLong;
+	private String onuInterface;
+	private String connectionPoint;
+	private String ipAddress;
+	private String clientMac;
 	private Date serviceStartDate;
+	private Date expireDate;
 	private int status;
 	private String reference;
 	private Timestamp entryTime;
@@ -135,6 +146,94 @@ public class Customer {
 
 	public void setPackageId(int packageId) {
 		this.packageId = packageId;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getOtc() {
+		return otc;
+	}
+
+	public void setOtc(String otc) {
+		this.otc = otc;
+	}
+
+	public String getMrc() {
+		return mrc;
+	}
+
+	public void setMrc(String mrc) {
+		this.mrc = mrc;
+	}
+
+	public String getConnectionType() {
+		return connectionType;
+	}
+
+	public void setConnectionType(String connectionType) {
+		this.connectionType = connectionType;
+	}
+
+	public String getOnuMac() {
+		return onuMac;
+	}
+
+	public void setOnuMac(String onuMac) {
+		this.onuMac = onuMac;
+	}
+
+	public String getLatLong() {
+		return latLong;
+	}
+
+	public void setLatLong(String latLong) {
+		this.latLong = latLong;
+	}
+
+	public String getOnuInterface() {
+		return onuInterface;
+	}
+
+	public void setOnuInterface(String onuInterface) {
+		this.onuInterface = onuInterface;
+	}
+
+	public String getConnectionPoint() {
+		return connectionPoint;
+	}
+
+	public void setConnectionPoint(String connectionPoint) {
+		this.connectionPoint = connectionPoint;
+	}
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	public String getClientMac() {
+		return clientMac;
+	}
+
+	public void setClientMac(String clientMac) {
+		this.clientMac = clientMac;
+	}
+
+	public Date getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
 	}
 	
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "olt_info")
+@Table(name = "tb_olt_info")
 public class OltInformation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

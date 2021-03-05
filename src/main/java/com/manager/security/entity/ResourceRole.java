@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="resource_role")
+@Table(name="tb_resource_role")
 public class ResourceRole {
 
 	@Id

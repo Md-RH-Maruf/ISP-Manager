@@ -1,4 +1,4 @@
-package com.manager.support.entity;
+package com.manager.store.entity;
 
 import java.sql.Timestamp;
 
@@ -9,23 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_connection_point")
-public class ConnectionPoint {
-
+@Table(name="tb_products")
+public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String connectionPointName;
-	private int connectionType;
+	private Long categoryId;
+	private String productName;
+	private String brandName;
 	private int activeStatus;
 	private Timestamp entryTime;
-	private long entryBy;
+	private Long entryBy;
 	
 	
-	
-	public ConnectionPoint() {
+	public Product() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Long getId() {
 		return id;
@@ -33,18 +31,23 @@ public class ConnectionPoint {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getConnectionPointName() {
-		return connectionPointName;
+	public Long getCategoryId() {
+		return categoryId;
 	}
-	public void setConnectionPointName(String connectionPointName) {
-		this.connectionPointName = connectionPointName;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
-	
-	public int getConnectionType() {
-		return connectionType;
+	public String getProductName() {
+		return productName;
 	}
-	public void setConnectionType(int connectionType) {
-		this.connectionType = connectionType;
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 	public int getActiveStatus() {
 		return activeStatus;
@@ -52,17 +55,16 @@ public class ConnectionPoint {
 	public void setActiveStatus(int activeStatus) {
 		this.activeStatus = activeStatus;
 	}
-	
 	public Timestamp getEntryTime() {
 		return entryTime;
 	}
 	public void setEntryTime(Timestamp entryTime) {
 		this.entryTime = entryTime;
 	}
-	public long getEntryBy() {
+	public Long getEntryBy() {
 		return entryBy;
 	}
-	public void setEntryBy(long entryBy) {
+	public void setEntryBy(Long entryBy) {
 		this.entryBy = entryBy;
 	}
 	

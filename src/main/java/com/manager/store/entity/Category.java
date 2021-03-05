@@ -1,4 +1,4 @@
-package com.manager.security.entity;
+package com.manager.store.entity;
 
 import java.sql.Timestamp;
 
@@ -9,18 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_resource")
-public class Resource {
+@Table(name="tb_category")
+public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String resourceName;
-	private String resourceLink;
+	private Long paentsId;
+	private String categoryName;
 	private Timestamp entryTime;
-	private long entryBy;
+	private Long entryBy;
 	
-	
-	public Resource() {
+	public Category() {
 		super();
 	}
 	public Long getId() {
@@ -30,11 +29,18 @@ public class Resource {
 		this.id = id;
 	}
 	
-	public String getResourceName() {
-		return resourceName;
+	
+	public Long getPaentsId() {
+		return paentsId;
 	}
-	public void setResourceName(String resourceName) {
-		this.resourceName = resourceName;
+	public void setPaentsId(Long paentsId) {
+		this.paentsId = paentsId;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public Timestamp getEntryTime() {
 		return entryTime;
@@ -42,19 +48,12 @@ public class Resource {
 	public void setEntryTime(Timestamp entryTime) {
 		this.entryTime = entryTime;
 	}
-	public long getEntryBy() {
+	public Long getEntryBy() {
 		return entryBy;
 	}
-	public void setEntryBy(long entryBy) {
+	public void setEntryBy(Long entryBy) {
 		this.entryBy = entryBy;
 	}
-	public String getResourceLink() {
-		return resourceLink;
-	}
-	public void setResourceLink(String resourceLink) {
-		this.resourceLink = resourceLink;
-	}
-	
 	
 	
 }

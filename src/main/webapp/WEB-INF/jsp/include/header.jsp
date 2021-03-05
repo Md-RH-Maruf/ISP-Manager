@@ -102,6 +102,7 @@
 					<a class="collapse-item" href="${pageContext.request.contextPath}/support/mc-information">MC Information</a>
 					<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/reseller-information">Reseller Information</a>
 					<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/service-create">Service Create</a>
+					<a class="collapse-item" href="${pageContext.request.contextPath}/support/customer-pppoe-id-password">Customer PPPoE ID & Password</a>
 					</div>
 				</div></li>
 				

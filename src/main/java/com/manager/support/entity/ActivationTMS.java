@@ -10,20 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="activation_tms")
+@Table(name="tb_activation_tms")
 public class ActivationTMS {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String customerName;
-	private String area;
-	private String contactPerson;
-	private String contactNo;
-	private String address;
-	private int packageId;
-	private String otc;
-	private String mrc;
+	private String tmsNo;
+	private String customerId;
+	private String subject;
+	private String status;
+	private String priority;
+	private String owner;
+	private String activation_staus;
+	private String note;
 	private Date promissDate;
+	private int lastFollowupBy;
+	private Date lastFollowupTime;
 	private Timestamp entryTime;
 	private long entryBy;
 	
@@ -37,53 +39,55 @@ public class ActivationTMS {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getCustomerName() {
-		return customerName;
+
+	
+	public String getTmsNo() {
+		return tmsNo;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setTmsNo(String tmsNo) {
+		this.tmsNo = tmsNo;
 	}
-	public String getArea() {
-		return area;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setArea(String area) {
-		this.area = area;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
-	public String getContactPerson() {
-		return contactPerson;
+	public String getSubject() {
+		return subject;
 	}
-	public void setContactPerson(String contactPerson) {
-		this.contactPerson = contactPerson;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
-	public String getContactNo() {
-		return contactNo;
+	public String getStatus() {
+		return status;
 	}
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public String getAddress() {
-		return address;
+	public String getPriority() {
+		return priority;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setPriority(String priority) {
+		this.priority = priority;
 	}
-	public int getPackageId() {
-		return packageId;
+	public String getOwner() {
+		return owner;
 	}
-	public void setPackageId(int packageId) {
-		this.packageId = packageId;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
-	public String getOtc() {
-		return otc;
+	public String getActivation_staus() {
+		return activation_staus;
 	}
-	public void setOtc(String otc) {
-		this.otc = otc;
+	public void setActivation_staus(String activation_staus) {
+		this.activation_staus = activation_staus;
 	}
-	public String getMrc() {
-		return mrc;
+	public String getNote() {
+		return note;
 	}
-	public void setMrc(String mrc) {
-		this.mrc = mrc;
+	public void setNote(String note) {
+		this.note = note;
 	}
 	public Date getPromissDate() {
 		return promissDate;
@@ -102,6 +106,18 @@ public class ActivationTMS {
 	}
 	public void setEntryBy(long entryBy) {
 		this.entryBy = entryBy;
+	}
+	public int getLastFollowupBy() {
+		return lastFollowupBy;
+	}
+	public void setLastFollowupBy(int lastFollowupBy) {
+		this.lastFollowupBy = lastFollowupBy;
+	}
+	public Date getLastFollowupTime() {
+		return lastFollowupTime;
+	}
+	public void setLastFollowupTime(Date lastFollowupTime) {
+		this.lastFollowupTime = lastFollowupTime;
 	}
 	
 	
