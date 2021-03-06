@@ -7,7 +7,10 @@ function submitRequest() {
     let package = $("#package").val();
     let otc = $("#otc").val();
     let mrc = $("#mrc").val();
-    let promissDate = $("#promissDate").val();
+    let promissDate = $("#promiseDate").val();
+    let reference = $("#reference").val();
+    let connectionType = $("#connectionType").val();
+    let note = $("#note").val();
     if (customerName != '') {
         if (area != '') {
             if (contactPerson != '0') {
@@ -19,26 +22,32 @@ function submitRequest() {
                                 dataType: 'json',
                                 url: '/submitActivationTMSRequest',
                                 data: {
-                                    customerName: customerName,
-                                    area: area,
-                                    contactPerson: contactPerson,
-                                    contactNo: contactNo,
-                                    address: address,
-                                    packageId: package,
-                                    otc: otc,
-                                    mrc: mrc,
-                                    promissDate: promissDate
+                                    
+                                        name: customerName,
+                                        area: area,
+                                        keyPerson: contactPerson,
+                                        contactNo: contactNo,
+                                        address: address,
+                                        packageId: package,
+                                        otc: otc,
+                                        mrc: mrc,
+                                        reference: reference,
+                                        connectionType: connectionType,
+                                        note: note,
+                                        promissDate: promissDate
+                                     
                                 },
                                 success: function (data) {
-                                    if (data.result == "Something Wrong") {
+                                    if (data.result == "something wrong") {
                                         dangerAlert("Something went wrong");
                                     } else if (data.result == "duplicate") {
                                         dangerAlert("Duplicate ConnectionPoint Name..This ConnectionPoint Name Allreary Exist")
                                     } else {
                     
-                                        if (data.result.id) {
+                                        if (data.result == "successfull") {
                                             alert("Activation Request Submit Successfully");
-                                            location.reload();
+                                            let url = "http://localhost:8080/support/activation-ticket-list";
+                                            window.open(url, '_self');
                                         } else {
                                             dangerAlert("Something went wrong");
                                         }

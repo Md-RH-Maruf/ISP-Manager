@@ -21,7 +21,7 @@ public class ActivationTMS {
 	private String status;
 	private String priority;
 	private String owner;
-	private String activation_staus;
+	private String activationStatus;
 	private String note;
 	private Date promissDate;
 	private int lastFollowupBy;
@@ -77,11 +77,11 @@ public class ActivationTMS {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	public String getActivation_staus() {
-		return activation_staus;
+	public String getActivationStatus() {
+		return activationStatus;
 	}
-	public void setActivation_staus(String activation_staus) {
-		this.activation_staus = activation_staus;
+	public void setActivationStatus(String activationStatus) {
+		this.activationStatus = activationStatus;
 	}
 	public String getNote() {
 		return note;

@@ -13,6 +13,6 @@ import com.manager.inventory.entity.Reseller;
 public interface ResellerRepository extends JpaRepository<Reseller, Long>{
 	public Reseller findByResellerId(String resellerId);
 	
-	@Query(value = "SELECT (ifnull(max(cast(SUBSTRING(reseller_Id,10) AS signed )),0)+1) AS Id FROM Reseller WHERE reseller_Id LIKE ?1%", nativeQuery = true)
+	@Query(value = "SELECT (ifnull(max(cast(SUBSTRING(reseller_Id,10) AS signed )),0)+1) AS Id FROM tb_reseller_info WHERE reseller_Id LIKE ?1%", nativeQuery = true)
 	public String findResellerId(String yearMonth);
 }

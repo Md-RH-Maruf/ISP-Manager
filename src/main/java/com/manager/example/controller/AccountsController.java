@@ -78,4 +78,15 @@ public class AccountsController {
 
 			return view;
 		}
+		
+		//Customer Bill Info
+				@RequestMapping(value={"/accounts/customer-bill-info"})
+				public ModelAndView customer_bill_info(ModelMap map,HttpSession session) {
+
+					ModelAndView view = new ModelAndView("accounts/customer-bill-info");
+					//map.addAttribute("maxId",customerService.getMaxCustomerId());
+					//map.addAttribute("customerList",customerService.getCustomerList());
+
+					return view;
+				}
 }

@@ -10,6 +10,6 @@ import com.manager.inventory.entity.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 	Employee findByEmployeeId(String employeeId);
 	
-	@Query(value = "SELECT (ifnull(max(cast(SUBSTRING(employee_Id,10) AS signed )),0)+1) AS Id FROM Employee WHERE employee_Id LIKE ?1%", nativeQuery = true)
+	@Query(value = "SELECT (ifnull(max(cast(SUBSTRING(employee_Id,10) AS signed )),0)+1) AS Id FROM tb_employee_info WHERE employee_Id LIKE ?1%", nativeQuery = true)
 	public String getMaxEmployeeId(String yearMonth);
 }

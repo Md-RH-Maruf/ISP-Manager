@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.manager.inventory.entity.Customer;
 import com.manager.inventory.entity.Employee;
+import com.manager.inventory.services.CustomerService;
 import com.manager.inventory.services.PackageService;
 import com.manager.security.entityModel.MyUserDetails;
 import com.manager.support.entity.ActivationTMS;
@@ -31,6 +36,7 @@ import com.manager.support.services.ComplainTMSService;
 import com.manager.support.services.ConnectionPointService;
 import com.manager.support.services.McInfoService;
 import com.manager.support.services.OltInfoService;
+import com.manager.support.services.PPPoEService;
 
 @Controller
 public class SupportController {
@@ -47,7 +53,11 @@ public class SupportController {
 	PackageService packageService;
 	@Autowired
 	ComplainTMSService complainService;
-
+	@Autowired
+	CustomerService customerService;
+	@Autowired
+	PPPoEService pppoeService;
+	
 	//Activation TMS
 	@RequestMapping(value={"/support/activation-tms"})
 	public ModelAndView activation_tms(ModelMap map,HttpSession session) {
@@ -59,13 +69,31 @@ public class SupportController {
 	}
 
 	@RequestMapping(value= {"/submitActivationTMSRequest"},method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> submitActivationTMSRequest(ActivationTMS activationTms) {
+	public @ResponseBody Map<String, Object> submitActivationTMSRequest(Customer customer,ActivationTMS activationTms) {
 		Map<String, Object> obj = new HashMap();
 		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		activationTms.setEntryTime(new Timestamp(new Date().getTime()));
-		activationTms.setEntryBy(userDetails.getId());
-		obj.put("result", activationService.saveActivationTMS(activationTms));
+		
+		customer.setCustomerId(customerService.getMaxCustomerId());
+		customer.setEntryTime(new Timestamp(new Date().getTime()));
+		customer.setEntryBy(userDetails.getId());
+		
+		if(customerService.saveCustomer(customer)!=null) {
+			activationTms.setTmsNo(activationService.getMaxTMSNo());
+			activationTms.setCustomerId(customer.getCustomerId());
+			activationTms.setSubject("Activation: "+userDetails.getUsername());
+			activationTms.setEntryTime(new Timestamp(new Date().getTime()));
+			activationTms.setPriority("1");
+			activationTms.setStatus("1");
+			activationTms.setLastFollowupBy((int)userDetails.getId());
+			activationTms.setLastFollowupTime(new java.sql.Date(new Date().getTime()));
+			activationTms.setEntryBy(userDetails.getId());
+			if(activationService.saveActivationTMS(activationTms) != null) {
+				obj.put("result", "successfull");
+			}
+		}else {
+			obj.put("result","something wrong");
+		}
+		
 		return obj;
 	}
 
@@ -258,4 +286,14 @@ public class SupportController {
 			obj.put("mcInfo",mcInfoService.getMcInformation(Long.valueOf(id)));
 			return obj;
 		}
+		
+		// PPPoE & Password
+				@RequestMapping(value={"/support/customer-pppoe-id-password"})
+				public ModelAndView ppoe_password(ModelMap map,HttpSession session) {
+					Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					ModelAndView view = new ModelAndView("support/pppoe-password");
+					map.addAttribute("pppoeList",pppoeService.getPPPoEList());
+					//map.addAttribute("resourceList",resourceService.getResourceList());
+					return view;
+				}
 }
