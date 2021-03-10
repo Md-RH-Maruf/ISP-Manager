@@ -19,9 +19,11 @@ public class ComplainTMS {
 	private String subject;
 	private String problemType;
 	private String complainDetails;
-	private int priority;
-	private int status;
+	private String priority;
+	private String status;
 	private String owner;
+	private int lastFollowupBy;
+	private Timestamp lastFollowupTime;
 	private Timestamp entryTime;
 	private long entryBy;
 	
@@ -61,10 +63,10 @@ public class ComplainTMS {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public String getOwner() {
@@ -79,10 +81,10 @@ public class ComplainTMS {
 	public void setComplainDetails(String complainDetails) {
 		this.complainDetails = complainDetails;
 	}
-	public int getPriority() {
+	public String getPriority() {
 		return priority;
 	}
-	public void setPriority(int priority) {
+	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 	public Timestamp getEntryTime() {
@@ -96,6 +98,18 @@ public class ComplainTMS {
 	}
 	public void setEntryBy(long entryBy) {
 		this.entryBy = entryBy;
+	}
+	public int getLastFollowupBy() {
+		return lastFollowupBy;
+	}
+	public void setLastFollowupBy(int lastFollowupBy) {
+		this.lastFollowupBy = lastFollowupBy;
+	}
+	public Timestamp getLastFollowupTime() {
+		return lastFollowupTime;
+	}
+	public void setLastFollowupTime(Timestamp lastFollowupTime) {
+		this.lastFollowupTime = lastFollowupTime;
 	}
 	
 	

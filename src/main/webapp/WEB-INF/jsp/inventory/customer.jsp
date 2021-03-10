@@ -252,7 +252,7 @@
 													<td>${customer.customerId}</td>
 													<td>${customer.name}</td>
 													<td>${customer.customerType }</td>
-													<td>${customer.status }</td>
+													<td>${customer.activeStatus }</td>
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -30,9 +30,9 @@
 									</div>
 									<input id="customerId" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm" value="CM-2021034">
 									<div class="input-group-append">
-										<button class="btn btn-primary" type="button">
+										<button class="btn btn-primary" type="button" onclick="searchAction()">
 											<i class="fas fa-search fa-sm"></i>
 										</button>
 									</div>

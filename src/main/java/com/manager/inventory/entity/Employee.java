@@ -204,6 +204,17 @@ public class Employee {
 	public void setMeritalStatus(int meritalStatus) {
 		this.meritalStatus = meritalStatus;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", employeeId=" + employeeId + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", nickName=" + nickName + ", fatherName=" + fatherName + ", motherName=" + motherName
+				+ ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", meritalStatus=" + meritalStatus
+				+ ", nationality=" + nationality + ", nationalId=" + nationalId + ", presentAddress=" + presentAddress
+				+ ", permanentAddress=" + permanentAddress + ", email=" + email + ", contactNo=" + contactNo
+				+ ", designation=" + designation + ", joiningDate=" + joiningDate + ", status=" + status
+				+ ", leaveDate=" + leaveDate + ", entryTime=" + entryTime + ", entryBy=" + entryBy + "]";
+	}
 	
 	
 	

@@ -29,6 +29,7 @@
 <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/bootstrap-select.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <%
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

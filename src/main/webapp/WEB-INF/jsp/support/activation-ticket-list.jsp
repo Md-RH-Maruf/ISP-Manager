@@ -11,7 +11,7 @@
 	<div class="card-body">
 		<div class="row">
 			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">New Ticket</button>
+				 onclick="location.href='${pageContext.request.contextPath}/support/activation-tms'">New Ticket</button>
 		</div>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation"><a
@@ -41,11 +41,22 @@
 						<th>Status</th>
 						<th>Priority</th>
 						<th>Owner</th>
-						<th>Action</th>
+						<th><i class="fas fa-eye"></i> View</th>
 					</tr>
 				</thead>
 				<tbody id="openDataBody">
-
+					<c:forEach items="${openTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/activation-tms-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
 				</tbody>
 			</table>
 		</div></div>
@@ -66,7 +77,18 @@
 					</tr>
 				</thead>
 				<tbody id="processingDataBody">
-
+	<c:forEach items="${processingTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/activation-tms-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
 				</tbody>
 			</table>
 		</div></div>
@@ -87,7 +109,18 @@
 					</tr>
 				</thead>
 				<tbody id="closedDataBody">
-
+					<c:forEach items="${closedTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/activation-tms-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
 				</tbody>
 			</table>
 		</div></div>
@@ -108,7 +141,18 @@
 					</tr>
 				</thead>
 				<tbody id="deletedDataBody">
-
+					<c:forEach items="${deletedTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/activation-tms-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
 				</tbody>
 			</table>
 		</div></div>

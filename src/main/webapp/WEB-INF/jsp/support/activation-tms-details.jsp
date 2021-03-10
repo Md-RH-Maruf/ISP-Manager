@@ -12,7 +12,8 @@
 	<div class="card o-hidden border-0 shadow-lg">
 		<div class="card-body px-5 py-2">
 			<!-- Nested Row within Card Body -->
-
+			<input id="tmsNo" type="hidden" value='${tmsNo}'>
+			
 			<div class="row">
 
 				<div class="col-md-6 ">
@@ -20,8 +21,8 @@
 						<h1 class="h4 text-gray-900 mb-1">TMS Details</h1>
 					</div>
 
-					<div class="row"></div>
-					<div class="row my-1">
+					
+					<div class="row">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
 								<div class="input-group-prepend">
@@ -30,11 +31,11 @@
 								</div>
 								<input id="form" type="text" class="form-control"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+									aria-describedby="inputGroup-sizing-sm" readonly>
 							</div>
 						</div>
 					</div>
-					<div class="row my-1">
+					<div class="row">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
 								<div class="input-group-prepend">
@@ -43,7 +44,7 @@
 								</div>
 								<input id="subject" type="text" class="form-control"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+									aria-describedby="inputGroup-sizing-sm" readonly>
 							</div>
 						</div>
 					</div>
@@ -73,10 +74,10 @@
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
 									<%
-									for(Status status : Status.values()) {
+										for (Status status : Status.values()) {
 									%>
 
-									<option value/="<%=status.getType()%>"><%=status.name()%></option>
+									<option value="<%=status.name()%>"><%=status.name()%></option>
 									<%
 										}
 									%>
@@ -97,10 +98,10 @@
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
 									<%
-									for(Priority priority : Priority.values()) {
+										for (Priority priority : Priority.values()) {
 									%>
 
-									<option value/="<%=priority.getType()%>"><%=priority.name()%></option>
+									<option value="<%=priority.name()%>"><%=priority.name()%></option>
 									<%
 										}
 									%>
@@ -115,9 +116,16 @@
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="owner">Owner</label></span>
 								</div>
-								<input id="owner" type="text" class="form-control"
+								<select id="owner" class="form-control selectpicker"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+									aria-describedby="inputGroup-sizing-sm" data-live-search="true"
+									data-style="btn-light btn-sm border-secondary form-control-sm">
+									<option value="0" selected>Select Owner</option>
+									<c:forEach items="${employeeList}" var="employee">
+										<option value="${employee.id}">${employee.firstName}
+											${employee.lastName}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -125,9 +133,22 @@
 			</div>
 			<div class="row">
 				<div class="col-md-7">
-					<div class="row my-1">
+				<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-sm"><label
+										class='my-0' for="customerId">Customer ID</label></span>
+								</div>
+								<input id="customerId" type="text" class="form-control"
+									aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm" readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class='col-md-12'>
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="contactName">Contact Name</label></span>
@@ -138,10 +159,10 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row ">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="contactNumber">Contact Number</label></span>
@@ -152,10 +173,10 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="contactAddress">Contact Address</label></span>
@@ -166,10 +187,10 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="connectionType">Connection Type</label></span>
@@ -180,24 +201,27 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="bandwidthPackage">Bandwidth/Package</label></span>
 								</div>
-								<input id="bandwidthPackage" type="text" class="form-control"
-									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+								<select class="form-control" id="bandwidthPackage">
+									<c:forEach items="${packageList}" var="package"
+										varStatus="counter">
+										<option value='${package.id}'>${package.serviceName }</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="otc">OTC</label></span>
@@ -208,10 +232,10 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="mrc">MRC</label></span>
@@ -222,9 +246,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row my-1">
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="reference">Reference</label></span>
@@ -235,10 +259,10 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row my-1">
+
+					<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="promiseDate">Promise Date</label></span>
@@ -261,15 +285,18 @@
 								<input id="workTeam" type="text" class="form-control"
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
-									<div class="input-group-append">
-									<button class="btn btn-primary" type="button" id="workTeamAddBtn">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										id="workTeamAddBtn" onclick='workTeamAddAction()'>
 										<i class="fa fa-plus"></i>
 									</button>
 								</div>
 							</div>
+							<ol class="border" id="workTeamList">
+							</ol>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -280,15 +307,18 @@
 								<input id="supportName" type="text" class="form-control"
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
-									<div class="input-group-append">
-									<button class="btn btn-primary" type="button" id="supportNameAddBtn">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										id="supportNameAddBtn" onclick="supportTeamAddAction()">
 										<i class="fa fa-plus"></i>
 									</button>
 								</div>
 							</div>
+							<ol class="border" id="supportNameList">
+							</ol>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -302,7 +332,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -316,7 +346,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -330,7 +360,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -338,21 +368,19 @@
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="connectionPoint">Connection Point</label></span>
 								</div>
-								<select id="connectionPoint"
-											class="form-control selectpicker"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm"
-											data-live-search="true"
-											data-style="btn-light btn-sm border-secondary form-control-sm">
-											<option value="0">Select Resource</option>
-											<c:forEach items="${connectionPointList}" var="connection">
-												<option value="${connection.id}">${connection.resourceName}</option>
-											</c:forEach>
-										</select>
+								<select id="connectionPoint" class="form-control selectpicker"
+									aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm" data-live-search="true"
+									data-style="btn-light btn-sm border-secondary form-control-sm">
+									<option value="0">Select Connection Point</option>
+									<c:forEach items="${connectionPointList}" var="connection">
+										<option value="${connection.id}">${connection.connectionPointName}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -366,7 +394,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -380,7 +408,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row my-1">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
@@ -391,35 +419,57 @@
 								<select id="activationStatus" class="form-control"
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
-									<option value="0">Completed</option>
+									<option value="1">Processing</option>
+									<option value="2">Completed</option>
+									<option value="3">Deleted</option>
 								</select>
 							</div>
 						</div>
 					</div>
+					<div class="row d-flex justify-content-end">
+						<button id="btnUpdate" class="btn btn-sm btn-primary mt-1"
+							onclick="updateAction()">Update</button>
+					</div>
 				</div>
+			</div>
+			<div class="alert alert-success alert-dismissible fade show"
+				style="display: none;">
+				<p id="successAlert" class="mb-0">
+					<strong>Success!</strong> Unit Name Save Successfully..
+				</p>
+			</div>
+			<div class="alert alert-warning alert-dismissible fade show"
+				style="display: none;">
+				<p id="warningAlert" class="mb-0">
+					<strong>Warning!</strong> Unit Name Empty.Please Enter Unit Name...
+				</p>
+			</div>
+			<div class="alert alert-danger alert-dismissible fade show"
+				style="display: none;">
+				<p id="dangerAlert" class="mb-0">
+					<strong>Wrong!</strong> Something Wrong...
+				</p>
 			</div>
 			<hr class="mt-1">
 			<div class="row d-flex justify-content-center">
 				<div class="col-md-8">
 					<div class="row">
 						<div class="col-md-12">
-						<div class="comment border border-secondary">
-							<h6>User1</h6>
-							<p>This message from User1</p>
+
+							<div id="commentList">
+								
+							</div>
+
 						</div>
-						<div class="comment  border border-secondary">
-							<h6>User2</h6>
-							<p>This message from User2</p>
-						</div>
-						</div>
-						
+
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-						<textarea class="form-control mt-1" placeholder="Comment Write Here.."></textarea>
-						<button id="btnUpdate" class="btn btn-sm btn-primary mt-1">Update</button>
+							<textarea id="comment" class="form-control mt-1"
+								placeholder="Comment Write Here.."></textarea>
+							<button id="btnComment" onclick="commentAddAction()" class="btn btn-sm btn-primary mt-1">Comment</button>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>

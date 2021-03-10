@@ -41,4 +41,8 @@ public class CustomerService {
 	public List<Customer> getCustomerList(){
 		return customerRepo.findAll();
 	}
+	
+	public void deleteCustomer(Customer customer) {
+		customerRepo.delete(customer);
+	}
 }

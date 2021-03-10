@@ -20,12 +20,12 @@ public class ActivationTMS {
 	private String subject;
 	private String status;
 	private String priority;
-	private String owner;
+	private String owner="";
 	private String activationStatus;
 	private String note;
 	private Date promissDate;
 	private int lastFollowupBy;
-	private Date lastFollowupTime;
+	private Timestamp lastFollowupTime;
 	private Timestamp entryTime;
 	private long entryBy;
 	
@@ -113,11 +113,19 @@ public class ActivationTMS {
 	public void setLastFollowupBy(int lastFollowupBy) {
 		this.lastFollowupBy = lastFollowupBy;
 	}
-	public Date getLastFollowupTime() {
+	public Timestamp getLastFollowupTime() {
 		return lastFollowupTime;
 	}
-	public void setLastFollowupTime(Date lastFollowupTime) {
+	public void setLastFollowupTime(Timestamp lastFollowupTime) {
 		this.lastFollowupTime = lastFollowupTime;
+	}
+	@Override
+	public String toString() {
+		return "ActivationTMS [id=" + id + ", tmsNo=" + tmsNo + ", customerId=" + customerId + ", subject=" + subject
+				+ ", status=" + status + ", priority=" + priority + ", owner=" + owner + ", activationStatus="
+				+ activationStatus + ", note=" + note + ", promissDate=" + promissDate + ", lastFollowupBy="
+				+ lastFollowupBy + ", lastFollowupTime=" + lastFollowupTime + ", entryTime=" + entryTime + ", entryBy="
+				+ entryBy + "]";
 	}
 	
 	

@@ -36,7 +36,7 @@ public class Customer {
 	private String clientMac;
 	private Date serviceStartDate;
 	private Date expireDate;
-	private int status;
+	private int activeStatus;
 	private String reference;
 	private Timestamp entryTime;
 	private Long entryBy;
@@ -81,11 +81,11 @@ public class Customer {
 	public void setServiceStartDate(Date serviceStartDate) {
 		this.serviceStartDate = serviceStartDate;
 	}
-	public int getStatus() {
-		return status;
+	public int getActiveStatus() {
+		return activeStatus;
 	}
-	public void setStatus(int status) {
-		this.status = status;
+	public void setActiveStatus(int activeStatus) {
+		this.activeStatus = activeStatus;
 	}
 	public Timestamp getEntryTime() {
 		return entryTime;
@@ -235,5 +235,19 @@ public class Customer {
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", customerId=" + customerId + ", name=" + name + ", companyName=" + companyName
+				+ ", keyPerson=" + keyPerson + ", area=" + area + ", address=" + address + ", email=" + email
+				+ ", contactNo=" + contactNo + ", packageId=" + packageId + ", customerType=" + customerType + ", otc="
+				+ otc + ", mrc=" + mrc + ", connectionType=" + connectionType + ", onuMac=" + onuMac + ", latLong="
+				+ latLong + ", onuInterface=" + onuInterface + ", connectionPoint=" + connectionPoint + ", ipAddress="
+				+ ipAddress + ", clientMac=" + clientMac + ", serviceStartDate=" + serviceStartDate + ", expireDate="
+				+ expireDate + ", activeStatus=" + activeStatus + ", reference=" + reference + ", entryTime="
+				+ entryTime + ", entryBy=" + entryBy + "]";
+	}
+	
+	
 	
 }

@@ -76,5 +76,12 @@ public class User {
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", memberId=" + memberId + ", username=" + username + ", password=" + password
+				+ ", enabled=" + enabled + ", userType=" + userType + ", entryTime=" + entryTime + ", entryBy="
+				+ entryBy + "]";
+	}
+	
 	
 }

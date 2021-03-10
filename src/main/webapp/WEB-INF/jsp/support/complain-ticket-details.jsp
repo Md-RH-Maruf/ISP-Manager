@@ -22,35 +22,35 @@
 					</div>
 
 					<div class="row"></div>
-					<div class="row my-1">
+					<div class="row ">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="form">Form</label></span>
 								</div>
 								<input id="form" type="text" class="form-control"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+									aria-describedby="inputGroup-sizing-sm" readonly>
 							</div>
 						</div>
 					</div>
-					<div class="row my-1">
+					<div class="row ">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="subject">Subject</label></span>
 								</div>
 								<input id="subject" type="text" class="form-control"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+									aria-describedby="inputGroup-sizing-sm" readonly>
 							</div>
 						</div>
 					</div>
 
 
-					<div class="row my-1">
+					<div class="row mt-0">
 						<div class='col-md-12'>
 							<div class="input-group input-group-sm mb-1">
 								<div class="input-group-prepend">
@@ -77,7 +77,7 @@
 									for(Status status : Status.values()) {
 									%>
 
-									<option value/="<%=status.getType()%>"><%=status.name()%></option>
+									<option value/="<%=status.name()%>"><%=status.name()%></option>
 									<%
 										}
 									%>
@@ -101,7 +101,7 @@
 									for(Priority priority : Priority.values()) {
 									%>
 
-									<option value/="<%=priority.getType()%>"><%=priority.name()%></option>
+									<option value/="<%=priority.name()%>"><%=priority.name()%></option>
 									<%
 										}
 									%>
@@ -116,9 +116,16 @@
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="owner">Owner</label></span>
 								</div>
-								<input id="owner" type="text" class="form-control"
+								<select id="owner" class="form-control selectpicker"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-sm">
+									aria-describedby="inputGroup-sizing-sm" data-live-search="true"
+									data-style="btn-light btn-sm border-secondary form-control-sm">
+									<option value="0" selected>Select Owner</option>
+									<c:forEach items="${employeeList}" var="employee">
+										<option value="${employee.id}">${employee.firstName}
+											${employee.lastName}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -193,26 +200,23 @@
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-8">
 						<div class="row">
-							<div class="col-md-12">
-								<div class="comment border border-secondary">
-									<h6>User1</h6>
-									<p>This message from User1</p>
-								</div>
-								<div class="comment  border border-secondary">
-									<h6>User2</h6>
-									<p>This message from User2</p>
-								</div>
+						<div class="col-md-12">
+
+							<div id="commentList">
+								
 							</div>
 
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<textarea class="form-control mt-1"
-									placeholder="Comment Write Here.."></textarea>
-								<button id="btnUpdate" class="btn btn-sm btn-primary mt-1">Update</button>
-							</div>
 
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<textarea id="comment" class="form-control mt-1"
+								placeholder="Comment Write Here.."></textarea>
+							<button id="btnComment" onclick="commentAddAction()" class="btn btn-sm btn-primary mt-1">Comment</button>
 						</div>
+
+					</div>
 					</div>
 				</div>
 

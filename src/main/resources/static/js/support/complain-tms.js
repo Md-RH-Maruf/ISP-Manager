@@ -1,3 +1,33 @@
+
+function searchAction(){
+    let customerId = $("#customerId").val();
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/getCustomerComplainHistory',
+        data: {
+          customerId : customerId
+        },
+        success: function (data) {
+         
+          let customer = data.customer;
+          $("#customerName").val(customer.name);
+          $("#contactNumber").val(customer.popName);
+          $("#area").val(customer.area);
+          $("#address").val(customer.address);
+            $("#accountStatus").val(customer.activeStatus==1?"Active":"Inactive");
+            let currentDate  = new Date();
+            let expireDate = new Date(customer.expireDate);
+            if(expireDate<currentDate){
+                $("#connectionStatus").val("Deactive");
+            }else{
+                $("#connectionStatus").val("Active");
+            }
+           
+        }
+      });
+}
+
 function submitComplain() {
     let customerId = $("#customerId").val()
     let problemType = $("#problemType").val()
@@ -18,8 +48,6 @@ function submitComplain() {
                     data: {
                         customerId: customerId,
                         problemType: problemType,
-                        customerName: customerName,
-                        area: area,
                         complainDetails: complainDetails,
                         priority: priority
                     },
@@ -32,7 +60,9 @@ function submitComplain() {
 
                             if (data.result.id) {
                                 alert("Complain TMS Submit Successfully");
-                                location.reload();
+                               
+                                let url = "http://localhost:8080/support/complain-ticket-list";
+                                window.open(url, '_self');
                             } else {
                                 dangerAlert("Something went wrong");
                             }

@@ -15,46 +15,55 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String ticketId;
-	private String comment;
+	private String commentString;
 	private Timestamp entryTime;
 	private Long entryBy;
 	
 	public Comment() {
 		super();
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getTicketId() {
 		return ticketId;
 	}
+
 	public void setTicketId(String ticketId) {
 		this.ticketId = ticketId;
 	}
+
 	
-	
-	public String getComment() {
-		return comment;
+	public String getCommentString() {
+		return commentString;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+
+	public void setCommentString(String commentString) {
+		this.commentString = commentString;
 	}
+
 	public Timestamp getEntryTime() {
 		return entryTime;
 	}
+
 	public void setEntryTime(Timestamp entryTime) {
 		this.entryTime = entryTime;
 	}
+
 	public Long getEntryBy() {
 		return entryBy;
 	}
+
 	public void setEntryBy(Long entryBy) {
 		this.entryBy = entryBy;
 	}
+	
 	
 	
 }

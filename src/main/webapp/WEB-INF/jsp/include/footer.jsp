@@ -23,6 +23,10 @@
 	class="fas fa-angle-up"></i>
 </a>
 
+<div style="display:none" class="loading-overlay is-active" id="loader">
+  <span class="fas fa-spinner fa-3x fa-spin"></span>
+</div>
+
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">

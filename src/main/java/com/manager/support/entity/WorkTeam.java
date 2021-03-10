@@ -15,7 +15,7 @@ public class WorkTeam {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String ticketId;
-	private String temaName;
+	private String teamName;
 	private Timestamp entryTime;
 	private Long entryBy;
 	
@@ -35,11 +35,11 @@ public class WorkTeam {
 	public void setTicketId(String ticketId) {
 		this.ticketId = ticketId;
 	}
-	public String getTemaName() {
-		return temaName;
+	public String getTeamName() {
+		return teamName;
 	}
-	public void setTemaName(String temaName) {
-		this.temaName = temaName;
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 	public Timestamp getEntryTime() {
 		return entryTime;

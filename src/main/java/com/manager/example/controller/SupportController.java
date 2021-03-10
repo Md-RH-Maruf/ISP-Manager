@@ -4,6 +4,7 @@ import java.rmi.activation.ActivateFailedException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -21,26 +22,40 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.manager.example.shareModel.ShareMethods;
+import com.manager.example.shareModel.Status;
 import com.manager.inventory.entity.Customer;
 import com.manager.inventory.entity.Employee;
 import com.manager.inventory.services.CustomerService;
+import com.manager.inventory.services.EmployeeService;
 import com.manager.inventory.services.PackageService;
+import com.manager.security.entity.User;
 import com.manager.security.entityModel.MyUserDetails;
+import com.manager.security.services.MyUserDetailsService;
 import com.manager.support.entity.ActivationTMS;
+import com.manager.support.entity.Comment;
 import com.manager.support.entity.ComplainTMS;
 import com.manager.support.entity.ConnectionPoint;
 import com.manager.support.entity.McInformation;
 import com.manager.support.entity.OltInformation;
+import com.manager.support.entity.SupportTeam;
+import com.manager.support.entity.WorkTeam;
 import com.manager.support.services.ActivationTMSService;
+import com.manager.support.services.CommentService;
 import com.manager.support.services.ComplainTMSService;
 import com.manager.support.services.ConnectionPointService;
 import com.manager.support.services.McInfoService;
 import com.manager.support.services.OltInfoService;
 import com.manager.support.services.PPPoEService;
+import com.manager.support.services.SupportTeamService;
+import com.manager.support.services.WorkTeamService;
 
 @Controller
 public class SupportController {
-
+	@Autowired
+	ShareMethods shareMethods;
+	@Autowired
+	MyUserDetailsService userService;
 	@Autowired
 	ConnectionPointService connPointService;
 	@Autowired
@@ -57,7 +72,15 @@ public class SupportController {
 	CustomerService customerService;
 	@Autowired
 	PPPoEService pppoeService;
-	
+	@Autowired
+	EmployeeService employeeService;
+	@Autowired
+	SupportTeamService supportTeamService;
+	@Autowired
+	WorkTeamService workTeamService;
+	@Autowired
+	CommentService commentService;
+
 	//Activation TMS
 	@RequestMapping(value={"/support/activation-tms"})
 	public ModelAndView activation_tms(ModelMap map,HttpSession session) {
@@ -72,20 +95,20 @@ public class SupportController {
 	public @ResponseBody Map<String, Object> submitActivationTMSRequest(Customer customer,ActivationTMS activationTms) {
 		Map<String, Object> obj = new HashMap();
 		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+
 		customer.setCustomerId(customerService.getMaxCustomerId());
 		customer.setEntryTime(new Timestamp(new Date().getTime()));
 		customer.setEntryBy(userDetails.getId());
-		
+
 		if(customerService.saveCustomer(customer)!=null) {
 			activationTms.setTmsNo(activationService.getMaxTMSNo());
 			activationTms.setCustomerId(customer.getCustomerId());
 			activationTms.setSubject("Activation: "+userDetails.getUsername());
 			activationTms.setEntryTime(new Timestamp(new Date().getTime()));
-			activationTms.setPriority("1");
-			activationTms.setStatus("1");
+			activationTms.setPriority("LOW");
+			activationTms.setStatus("OPEN");
 			activationTms.setLastFollowupBy((int)userDetails.getId());
-			activationTms.setLastFollowupTime(new java.sql.Date(new Date().getTime()));
+			activationTms.setLastFollowupTime(new Timestamp(new Date().getTime()));
 			activationTms.setEntryBy(userDetails.getId());
 			if(activationService.saveActivationTMS(activationTms) != null) {
 				obj.put("result", "successfull");
@@ -93,10 +116,132 @@ public class SupportController {
 		}else {
 			obj.put("result","something wrong");
 		}
-		
+
 		return obj;
 	}
+	
+	@RequestMapping(value={"/support/activation-ticket-list"})
+	public ModelAndView activation_ticket_list(ModelMap map,HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView view = new ModelAndView("support/activation-ticket-list");
+		map.addAttribute("openTicketList",activationService.getTicketListByStatus(Status.OPEN.name()));
+		map.addAttribute("processingTicketList",activationService.getTicketListByStatus(Status.PROCESSING.name()));
+		map.addAttribute("closedTicketList",activationService.getTicketListByStatus(Status.CLOSED.name()));
+		map.addAttribute("deletedTicketList",activationService.getTicketListByStatus(Status.DELETED.name()));
+		return view;
+	}
 
+	
+	@RequestMapping(value={"/activation-tms-details/{tmsNo}"})
+	public ModelAndView tms_details(ModelMap map,HttpSession session,@PathVariable("tmsNo") String tmsNo) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView view = new ModelAndView("support/activation-tms-details");
+		map.addAttribute("tmsNo",tmsNo);
+		map.addAttribute("connectionPointList",connPointService.getConnectionPointList());
+		map.addAttribute("employeeList",employeeService.getEmployeeList());
+		map.addAttribute("packageList",packageService.getServiceList());
+		return view;
+	}
+	
+	@RequestMapping(value= {"/getActivationTmsDetails"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getActivationTmsDetails(String tmsNo){
+		Map<String, Object> obj = new HashMap();
+		
+		ActivationTMS activationTms = activationService.getActivationTMSByTmsNo(tmsNo);
+		
+		Customer customer = customerService.findByCustomerId(activationTms.getCustomerId());
+		User user = userService.findById(activationTms.getEntryBy());
+		obj.put("activationTms",activationTms);
+		obj.put("customer",customer);
+		obj.put("user",user);
+		obj.put("workTeamList",workTeamService.getWorkTeamsByTmsNo(tmsNo));
+		obj.put("supportNameList",supportTeamService.getSupportTeamsByTmsNo(tmsNo));
+		obj.put("commentList",commentService.getCommentsByTmsNo(tmsNo));
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/updateActivationTMS"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> updateActivationTMS(ActivationTMS activationTms,Customer customer,String status) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		ActivationTMS updateActivationTms = activationService.getActivationTMSByTmsNo(activationTms.getTmsNo());
+		updateActivationTms.setActivationStatus(activationTms.getActivationStatus());
+		updateActivationTms.setStatus(activationTms.getStatus());
+		updateActivationTms.setPriority(activationTms.getPriority());
+		updateActivationTms.setOwner(activationTms.getOwner());
+		updateActivationTms.setLastFollowupBy((int)userDetails.getId());
+		updateActivationTms.setLastFollowupTime(new Timestamp(new Date().getTime()));
+		
+		
+		Customer updateCustomer = customerService.findByCustomerId(customer.getCustomerId());
+		updateCustomer.setLatLong(customer.getLatLong());
+		updateCustomer.setOnuMac(customer.getOnuMac());
+		updateCustomer.setOnuInterface(customer.getOnuInterface());
+		updateCustomer.setIpAddress(customer.getIpAddress());
+		updateCustomer.setClientMac(customer.getClientMac());
+		if(activationTms.getActivationStatus().equals("2")) {
+			
+			updateCustomer.setServiceStartDate(new java.sql.Date(new Date().getTime()));
+			updateCustomer.setExpireDate(new java.sql.Date(shareMethods.addMonth(new Date(), 1).getTime()));
+			updateCustomer.setActiveStatus(1);
+		}else if(activationTms.getActivationStatus().equals("3")) {
+			activationService.deleteActivationTMS(updateActivationTms);
+			customerService.deleteCustomer(customer);
+			obj.put("result","deleted");
+			return obj;
+		}
+		
+		
+		if(activationService.saveActivationTMS(updateActivationTms) != null) {
+			if(customerService.saveCustomer(updateCustomer) != null) {
+				obj.put("result","successfull");
+			}else {
+				obj.put("result","something wrong");
+			}
+		}else {
+			obj.put("result","something wrong");
+		}
+		//workTeam.setEntryTime(new Timestamp(new Date().getTime()));
+		//workTeam.setEntryBy(userDetails.getId());
+		//obj.put("result", workTeamService.saveWorkTeam(workTeam));
+		//obj.put("workTeamList",workTeamService.getWorkTeamsByTmsNo(workTeam.getTicketId()));
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/addWorkTeam"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> addWorkTeam(WorkTeam workTeam) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		workTeam.setEntryTime(new Timestamp(new Date().getTime()));
+		workTeam.setEntryBy(userDetails.getId());
+		obj.put("result", workTeamService.saveWorkTeam(workTeam));
+		obj.put("workTeamList",workTeamService.getWorkTeamsByTmsNo(workTeam.getTicketId()));
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/addSupportName"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> addSupportName(SupportTeam supportTeam) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		supportTeam.setEntryTime(new Timestamp(new Date().getTime()));
+		supportTeam.setEntryBy(userDetails.getId());
+		obj.put("result", supportTeamService.saveSupportTeam(supportTeam));
+		obj.put("supportNameList",supportTeamService.getSupportTeamsByTmsNo(supportTeam.getTicketId()));
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/addComment"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> addComment(Comment commentInfo) {
+		System.out.println("comment="+commentInfo.getCommentString());
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		commentInfo.setEntryTime(new Timestamp(new Date().getTime()));
+		commentInfo.setEntryBy(userDetails.getId());
+		obj.put("result", commentService.saveComment(commentInfo));
+		obj.put("commentList",commentService.getCommentsByTmsNo(commentInfo.getTicketId()));
+		return obj;
+	}
 
 	//Complain TMS
 	@RequestMapping(value={"/support/complain-tms"})
@@ -107,27 +252,34 @@ public class SupportController {
 		//map.addAttribute("resourceList",resourceService.getResourceList());
 		return view;
 	}
-	
+
 	@RequestMapping(value= {"/submitComplainTMS"},method=RequestMethod.POST)
 	public @ResponseBody Map<String, Object> submitComplainTMS(ComplainTMS complainTms) {
 		Map<String, Object> obj = new HashMap();
 		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		complainTms.setTmsNo(complainService.getMaxTMSNo());
+		complainTms.setLastFollowupTime(new Timestamp(new Date().getTime()));
+		complainTms.setLastFollowupBy((int)userDetails.getId());
 		complainTms.setEntryTime(new Timestamp(new Date().getTime()));
 		complainTms.setEntryBy(userDetails.getId());
 		obj.put("result", complainService.saveComplainTMS(complainTms));
 		return obj;
 	}
 
-	@RequestMapping(value={"/support/activation-ticket-list"})
-	public ModelAndView activation_ticket_list(ModelMap map,HttpSession session) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ModelAndView view = new ModelAndView("support/activation-ticket-list");
-		//map.addAttribute("roleList",roleService.getRoleList());
-		//map.addAttribute("resourceList",resourceService.getResourceList());
-		return view;
+	@RequestMapping(value= {"/getCustomerComplainHistory"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getCustomerComplainHistory(String customerId){
+		Map<String, Object> obj = new HashMap();
+		
+		//ActivationTMS activationTms = activationService.getActivationTMSByTmsNo(tmsNo);
+		
+		Customer customer = customerService.findByCustomerId(customerId);
+		//User user = userService.findById(activationTms.getEntryBy());
+		obj.put("customer",customer);
+	
+		return obj;
 	}
 	
+
 	@RequestMapping(value={"/support/complain-ticket-list"})
 	public ModelAndView complain_ticket_list(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -137,15 +289,8 @@ public class SupportController {
 		return view;
 	}
 
-	@RequestMapping(value={"/activation-tms-details/{ticketNo}"})
-	public ModelAndView tms_details(ModelMap map,HttpSession session,@PathVariable("ticketNo") String ticketNo) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ModelAndView view = new ModelAndView("support/activation-tms-details");
-		//map.addAttribute("roleList",roleService.getRoleList());
-		//map.addAttribute("resourceList",resourceService.getResourceList());
-		return view;
-	}
 	
+
 	@RequestMapping(value={"/complain-ticket-details/{ticketNo}"})
 	public ModelAndView complain_ticket_details(ModelMap map,HttpSession session,@PathVariable("ticketNo") String ticketNo) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -246,54 +391,54 @@ public class SupportController {
 		obj.put("oltInfo",oltInfoService.getOltInformation(Long.valueOf(id)));
 		return obj;
 	}
-	
-	
+
+
 	// MC Position
-		@RequestMapping(value={"/support/mc-information"})
-		public ModelAndView mc_position(ModelMap map,HttpSession session) {
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			ModelAndView view = new ModelAndView("support/mc-information");
-			map.addAttribute("mcInfoList",mcInfoService.getMcInformations());
-			//map.addAttribute("resourceList",resourceService.getResourceList());
-			return view;
-		}
+	@RequestMapping(value={"/support/mc-information"})
+	public ModelAndView mc_position(ModelMap map,HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView view = new ModelAndView("support/mc-information");
+		map.addAttribute("mcInfoList",mcInfoService.getMcInformations());
+		//map.addAttribute("resourceList",resourceService.getResourceList());
+		return view;
+	}
 
-		@RequestMapping(value= {"/saveMcInfo"},method=RequestMethod.POST)
-		public @ResponseBody Map<String, Object> saveMcInfo(McInformation mcInfo) {
-			Map<String, Object> obj = new HashMap();
-			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			mcInfo.setEntryTime(new Timestamp(new Date().getTime()));
-			mcInfo.setEntryBy(userDetails.getId());
-			obj.put("result", mcInfoService.saveMcInformation(mcInfo));
-			obj.put("mcInfoList",mcInfoService.getMcInformations());
-			return obj;
-		}
+	@RequestMapping(value= {"/saveMcInfo"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> saveMcInfo(McInformation mcInfo) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mcInfo.setEntryTime(new Timestamp(new Date().getTime()));
+		mcInfo.setEntryBy(userDetails.getId());
+		obj.put("result", mcInfoService.saveMcInformation(mcInfo));
+		obj.put("mcInfoList",mcInfoService.getMcInformations());
+		return obj;
+	}
 
-		@RequestMapping(value= {"/editMcInfo"},method=RequestMethod.POST)
-		public @ResponseBody Map<String, Object> editMcInfo(McInformation mcInfo) {
-			Map<String, Object> obj = new HashMap();
-			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			mcInfo.setEntryTime(new Timestamp(new Date().getTime()));
-			mcInfo.setEntryBy(userDetails.getId());
-			obj.put("result", mcInfoService.saveMcInformation(mcInfo));
-			obj.put("mcInfoList",mcInfoService.getMcInformations());
-			return obj;
-		}
+	@RequestMapping(value= {"/editMcInfo"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> editMcInfo(McInformation mcInfo) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mcInfo.setEntryTime(new Timestamp(new Date().getTime()));
+		mcInfo.setEntryBy(userDetails.getId());
+		obj.put("result", mcInfoService.saveMcInformation(mcInfo));
+		obj.put("mcInfoList",mcInfoService.getMcInformations());
+		return obj;
+	}
 
-		@RequestMapping(value= {"/getMcInfo"},method=RequestMethod.GET)
-		public @ResponseBody Map<String, Object> getMcInfo(String id){
-			Map<String, Object> obj = new HashMap();
-			obj.put("mcInfo",mcInfoService.getMcInformation(Long.valueOf(id)));
-			return obj;
-		}
-		
-		// PPPoE & Password
-				@RequestMapping(value={"/support/customer-pppoe-id-password"})
-				public ModelAndView ppoe_password(ModelMap map,HttpSession session) {
-					Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-					ModelAndView view = new ModelAndView("support/pppoe-password");
-					map.addAttribute("pppoeList",pppoeService.getPPPoEList());
-					//map.addAttribute("resourceList",resourceService.getResourceList());
-					return view;
-				}
+	@RequestMapping(value= {"/getMcInfo"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getMcInfo(String id){
+		Map<String, Object> obj = new HashMap();
+		obj.put("mcInfo",mcInfoService.getMcInformation(Long.valueOf(id)));
+		return obj;
+	}
+
+	// PPPoE & Password
+	@RequestMapping(value={"/support/customer-pppoe-id-password"})
+	public ModelAndView ppoe_password(ModelMap map,HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView view = new ModelAndView("support/pppoe-password");
+		map.addAttribute("pppoeList",pppoeService.getPPPoEList());
+		//map.addAttribute("resourceList",resourceService.getResourceList());
+		return view;
+	}
 }
