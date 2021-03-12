@@ -28,7 +28,7 @@
 				<strong>Wrong!</strong> Something Wrong...
 			</p>
 		</div>
-		<input type="hidden" id="customerAutoId" value="0">
+		<input type="hidden" id="categoryId" value="0">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="card-box">
@@ -47,20 +47,6 @@
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="headId">Category ID</label></span>
-										</div>
-										<input id="headId" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" value="${maxId }"
-											readonly>
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
 												class='my-0' for="parentName">Parent Name</label></span>
 										</div>
 										<select id="parentName" class="form-control selectpicker"
@@ -69,8 +55,8 @@
 											data-live-search="true"
 											data-style="btn-light btn-sm border-secondary form-control-sm">
 											<option value="0">Select Resource</option>
-											<c:forEach items="${resourceList}" var="resource">
-												<option value="${resource.id}">${resource.resourceName}</option>
+											<c:forEach items="${categoryList}" var="category">
+												<option value="${category.id}">${category.categoryName}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -81,9 +67,9 @@
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="headName">Category Name</label></span>
+												class='my-0' for="categoryName">Category Name</label></span>
 										</div>
-										<input id="headName" type="text" class="form-control"
+										<input id="categoryName" type="text" class="form-control"
 											aria-label="Sizing example input"
 											aria-describedby="inputGroup-sizing-sm">
 									</div>
@@ -93,13 +79,13 @@
 
 							<div class="row">
 								<div class="col-md-12">
-									<button type="button" id="btnSave"
-										class="btn btn-primary btn-sm" onclick="saveAction()">Save</button>
+									<button type="button" id="btnCategorySave"
+										class="btn btn-primary btn-sm" onclick="categorySaveAction()">Save</button>
 
-									<button type="button" id="btnEdit"
-										class="btn btn-success btn-sm" onclick="editAction()"
+									<button type="button" id="btnCategoryEdit"
+										class="btn btn-success btn-sm" onclick="categoryEditAction()"
 										style="display: none;">Edit</button>
-									<button type="button" id="btnRefresh"
+									<button type="button" id="btnCategoryRefresh"
 										class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
 
 								</div>
@@ -109,7 +95,7 @@
 
 								<div class="col-md-12">
 									<ul id="tree1">
-										<li style="cursor: pointer;">Products
+										<li id="cat-0" style="cursor: pointer;">Products
 											<ul>
 												<li style="cursor: pointer;">Wire
 													<ul>
@@ -147,9 +133,9 @@
 													data-live-search="true"
 													data-style="btn-light btn-sm border-secondary form-control-sm">
 													<option value="0">Select Resource</option>
-													<c:forEach items="${resourceList}" var="resource">
-														<option value="${resource.id}">${resource.resourceName}</option>
-													</c:forEach>
+													<c:forEach items="${categoryList}" var="category">
+													<option value="${category.id}">${category.categoryName}</option>
+											</c:forEach>
 												</select>
 											</div>
 										</div>
@@ -199,14 +185,14 @@
 									
 									<div class="row my-1">
 										<div class="col-md-6 px-1">
-											<button type="button" id="btnSave"
-												class="btn btn-primary btn-sm" onclick="saveAction()">Save</button>
+											<button type="button" id="btnProductSave"
+												class="btn btn-primary btn-sm" onclick="productSaveAction()">Save</button>
 
-											<button type="button" id="btnEdit"
-												class="btn btn-success btn-sm" onclick="editAction()"
+											<button type="button" id="btnProductEdit"
+												class="btn btn-success btn-sm" onclick="productEditAction()"
 												style="display: none;">Edit</button>
-											<button type="button" id="btnRefresh"
-												class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
+											<button type="button" id="btnProductRefresh"
+												class="btn btn-secondary btn-sm" onclick="productRefreshAction()">Refresh</button>
 
 										</div>
 									</div>
@@ -335,4 +321,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/accounts/product-create.js"></script>
+	src="${pageContext.request.contextPath}/js/store/product-create.js"></script>

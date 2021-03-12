@@ -82,19 +82,7 @@ function updateAction(){
      let ipAddress = $("#ipAddress").val();
      let clientMac = $("#clientMac").val();
      let activationStatus = $("#activationStatus").val();
-    console.log("activation",{tmsNo: tmsNo,
-      status: status,
-      priority: priority,
-      owner: owner,
-      customerId: customerId,
-      packageId: packageId,
-      onuMac: onuMac,
-      latLong: latLong,
-      onuInterface: onuInterface,
-      connectionPoint: connectionPoint,
-      ipAddress: ipAddress,
-      clientMac: clientMac,
-      activationStatus: activationStatus});
+   
      if(owner){
       if(activationStatus){
         if(confirm("Are you sure to Update TMS Details")){

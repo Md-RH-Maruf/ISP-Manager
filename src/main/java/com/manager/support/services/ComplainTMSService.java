@@ -51,6 +51,10 @@ public class ComplainTMSService {
 		return complainRepository.findByCustomerId(customerId);
 	}
 	
+	public ComplainTMS getComplainTMSByTmsNo(String tmsNo) {
+		return complainRepository.findByTmsNo(tmsNo);
+	}
+	
 	public ComplainTMS getComplainTMS(long id) {
 		return complainRepository.findById(id).orElse(null);
 	}

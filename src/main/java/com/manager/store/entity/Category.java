@@ -14,7 +14,7 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long paentsId;
+	private Long parentsId;
 	private String categoryName;
 	private Timestamp entryTime;
 	private Long entryBy;
@@ -30,11 +30,11 @@ public class Category {
 	}
 	
 	
-	public Long getPaentsId() {
-		return paentsId;
+	public Long getParentsId() {
+		return parentsId;
 	}
-	public void setPaentsId(Long paentsId) {
-		this.paentsId = paentsId;
+	public void setParentsId(Long parentsId) {
+		this.parentsId = parentsId;
 	}
 	public String getCategoryName() {
 		return categoryName;

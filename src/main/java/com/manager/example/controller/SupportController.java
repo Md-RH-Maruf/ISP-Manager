@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.manager.example.shareModel.ConnectionStatus;
 import com.manager.example.shareModel.ShareMethods;
 import com.manager.example.shareModel.Status;
 import com.manager.inventory.entity.Customer;
@@ -38,6 +39,7 @@ import com.manager.support.entity.ComplainTMS;
 import com.manager.support.entity.ConnectionPoint;
 import com.manager.support.entity.McInformation;
 import com.manager.support.entity.OltInformation;
+import com.manager.support.entity.PPPoEInfo;
 import com.manager.support.entity.SupportTeam;
 import com.manager.support.entity.WorkTeam;
 import com.manager.support.services.ActivationTMSService;
@@ -80,6 +82,9 @@ public class SupportController {
 	WorkTeamService workTeamService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	PPPoEService ppoeInfoService;
+	
 
 	//Activation TMS
 	@RequestMapping(value={"/support/activation-tms"})
@@ -184,9 +189,20 @@ public class SupportController {
 			
 			updateCustomer.setServiceStartDate(new java.sql.Date(new Date().getTime()));
 			updateCustomer.setExpireDate(new java.sql.Date(shareMethods.addMonth(new Date(), 1).getTime()));
+			updateCustomer.setConnectionStatus(ConnectionStatus.values()[0].name());
 			updateCustomer.setActiveStatus(1);
+			
+			
+			PPPoEInfo ppoeInfo = new PPPoEInfo();
+			ppoeInfo.setCustomerId(updateCustomer.getCustomerId());
+			ppoeInfo.setPppoeId(updateCustomer.getCustomerId()+"_"+updateCustomer.getName());
+			ppoeInfo.setPassword(updateCustomer.getCustomerId());
+			ppoeInfo.setEntryBy((int)userDetails.getId());
+			ppoeInfo.setEntryTime(new Timestamp(new Date().getTime()));
+			ppoeInfoService.savePPPoEInfo(ppoeInfo);
+			
 		}else if(activationTms.getActivationStatus().equals("3")) {
-			activationService.deleteActivationTMS(updateActivationTms);
+			//activationService.deleteActivationTMS(updateActivationTms);
 			customerService.deleteCustomer(customer);
 			obj.put("result","deleted");
 			return obj;
@@ -266,6 +282,23 @@ public class SupportController {
 		return obj;
 	}
 
+	@RequestMapping(value= {"/getComplainTmsDetails"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getComplainTmsDetails(String tmsNo){
+		Map<String, Object> obj = new HashMap();
+		
+		ComplainTMS complainTms = complainService.getComplainTMSByTmsNo(tmsNo);
+		
+		Customer customer = customerService.findByCustomerId(complainTms.getCustomerId());
+		User user = userService.findById(complainTms.getEntryBy());
+		obj.put("complainTms",complainTms);
+		obj.put("customer",customer);
+		obj.put("user",user);
+		obj.put("workTeamList",workTeamService.getWorkTeamsByTmsNo(tmsNo));
+		obj.put("supportNameList",supportTeamService.getSupportTeamsByTmsNo(tmsNo));
+		obj.put("commentList",commentService.getCommentsByTmsNo(tmsNo));
+		return obj;
+	}
+	
 	@RequestMapping(value= {"/getCustomerComplainHistory"},method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getCustomerComplainHistory(String customerId){
 		Map<String, Object> obj = new HashMap();
@@ -284,20 +317,41 @@ public class SupportController {
 	public ModelAndView complain_ticket_list(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView view = new ModelAndView("support/complain-ticket-list");
-		//map.addAttribute("roleList",roleService.getRoleList());
-		//map.addAttribute("resourceList",resourceService.getResourceList());
+		map.addAttribute("openTicketList",complainService.getTicketListByStatus(Status.OPEN.name()));
+		map.addAttribute("processingTicketList",complainService.getTicketListByStatus(Status.PROCESSING.name()));
+		map.addAttribute("closedTicketList",complainService.getTicketListByStatus(Status.CLOSED.name()));
+		map.addAttribute("deletedTicketList",complainService.getTicketListByStatus(Status.DELETED.name()));
 		return view;
 	}
-
-	
 
 	@RequestMapping(value={"/complain-ticket-details/{ticketNo}"})
 	public ModelAndView complain_ticket_details(ModelMap map,HttpSession session,@PathVariable("ticketNo") String ticketNo) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView view = new ModelAndView("support/complain-ticket-details");
-		//map.addAttribute("roleList",roleService.getRoleList());
-		//map.addAttribute("resourceList",resourceService.getResourceList());
+		map.addAttribute("tmsNo",ticketNo);
+		map.addAttribute("employeeList",employeeService.getEmployeeList());
 		return view;
+	}
+	
+	@RequestMapping(value= {"/updateComplainTMS"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> updateComplainTMS(ComplainTMS complainTms) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		ComplainTMS updateComplainTms = complainService.getComplainTMSByTmsNo(complainTms.getTmsNo());
+		updateComplainTms.setStatus(complainTms.getStatus());
+		updateComplainTms.setPriority(complainTms.getPriority());
+		updateComplainTms.setOwner(complainTms.getOwner());
+		updateComplainTms.setStatus(complainTms.getStatus());
+		updateComplainTms.setLastFollowupBy((int)userDetails.getId());
+		updateComplainTms.setLastFollowupTime(new Timestamp(new Date().getTime()));
+		
+		if(complainService.saveComplainTMS(updateComplainTms) != null) {	
+			obj.put("result","successfull");
+		}else {
+			obj.put("result","something wrong");
+		}
+		return obj;
 	}
 
 	//Connection Point
@@ -392,15 +446,51 @@ public class SupportController {
 		return obj;
 	}
 
+	//Customer Details
+		@RequestMapping(value={"/support/mc-information"})
+		public ModelAndView mc_position(ModelMap map,HttpSession session) {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			ModelAndView view = new ModelAndView("support/mc-information");
+			map.addAttribute("mcInfoList",mcInfoService.getMcInformations());
+			//map.addAttribute("resourceList",resourceService.getResourceList());
+			return view;
+		}
 
 	// MC Position
-	@RequestMapping(value={"/support/mc-information"})
-	public ModelAndView mc_position(ModelMap map,HttpSession session) {
+	@RequestMapping(value={"/inventory/customer-details"})
+	public ModelAndView customer_details(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ModelAndView view = new ModelAndView("support/mc-information");
-		map.addAttribute("mcInfoList",mcInfoService.getMcInformations());
+		ModelAndView view = new ModelAndView("support/customer-details");
+		map.addAttribute("customerList",customerService.getCustomerList());
+		map.addAttribute("connectionPointList",connPointService.getConnectionPointList());
 		//map.addAttribute("resourceList",resourceService.getResourceList());
 		return view;
+	}
+	
+	@RequestMapping(value= {"/editCustomerDetails"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> editCustomerDetails(Customer customer) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Customer updatedCustomer = customerService.findByCustomerId(customer.getCustomerId());
+		updatedCustomer.setConnectionPoint(customer.getConnectionPoint());
+		updatedCustomer.setIpAddress(customer.getIpAddress());
+		updatedCustomer.setOnuMac(customer.getOnuMac());
+		updatedCustomer.setOnuInterface(customer.getOnuInterface());
+		updatedCustomer.setClientMac(customer.getClientMac());
+		updatedCustomer.setLatLong(customer.getLatLong());
+		updatedCustomer.setConnectionStatus(customer.getConnectionStatus());
+		obj.put("result",customerService.saveCustomer(updatedCustomer));
+		obj.put("customerList",customerService.getCustomerList());
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/getCustomerDetails"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getCustomerDetails(String customerId) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		obj.put("customerDetails", customerService.findByCustomerId(customerId));
+		return obj;
 	}
 
 	@RequestMapping(value= {"/saveMcInfo"},method=RequestMethod.POST)
@@ -437,8 +527,21 @@ public class SupportController {
 	public ModelAndView ppoe_password(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView view = new ModelAndView("support/pppoe-password");
-		map.addAttribute("pppoeList",pppoeService.getPPPoEList());
+		
+		map.addAttribute("pppoeList",pppoeService.getPPPoEIdPasswordList());
 		//map.addAttribute("resourceList",resourceService.getResourceList());
 		return view;
+	}
+	
+	@RequestMapping(value= {"/editPPPoEAndPasswordInfo"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> editPPPoEAndPasswordInfo(PPPoEInfo pppoeInfo) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		pppoeInfo.setEntryTime(new Timestamp(new Date().getTime()));
+		pppoeInfo.setEntryBy(userDetails.getId());
+		
+		obj.put("result",pppoeService.savePPPoEInfo(pppoeInfo));
+		obj.put("ppoePasswordInfoList",pppoeService.getPPPoEIdPasswordList());
+		return obj;
 	}
 }

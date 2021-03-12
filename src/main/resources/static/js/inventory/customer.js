@@ -27,7 +27,7 @@ function setCustomerData(id) {
         $("#package").val(customer.packageId);
         $("#customerType").val(customer.customerType);
         $("#serviceStartDate").val(customer.serviceStartDate);
-        $("#activeStatus").val(customer.status);
+        $("#connectionStatus").val(customer.connectionStatus);
         $("#reference").val(customer.reference);
         
       }
@@ -49,7 +49,7 @@ function setCustomerData(id) {
     let packageId = $("#package").val();
     let customerType = $("#customerType").val();
     let serviceStartDate = $("#serviceStartDate").val();
-    let activeStatus = $("#activeStatus").val();
+    let connectionStatus = $("#connectionStatus").val();
     let reference = $("#reference").val();
   
     if (customerName != '') {
@@ -69,7 +69,7 @@ function setCustomerData(id) {
                         packageId: packageId,
                         customerType: customerType,
                         serviceStartDate: serviceStartDate,
-                        status: activeStatus,
+                        connectionStatus: connectionStatus,
                         reference: reference
                     },
                     success: function (data) {
@@ -115,7 +115,7 @@ function setCustomerData(id) {
     let packageId = $("#package").val();
     let customerType = $("#customerType").val();
     let serviceStartDate = $("#serviceStartDate").val();
-    let activeStatus = $("#activeStatus").val();
+    let connectionStatus = $("#connectionStatus").val();
     let reference = $("#reference").val();
   
     if (customerName != '') {
@@ -137,7 +137,7 @@ function setCustomerData(id) {
                         packageId: packageId,
                         customerType: customerType,
                         serviceStartDate: serviceStartDate,
-                        status: activeStatus,
+                        connectionStatus: connectionStatus,
                         reference: reference
                     },
                     success: function (data) {
@@ -185,7 +185,7 @@ function setCustomerData(id) {
       <td>${customer.customerId}</td>
       <td>${customer.name}</td>
       <td>${customer.customerType }</td>
-      <td>${customer.status }</td>
+      <td>${customer.connectionStatus }</td>
   </tr>`
     }
   

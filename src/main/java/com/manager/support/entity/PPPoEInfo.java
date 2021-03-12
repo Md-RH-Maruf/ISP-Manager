@@ -14,8 +14,8 @@ public class PPPoEInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String customer_id;
-	private String pppoe_id;
+	private String customerId;
+	private String pppoeId;
 	private String password;
 	private Timestamp entryTime;
 	private long entryBy;
@@ -31,17 +31,18 @@ public class PPPoEInfo {
 		this.id = id;
 	}
 	
-	public String getCustomer_id() {
-		return customer_id;
+	
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setCustomer_id(String customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
-	public String getPppoe_id() {
-		return pppoe_id;
+	public String getPppoeId() {
+		return pppoeId;
 	}
-	public void setPppoe_id(String pppoe_id) {
-		this.pppoe_id = pppoe_id;
+	public void setPppoeId(String pppoeId) {
+		this.pppoeId = pppoeId;
 	}
 	public String getPassword() {
 		return password;

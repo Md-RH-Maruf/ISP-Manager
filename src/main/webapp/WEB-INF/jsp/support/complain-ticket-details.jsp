@@ -13,7 +13,7 @@
 	<div class="card o-hidden border-0 shadow-lg">
 		<div class="card-body px-5 py-2">
 			<!-- Nested Row within Card Body -->
-
+			<input id="tmsNo" type="hidden" value='${tmsNo}'>
 			<div class="row">
 
 				<div class="col-md-6 ">
@@ -74,10 +74,10 @@
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
 									<%
-									for(Status status : Status.values()) {
+										for (Status status : Status.values()) {
 									%>
 
-									<option value/="<%=status.name()%>"><%=status.name()%></option>
+									<option value="<%=status.name()%>"><%=status.name()%></option>
 									<%
 										}
 									%>
@@ -98,10 +98,10 @@
 									aria-label="Sizing example input"
 									aria-describedby="inputGroup-sizing-sm">
 									<%
-									for(Priority priority : Priority.values()) {
+										for (Priority priority : Priority.values()) {
 									%>
 
-									<option value/="<%=priority.name()%>"><%=priority.name()%></option>
+									<option value="<%=priority.name()%>"><%=priority.name()%></option>
 									<%
 										}
 									%>
@@ -131,14 +131,46 @@
 					</div>
 				</div>
 			</div>
+			<div class="alert alert-success alert-dismissible fade show"
+				style="display: none;">
+				<p id="successAlert" class="mb-0">
+					<strong>Success!</strong> Unit Name Save Successfully..
+				</p>
+			</div>
+			<div class="alert alert-warning alert-dismissible fade show"
+				style="display: none;">
+				<p id="warningAlert" class="mb-0">
+					<strong>Warning!</strong> Unit Name Empty.Please Enter Unit Name...
+				</p>
+			</div>
+			<div class="alert alert-danger alert-dismissible fade show"
+				style="display: none;">
+				<p id="dangerAlert" class="mb-0">
+					<strong>Wrong!</strong> Something Wrong...
+				</p>
+			</div>
 			<div class="row">
 				<div class="col-md-7">
-					<div class="row my-1">
+				
+				<div class="row">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
-										class='my-0' for="contactName">Contact Name</label></span>
+										class='my-0' for="customerId">Customer ID</label></span>
+								</div>
+								<input id="customerId" type="text" class="form-control"
+									aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm" readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class='col-md-12'>
+							<div class="input-group input-group-sm">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-sm"><label
+										class='my-0' for="contactName">Customer Name</label></span>
 								</div>
 								<input id="contactName" type="text" class="form-control"
 									aria-label="Sizing example input"
@@ -149,7 +181,7 @@
 
 					<div class="row my-1">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="contactNumber">Contact Number</label></span>
@@ -165,27 +197,27 @@
 
 					<div class="row my-1">
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="problemType">problem Type</label></span>
 								</div>
 								<select class="form-control" id="problemType">
 									<%
-											for (ComplainType complain : ComplainType.values()) {
-										%>
+										for (ComplainType complain : ComplainType.values()) {
+									%>
 
 									<option value="<%=complain.getType()%>"><%=complain.name()%></option>
 									<%
-											}
-										%>
+										}
+									%>
 								</select>
 
 							</div>
 						</div>
 
 						<div class='col-md-12'>
-							<div class="input-group input-group-sm mb-1">
+							<div class="input-group input-group-sm">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroup-sizing-sm"><label
 										class='my-0' for="complainDetails">Complain Details</label></span>
@@ -196,32 +228,75 @@
 							</div>
 						</div>
 					</div>
-<hr class="mt-1">
-				<div class="row d-flex justify-content-center">
-					<div class="col-md-8">
-						<div class="row">
-						<div class="col-md-12">
+					<hr class="mt-1">
+					<div class="row d-flex justify-content-center">
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-12">
 
-							<div id="commentList">
-								
+									<div id="commentList"></div>
+
+								</div>
+
 							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<textarea id="comment" class="form-control mt-1"
+										placeholder="Comment Write Here.."></textarea>
+									<button id="btnComment" onclick="updateAction()"
+										class="btn btn-sm btn-primary mt-1">Comment & Update</button>
+								</div>
 
+							</div>
 						</div>
-
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<textarea id="comment" class="form-control mt-1"
-								placeholder="Comment Write Here.."></textarea>
-							<button id="btnComment" onclick="commentAddAction()" class="btn btn-sm btn-primary mt-1">Comment</button>
-						</div>
-
-					</div>
-					</div>
-				</div>
 
 				</div>
-				
+				<div class="col-md-5">
+					<div class="row my-1">
+						<div class='col-md-12'>
+							<div class="input-group input-group-sm mb-1">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-sm"><label
+										class='my-0' for="workTeam">Work Team</label></span>
+								</div>
+								<input id="workTeam" type="text" class="form-control"
+									aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										id="workTeamAddBtn" onclick='workTeamAddAction()'>
+										<i class="fa fa-plus"></i>
+									</button>
+								</div>
+							</div>
+							<ol class="border" id="workTeamList">
+							</ol>
+						</div>
+					</div>
+
+					<div class="row my-1">
+						<div class='col-md-12'>
+							<div class="input-group input-group-sm mb-1">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-sm"><label
+										class='my-0' for="supportName">Support Name</label></span>
+								</div>
+								<input id="supportName" type="text" class="form-control"
+									aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										id="supportNameAddBtn" onclick="supportTeamAddAction()">
+										<i class="fa fa-plus"></i>
+									</button>
+								</div>
+							</div>
+							<ol class="border" id="supportNameList">
+							</ol>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</div>

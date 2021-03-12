@@ -36,6 +36,7 @@ public class Customer {
 	private String clientMac;
 	private Date serviceStartDate;
 	private Date expireDate;
+	private String connectionStatus="Active";
 	private int activeStatus;
 	private String reference;
 	private Timestamp entryTime;
@@ -234,6 +235,14 @@ public class Customer {
 
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
+	}
+
+	public String getConnectionStatus() {
+		return connectionStatus;
+	}
+
+	public void setConnectionStatus(String connectionStatus) {
+		this.connectionStatus = connectionStatus;
 	}
 
 	@Override

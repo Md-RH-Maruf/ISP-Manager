@@ -233,8 +233,7 @@
 										<%
 											for (Priority priority : Priority.values()) {
 										%>
-
-										<option value="<%=priority.getType()%>"><%=priority.name()%></option>
+										<option value="<%=priority.name()%>"><%=priority.name()%></option>
 										<%
 											}
 										%>

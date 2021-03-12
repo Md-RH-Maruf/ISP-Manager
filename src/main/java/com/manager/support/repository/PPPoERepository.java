@@ -8,5 +8,5 @@ import com.manager.support.entity.PPPoEInfo;
 
 @Repository
 public interface PPPoERepository extends JpaRepository<PPPoEInfo, Long>{
-
+	public PPPoEInfo findByCustomerId(String customerId);
 }

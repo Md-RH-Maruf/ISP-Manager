@@ -1,3 +1,4 @@
+<%@page import="com.manager.example.shareModel.ConnectionStatus"%>
 <%@page import="com.manager.example.shareModel.CustomerType"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -187,11 +188,18 @@
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="activeStatus">Active Status</label></span>
+												class='my-0' for="connectionStatus">Active Status</label></span>
 										</div>
-										<select class="form-control" id="activeStatus">
-											<option value="1">Active</option>
-											<option value="2">Inactive</option>
+										<select class="form-control" id="connectionStatus">
+											
+											<%
+												for (ConnectionStatus connection : ConnectionStatus.values()) {
+											%>
+
+											<option value="<%=connection.name()%>"><%=connection.name()%></option>
+											<%
+												}
+											%>
 										</select>
 									</div>
 								</div>
@@ -242,7 +250,7 @@
 												<th>Customer Id</th>
 												<th>Customer Name</th>
 												<th>Customer Type</th>
-												<th>Status</th>
+												<th>Connection Status</th>
 											</tr>
 										</thead>
 										<tbody id="customerList">
@@ -252,7 +260,7 @@
 													<td>${customer.customerId}</td>
 													<td>${customer.name}</td>
 													<td>${customer.customerType }</td>
-													<td>${customer.activeStatus }</td>
+													<td>${customer.connectionStatus }</td>
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -34,7 +34,7 @@ function submitComplain() {
     let customerName = $("#customerName").val();
     let area = $("#area").val();
     let complainDetails = $("#complainDetails").val();
-    let priority = $("#contactNo").val();
+    let priority = $("#priority").val();
 
 
     if (problemType != '') {
@@ -47,8 +47,10 @@ function submitComplain() {
                     url: '/submitComplainTMS',
                     data: {
                         customerId: customerId,
+                        subject : customerId+"_"+customerName,
                         problemType: problemType,
                         complainDetails: complainDetails,
+                        status: "OPEN",
                         priority: priority
                     },
                     success: function (data) {

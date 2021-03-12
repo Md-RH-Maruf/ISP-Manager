@@ -1,116 +1,41 @@
 window.onload = () => {
-  document.title = "PPPoEAndPassword Create";
+  document.title = "Customer Details";
 
 }
 
 
 function setPPPoEData(id) {
-  $("#exampleModal").modal('show');
-  $.ajax({
-    type: 'GET',
-    dataType: 'json',
-    url: '/getPPPoEInfo',
-    data: {
-      id: id
-    },
-    success: function (data) {
-      console.log(data)
-      let ppoePassword = data.ppoePasswordInfo;
-      $("#ppoePasswordAutoId").val(ppoePassword.id);
-      $("#popName").val(ppoePassword.popName);
-      $("#rackNo").val(ppoePassword.rackNo);
-      $("#chassiNo").val(ppoePassword.chassiNo);
-      $("#clientName").val(ppoePassword.clientName);
-      $("#switchPortNo").val(ppoePassword.switchPortNo);
-      $("#switchNo").val(ppoePassword.switchNo);
-      $("#exampleModal").modal('show');
-    }
-  });
+  $("#pppoeAutoId").val(id);
+  $("#customerId").val($("#customerId-"+id).text());
+  $("#customerName").val($("#customerName-"+id).text());
+  $("#pppoeId").val($("#pppoeId-"+id).text());
+  $("#pppoePassword").val($("#pppoePassword-"+id).text());
+ 
   $("#btnSave").hide();
   $("#btnEdit").show();
+
+  $("#exampleModal").modal('show');
 }
 
-function saveAction() {
-
-  let popName = $("#popName").val();
-  let rackNo = $("#rackNo").val();
-  let chassiNo = $("#chassiNo").val();
-  let clientName = $("#clientName").val();
-  let switchPortNo = $("#switchPortNo").val();
-  let switchNo = $("#switchNo").val();
-
-  if ((popName + rackNo + chassiNo) != '') {
-
-    if (confirm("Are you sure to save MC?")) {
-      $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/savePPPoEAndPasswordInfo',
-        data: {
-          popName: popName,
-          rackNo: rackNo,
-          chassiNo: chassiNo,
-          clientName: clientName,
-          switchPortNo: switchPortNo,
-          switchNo: switchNo
-        },
-        success: function (data) {
-          if (data.result == "Something Wrong") {
-            alert("Something went wrong");
-          } else if (data.result == "duplicate") {
-            alert("Duplicate PPPoEAndPassword Name..This PPPoEAndPassword Name Allreary Exist")
-          } else {
-            ///
-            if (data.result.id) {
-              alert("PPPoEAndPassword Save Successfully");
-              $('#ppoePasswordInfoTable').dataTable().fnDestroy();
-              $("#ppoePasswordList").empty();
-              $("#ppoePasswordList").append(drawPPPoEAndPasswordTable(data.ppoePasswordInfoList));
-              $('#ppoePasswordInfoTable').DataTable(({
-                "destroy": true,
-              }));
-            } else {
-              alert("Something went wrong");
-            }
-
-          }
-        }
-      });
-    }
-
-
-  } else {
-    alert("Empty PPPoEAndPassword Name... Please Enter PPPoEAndPassword Name Name");
-    $("#ppoePasswordName").val();
-  }
-}
 
 function editAction() {
+  let id = $("#pppoeAutoId").val();
+  let customerId = $("#customerId").val();
+  let pppoeId = $("#pppoeId").val().trim();
+  let pppoePassword = $("#pppoePassword").val().trim();
 
-  let id = $("#ppoePasswordAutoId").val();
-  let popName = $("#popName").val();
-  let rackNo = $("#rackNo").val();
-  let chassiNo = $("#chassiNo").val();
-  let clientName = $("#clientName").val();
-  let switchPortNo = $("#switchPortNo").val();
-  let switchNo = $("#switchNo").val();
-
-
-  if ((popName + rackNo + chassiNo) != '') {
-
-    if (confirm("Are you sure to Edit PPPoEAndPassword?")) {
+  if (pppoeId != '') {
+    if (pppoePassword != '') {
+    if (confirm("Are you sure to Edit PPPoE And Password?")) {
       $.ajax({
         type: 'POST',
         dataType: 'json',
         url: '/editPPPoEAndPasswordInfo',
         data: {
           id: id,
-          popName: popName,
-          rackNo: rackNo,
-          chassiNo: chassiNo,
-          clientName: clientName,
-          switchPortNo: switchPortNo,
-          switchNo: switchNo
+          customerId: customerId,
+          pppoeId: pppoeId,
+          password: pppoePassword
         },
         success: function (data) {
           if (data.result == "Something Wrong") {
@@ -122,11 +47,12 @@ function editAction() {
             if (data.result.id) {
               alert("PPPoEAndPassword Edit Successfully");
               $('#ppoePasswordInfoTable').dataTable().fnDestroy();
-              $("#ppoePasswordList").empty();
-              $("#ppoePasswordList").append(drawPPPoEAndPasswordTable(data.ppoePasswordInfoList));
+              $("#ppoeIdPasswordList").empty();
+              $("#ppoeIdPasswordList").append(drawPPPoEAndPasswordTable(data.ppoePasswordInfoList));
               $('#ppoePasswordInfoTable').DataTable(({
                 "destroy": true,
               }));
+              $("#exampleModal").modal('hide');
             } else {
               alert("Something went wrong");
             }
@@ -136,22 +62,13 @@ function editAction() {
       });
     }
   } else {
-    alert("Empty PPPoEAndPassword Name... Please Enter PPPoEAndPassword Name Name");
-    $("#ppoePasswordName").focus();
+    alert("Empty PPPoE Password ... Please Select PPPoE Password");
+    $("#pppoePassword").focus();
   }
-}
-
-function newClickAction() {
-  $("#ppoePasswordAutoId").val('');
-  $("#popName").val('');
-  $("#rackNo").val('');
-  $("#chassiNo").val('');
-  $("#clientName").val('');
-  $("#switchPortNo").val('');
-  $("#switchNo").val('');
-
-  $("#btnSave").show();
-  $("#btnEdit").hide();
+  } else {
+    alert("Empty PPPoE ID ... Please Select PPPoE Id");
+    $("#pppoeId").focus();
+  }
 }
 
 function refreshAction() {
@@ -167,15 +84,15 @@ function drawPPPoEAndPasswordTable(data) {
   let length = data.length;
 
   for (let i = 0; i < length; i++) {
-    let ppoePassword = data[i];
-    rows += `<tr style="cursor: pointer;"
-      onclick="setPPPoEAndPasswordData('${ppoePassword.id}')">
-      <td>${ppoePassword.popName}</td>
-      <td>${ppoePassword.rackNo}</td>
-      <td>${ppoePassword.chassiNo}</td>
-      <td>${ppoePassword.clientName}</td>
-      <td>${ppoePassword.switchPortNo}</td>
-      <td>${ppoePassword.switchNo}</td>
+    let ppoe = data[i];
+    rows += `<tr >
+    <td>${i+1}</td>
+    <td id="customerId-${ppoe.id}">${ppoe.customerId}</td>
+    <td id="customerName-${ppoe.id}">${ppoe.customerName }</td>
+    <td id="pppoeId-${ppoe.id}">${ppoe.pppoeId }</td>
+    <td id="pppoePassword-${ppoe.id}">${ppoe.pppoePassword }</td>
+    <td><i class="fa fa-edit" style="cursor: pointer;"
+    onclick="setPPPoEData('${ppoe.id}')"> </i></td>	
   </tr>`
   }
 
