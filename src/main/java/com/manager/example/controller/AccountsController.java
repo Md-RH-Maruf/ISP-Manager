@@ -55,6 +55,17 @@ public class AccountsController {
 
 		return view;
 	}
+	
+	//Not Approved Bill
+		@RequestMapping(value={"/accounts/not-approved-bill"})
+		public ModelAndView not_approved_bill(ModelMap map,HttpSession session) {
+
+			ModelAndView view = new ModelAndView("accounts/not-approved-bill");
+			//map.addAttribute("maxId",customerService.getMaxCustomerId());
+			//map.addAttribute("customerList",customerService.getCustomerList());
+
+			return view;
+		}
 
 
 	//Cash Transaction

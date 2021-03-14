@@ -9,25 +9,31 @@
 <div class="container">
 
 	<div class="card-body">
-		<div class="row">
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">New Ticket</button>
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-4">
+				<h5>Product Transaction</h5>
+			</div>
+			<div class="col-md-8">
+				<label for="fromDate">From Date</label><input id="fromDate"
+					class="form-control-sm" type="date"> <label class="ml-5"
+					for="toDate">To Date</label><input id="toDate"
+					class="form-control-sm" type="date">
+				<button type="button" class="btn btn-sm btn-primary">Search</button>
+			</div>
+
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
 				cellspacing="0">
 				<thead>
 					<tr>
-						<th>Bill NO</th>
-						<th>User</th>
-						<th>Bill Date</th>
-						<th>Follow up Time</th>
-						<th>Created</th>
-						<th>Ticked Id</th>
-						<th>Bill Head</th>
-						<th>Total Amount</th>
-						<th>Bill Status</th>
-						<th>Action</th>
+						<th>SL</th>
+						<th>Product Name</th>
+						<th>Opening Quantity</th>
+						<th>Purchase</th>
+						<th>Issue</th>
+						<th>Damage/Wastage</th>
+						<th>Closing Quantity</th>
 					</tr>
 				</thead>
 				<tbody id="dataBody">
@@ -46,7 +52,7 @@
 			<div class="modal-header">
 				<h5 class="modal-title">Resources</h5>
 				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" >
+					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>

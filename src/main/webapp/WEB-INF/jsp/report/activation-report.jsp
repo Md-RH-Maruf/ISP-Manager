@@ -9,20 +9,32 @@
 <div class="container">
 
 	<div class="card-body">
-		<div class="row my-1">
-			<h5>Product Requisition List</h5>
+		<div class="row">
+		<div class="col-md-4">
+				<h5>Activation Report</h5>
+			</div>
+			<div class="col-md-8">
+				<label for="fromDate">From Date</label><input id="fromDate"
+					class="form-control-sm" type="date"> <label class="ml-5"
+					for="toDate">To Date</label><input id="toDate"
+					class="form-control-sm" type="date">
+				<button type="button" class="btn btn-sm btn-primary">Search</button>
+			</div>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
 				cellspacing="0">
 				<thead>
 					<tr>
-						<th>Requisition No</th>
-						<th>Requisition Date</th>
-						<th>Ticket ID</th>
-						<th>Product Quantity</th>
-						<th>Create By</th>
-						<th>View</th>
+						<th>Unique Id</th>
+						<th>National Id</th>
+						<th>Name</th>
+						<th>Key Person</th>
+						<th>Mobile</th>
+						<th>Address</th>
+						<th>User Type</th>
+						<th>KAM</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody id="dataBody">

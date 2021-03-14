@@ -10,8 +10,9 @@
 
 	<div class="card-body">
 		<div class="row">
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">New Ticket</button>
+		<h5>Approved Bill</h5>
+			<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#exampleModal">New Ticket</button> -->
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
@@ -23,10 +24,10 @@
 						<th>Bill Date</th>
 						<th>Bill Head</th>
 						<th>Total Amount</th>
-						<th>Approved B</th>
+						<th>Approved By</th>
 						<th>Action</th>
 					</tr>
-				</thead>y
+				</thead>
 				<tbody id="dataBody">
 
 				</tbody>

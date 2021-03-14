@@ -105,7 +105,7 @@
 						<div class="col mr-2">
 							<div
 								class="text-xs font-weight-bold text-success text-uppercase mb-1">
-								Open Activation Ticket</div>
+								Open Complain Ticket</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800">150</div>
 						</div>
 						<div class="col-auto">
@@ -292,8 +292,8 @@
 						<div class="col mr-2">
 							<div
 								class="text-xs font-weight-bold text-success text-uppercase mb-1">
-								Total Due </div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">4000</div>
+								Total Customer </div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">4560</div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -311,7 +311,7 @@
 							<div
 								class="text-xs font-weight-bold text-info text-uppercase mb-1">
 								Active Customer</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">7000</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">2500</div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -329,7 +329,7 @@
 							<div
 								class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
 								Renew Customer</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">3000</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">1500</div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -347,7 +347,7 @@
 							<div
 								class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 								Expired Customer</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">600</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">560</div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-calendar fa-2x text-gray-300"></i>

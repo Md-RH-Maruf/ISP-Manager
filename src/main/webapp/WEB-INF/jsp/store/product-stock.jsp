@@ -9,25 +9,18 @@
 <div class="container">
 
 	<div class="card-body">
-		<div class="row">
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">New Ticket</button>
+		<div class="row my-1">
+			<h5>All Product Stock</h5>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
 				cellspacing="0">
 				<thead>
 					<tr>
-						<th>Bill NO</th>
-						<th>User</th>
-						<th>Bill Date</th>
-						<th>Follow up Time</th>
-						<th>Created</th>
-						<th>Ticked Id</th>
-						<th>Bill Head</th>
-						<th>Total Amount</th>
-						<th>Bill Status</th>
-						<th>Action</th>
+						<th>SL</th>
+						<th>Product Name</th>
+						<th>Stock Quantity</th>
+						
 					</tr>
 				</thead>
 				<tbody id="dataBody">

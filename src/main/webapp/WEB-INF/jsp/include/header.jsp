@@ -16,7 +16,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>ISP Manager</title>
+<title>ISP Solution</title>
 
 <!-- Custom fonts for this template-->
 <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -49,11 +49,11 @@
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="${pageContext.request.contextPath}/dashboard">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-wifi"></i>
 				</div>
-				<div class="sidebar-brand-text mx-1">ISP Manager</div>
+				<div class="sidebar-brand-text mx-1">ISP Solution</div>
 			</a>
 
 			<!-- Divider -->

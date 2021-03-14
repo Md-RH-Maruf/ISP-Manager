@@ -15,7 +15,7 @@
 				<div class="col-md-12 ">
 					<div class="p-5">
 						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Create Bill</h1>
+							<h1 class="h4 text-gray-900 mb-4">Issue Product</h1>
 						</div>
 
 						<div class="row my-1">
@@ -23,9 +23,9 @@
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="billNo">Bill No</label></span>
+											class='my-0' for="requistionNo">Requisition No</label></span>
 									</div>
-									<input id="billNo" type="text" class="form-control"
+									<input id="requistionNo" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
@@ -48,9 +48,9 @@
 											<div class="input-group input-group-sm mb-1">
 												<div class="input-group-prepend">
 													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="billLedger">Bill Ledger</label></span>
+														class='my-0' for="product">Product</label></span>
 												</div>
-												<select id="billLedger"
+												<select id="product"
 													class="form-control selectpicker"
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-sm"
@@ -68,42 +68,29 @@
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="billDate">Bill Date</label></span>
+											class='my-0' for="requistionDate">Requisition Date</label></span>
 									</div>
-									<input id="billDate" type="date" class="form-control"
+									<input id="requistionDate" type="date" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
 							</div>
 										
 						</div>
-
 						<div class="row my-1">
-						
 						<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="billAmount">Bill Amount</label></span>
+											class='my-0' for="quantity">Quantity</label></span>
 									</div>
-									<input id="billAmount" type="text" class="form-control"
+									<input id="quantity" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
 							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="description">Description</label></span>
-									</div>
-									<textarea id="description" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm"></textarea>
-								</div>
-							</div>
-							
 						</div>
+						
 						<div class="row my-1">
 							<div class="col-md-12 ">
 									<button type="button" id="btnAdd" class="btn btn-primary btn-sm" onclick="addAction()">Add</button>
@@ -142,20 +129,19 @@
 										<thead>
 											<tr>
 												<th>SL</th>
-												<th>Ledger Name</th>
-												<th>Amount</th>
+												<th>Product Name</th>
+												<th>Quantity</th>
 												<th>Description</th>
 											</tr>
 										</thead>
-										<tbody id="customerList">
-											<c:forEach items="${customerList}" var="ledger"
+										<tbody id="prductList">
+											<c:forEach items="${prductList}" var="product"
 												varStatus="counter">
 												<tr style="cursor: pointer;"
-													onclick="setCustomerData('${ledger.id}')">
-													<td>${ledger.customerId}</td>
-													<td>${ledger.name}</td>
-													<td>${ledger.customerType }</td>
-													<td>${ledger.status }</td>
+													onclick="setCustomerData('${product.id}')">
+													<td>${product.productName}</td>
+													<td>${product.quantity}</td>
+													<td>${product.description }</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -163,8 +149,7 @@
 								</div>
 							</div>
 						<button type="button" onclick="submitBill()"
-							class="btn btn-primary btn-user btn-block">Submit
-							Bill</button>
+							class="btn btn-primary btn-user btn-block">Confirm Issue Product</button>
 
 					</div>
 				</div>

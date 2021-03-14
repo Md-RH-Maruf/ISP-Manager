@@ -9,20 +9,26 @@
 <div class="container">
 
 	<div class="card-body">
-		<div class="row my-1">
-			<h5>Product Requisition List</h5>
+		<div class="row">
+		<h5>Daily Work Report</h5>
+			<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#exampleModal">New Ticket</button> -->
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
 				cellspacing="0">
 				<thead>
 					<tr>
-						<th>Requisition No</th>
-						<th>Requisition Date</th>
-						<th>Ticket ID</th>
-						<th>Product Quantity</th>
-						<th>Create By</th>
-						<th>View</th>
+						<th>Area</th>
+						<th>Ticket Details</th>
+						<th>TMS</th>
+						<th>Date</th>
+						<th>Team</th>
+						<th>Priority</th>
+						<th>Remarks</th>
+						<th>Status</th>
+						<th>Start</th>
+						<th>End</th>
 					</tr>
 				</thead>
 				<tbody id="dataBody">
