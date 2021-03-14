@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.manager.security.entityModel.MyUserDetails;
 import com.manager.store.entity.Category;
+import com.manager.store.entity.Product;
 import com.manager.store.service.CategoryService;
+import com.manager.store.service.ProductService;
 import com.manager.support.entity.McInformation;
 
 @Controller
@@ -26,6 +28,9 @@ public class StoreController {
 
 		@Autowired
 		CategoryService categoryService;
+		
+		@Autowired
+		ProductService productService;
 	
 	//Create Product
 		@RequestMapping(value={"/store/create-product"})
@@ -33,6 +38,7 @@ public class StoreController {
 
 			ModelAndView view = new ModelAndView("store/product-create");
 			map.addAttribute("categoryList",categoryService.getCategoryList());
+			map.addAttribute("productList",productService.getProductList());
 			//map.addAttribute("customerList",customerService.getCustomerList());
 
 			return view;
@@ -42,10 +48,33 @@ public class StoreController {
 		public @ResponseBody Map<String, Object> saveCategory(Category category) {
 			Map<String, Object> obj = new HashMap();
 			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			category.setEntryTime(new Timestamp(new Date().getTime()));
-			category.setEntryBy(userDetails.getId());
-			obj.put("result", categoryService.saveCategory(category));
-			obj.put("categoryList",categoryService.getCategoryList());
+			
+			if(!categoryService.isCategoryExist(category.getCategoryName(), 0)) {
+				category.setEntryTime(new Timestamp(new Date().getTime()));
+				category.setEntryBy(userDetails.getId());
+				obj.put("result", categoryService.saveCategory(category));
+				obj.put("categoryList",categoryService.getCategoryListOrderByParentsId());
+			}else {
+				obj.put("result", "duplicate");
+			}
+			
+			return obj;
+		}
+		
+		@RequestMapping(value= {"/editCategory"},method=RequestMethod.POST)
+		public @ResponseBody Map<String, Object> editCategory(Category category) {
+			Map<String, Object> obj = new HashMap();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!categoryService.isCategoryExist(category.getCategoryName(), category.getId())) {
+				category.setEntryTime(new Timestamp(new Date().getTime()));
+				category.setEntryBy(userDetails.getId());
+				obj.put("result", categoryService.saveCategory(category));
+				obj.put("categoryList",categoryService.getCategoryListOrderByParentsId());
+			}else {
+				obj.put("result", "duplicate");
+			}
+			
+			
 			return obj;
 		}
 		
@@ -54,6 +83,46 @@ public class StoreController {
 			Map<String, Object> obj = new HashMap();
 			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			obj.put("categoryList",categoryService.getCategoryListOrderByParentsId());
+			return obj;
+		}
+		
+		@RequestMapping(value= {"/saveProduct"},method=RequestMethod.POST)
+		public @ResponseBody Map<String, Object> saveProduct(Product product) {
+			Map<String, Object> obj = new HashMap();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!productService.isProductExist(product.getProductName(), 0)) {
+				product.setEntryTime(new Timestamp(new Date().getTime()));
+				product.setEntryBy(userDetails.getId());
+				obj.put("result", productService.saveProduct(product));
+				obj.put("productList",productService.getProductList());
+			}else {
+				obj.put("result", "duplicate");
+			}
+			
+			return obj;
+		}
+		
+		@RequestMapping(value= {"/editProduct"},method=RequestMethod.POST)
+		public @ResponseBody Map<String, Object> editProduct(Product product) {
+			Map<String, Object> obj = new HashMap();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!productService.isProductExist(product.getProductName(), product.getId())) {
+				product.setEntryTime(new Timestamp(new Date().getTime()));
+				product.setEntryBy(userDetails.getId());
+				obj.put("result", productService.saveProduct(product));
+				obj.put("productList",productService.getProductList());
+			}else {
+				obj.put("result", "duplicate");
+			}
+			
+			return obj;
+		}
+		
+		@RequestMapping(value= {"/getProductInfo"},method=RequestMethod.GET)
+		public @ResponseBody Map<String, Object> getProductInfo(String productId) {
+			Map<String, Object> obj = new HashMap();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			obj.put("productInfo",productService.findById(Long.valueOf(productId)));
 			return obj;
 		}
 		

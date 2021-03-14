@@ -29,6 +29,7 @@
 			</p>
 		</div>
 		<input type="hidden" id="categoryId" value="0">
+		<input type="hidden" id="productId" value="0">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="card-box">
@@ -86,7 +87,7 @@
 										class="btn btn-success btn-sm" onclick="categoryEditAction()"
 										style="display: none;">Edit</button>
 									<button type="button" id="btnCategoryRefresh"
-										class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
+										class="btn btn-secondary btn-sm" onclick="categoryRefreshAction()">Refresh</button>
 
 								</div>
 							</div>
@@ -95,17 +96,9 @@
 
 								<div class="col-md-12">
 									<ul id="tree1">
-										<li id="cat-0" style="cursor: pointer;">Products
-											<ul>
-												<li style="cursor: pointer;">Wire
-													<ul>
-														<li style="cursor: pointer;">Network Wire</li>
-														<li style="cursor: pointer;">Network Cable</li>
-													</ul>
-												</li>
-												<li style="cursor: pointer;">Switch</li>
-												<li style="cursor: pointer;">Router</li>
-												<li style="cursor: pointer;">Server</li>
+										<li id="cat-0" style="cursor: pointer;">Products Category
+											<ul id="ul-0">
+												
 											</ul>
 										</li>
 									</ul>
@@ -215,21 +208,19 @@
 									<table class="table table-hover table-bordered table-sm">
 										<thead>
 											<tr>
-												<th>Product Id</th>
 												<th>Product Name</th>
-												<th>Product Type</th>
+												<th>Brand Name</th>
 												<th>Status</th>
 											</tr>
 										</thead>
-										<tbody id="customerList">
-											<c:forEach items="${customerList}" var="product"
+										<tbody id="productList">
+											<c:forEach items="${productList}" var="product"
 												varStatus="counter">
 												<tr style="cursor: pointer;"
-													onclick="setCustomerData('${product.id}')">
-													<td>${product.customerId}</td>
-													<td>${product.name}</td>
-													<td>${product.customerType }</td>
-													<td>${product.status }</td>
+													onclick="setProductData('${product.id}')">
+													<td>${product.productName}</td>
+													<td>${product.brandName}</td>
+													<td>${product.activeStatus }</td>
 												</tr>
 											</c:forEach>
 										</tbody>
