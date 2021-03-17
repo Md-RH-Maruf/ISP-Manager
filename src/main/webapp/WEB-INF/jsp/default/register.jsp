@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>ISP Manager Register</title>
+<title>ISP Center Register</title>
 
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -97,12 +97,12 @@
 								<button type="button" onclick="register()"
 									class="btn btn-primary btn-user btn-block"> Register
 									Account </button>
-								<hr>
+								<!-- <hr>
 								<a href="dashboard" class="btn btn-google btn-user btn-block">
 									<i class="fab fa-google fa-fw"></i> Register with Google
 								</a> <a href="dashboard" class="btn btn-facebook btn-user btn-block">
 									<i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-								</a>
+								</a> -->
 							</form>
 							<hr>
 							<div class="text-center">

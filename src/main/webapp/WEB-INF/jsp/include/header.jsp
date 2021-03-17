@@ -274,7 +274,7 @@
 				aria-expanded="true" aria-controls="collapseCustomer"> <i
 					class="fas fa-fw fa-cog"></i> <span>Menus</span>
 			</a>
-				<div id="collapseCustomer" class="collapse"
+				<div id="collapseCustomer" class="collapse show"
 					aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
@@ -518,7 +518,7 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
+								<a class="dropdown-item" href="${pageContext.request.contextPath}/profile"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
 								</a> <a class="dropdown-item" href="#"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -59,6 +59,14 @@ public class PrimaryController {
 		return view;
 	}
 	
+	@RequestMapping(value={"/profile"})
+	public ModelAndView profile(ModelMap map,HttpSession session) {
+		
+		ModelAndView view = new ModelAndView("common/profile");
+		
+		return view;
+	}
+	
 	@RequestMapping(value={"/support/complain"})
 	public ModelAndView complain(ModelMap map,HttpSession session) {
 		

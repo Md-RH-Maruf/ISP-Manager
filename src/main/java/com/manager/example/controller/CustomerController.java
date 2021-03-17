@@ -72,4 +72,17 @@ public class CustomerController {
 			//map.addAttribute("resourceList",resourceService.getResourceList());
 			return view;
 		}
+		
+		@RequestMapping(value={"/customer/online-payment"})
+		public ModelAndView online_payment(ModelMap map,HttpSession session) {
+			//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			ModelAndView view = new ModelAndView("customer/online-payment");
+			
+			map.addAttribute("userId",userDetails.getId());
+			map.addAttribute("memberId",userDetails.getMemberId());
+			map.addAttribute("userName",userDetails.getUsername());
+			//map.addAttribute("resourceList",resourceService.getResourceList());
+			return view;
+		}
 }

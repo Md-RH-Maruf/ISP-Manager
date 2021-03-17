@@ -108,7 +108,7 @@ public class SupportController {
 		if(customerService.saveCustomer(customer)!=null) {
 			activationTms.setTmsNo(activationService.getMaxTMSNo());
 			activationTms.setCustomerId(customer.getCustomerId());
-			activationTms.setSubject("Activation: "+userDetails.getUsername());
+			activationTms.setSubject("Activation: "+customer.getName()+"_"+customer.getArea());
 			activationTms.setEntryTime(new Timestamp(new Date().getTime()));
 			activationTms.setPriority("LOW");
 			activationTms.setStatus("OPEN");
