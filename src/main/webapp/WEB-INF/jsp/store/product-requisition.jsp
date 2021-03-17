@@ -5,7 +5,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card o-hidden border-0 shadow-lg my-5">
 		<div class="card-body p-0 d-flex justify-content-center">
@@ -27,7 +27,7 @@
 									</div>
 									<input id="requisitionNo" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm" readonly="readonly" value='${maxReqNo}'>
 								</div>
 							</div>
 
@@ -56,8 +56,8 @@
 										data-live-search="true"
 										data-style="btn-light btn-sm border-secondary form-control-sm">
 										<option value="0">Select Resource</option>
-										<c:forEach items="${resourceList}" var="resource">
-											<option value="${resource.id}">${resource.resourceName}</option>
+										<c:forEach items="${productList}" var="product">
+											<option value="${product.id}">${product.productName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -85,7 +85,7 @@
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
 											class='my-0' for="quantity">Quantity</label></span>
 									</div>
-									<input id="quantity" type="text" class="form-control"
+									<input id="quantity" type="number" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
@@ -150,8 +150,8 @@
 											<th>Description</th>
 										</tr>
 									</thead>
-									<tbody id="customerList">
-										<c:forEach items="${customerList}" var="ledger"
+									<tbody id="requisitionProductList">
+										<c:forEach items="${requisitionProductList}" var="product"
 											varStatus="counter">
 											<tr style="cursor: pointer;"
 												onclick="setCustomerData('${ledger.id}')">
@@ -165,7 +165,7 @@
 								</table>
 							</div>
 						</div>
-						<button type="button" onclick="submitBill()"
+						<button type="button" onclick="submitProductRequisition()"
 							class="btn btn-primary btn-user btn-block">Submit Product Requisition</button>
 
 					</div>
@@ -249,4 +249,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>
+	src="${pageContext.request.contextPath}/js/store/product-requisition.js"></script>

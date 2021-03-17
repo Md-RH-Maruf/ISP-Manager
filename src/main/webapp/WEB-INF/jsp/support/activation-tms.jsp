@@ -5,7 +5,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card o-hidden border-0 shadow-lg my-5">
 		<div class="card-body p-0 d-flex justify-content-center">
@@ -15,7 +15,7 @@
 				<div class="col-md-12 ">
 					<div class="p-5">
 						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Activation TMS</h1>
+							<h1 class="h4 text-gray-900 mb-4">Activation Ticket</h1>
 						</div>
 
 						<div class="row my-1">

@@ -1,12 +1,16 @@
 package com.manager.example.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,9 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.manager.security.entityModel.MyUserDetails;
 import com.manager.store.entity.Category;
 import com.manager.store.entity.Product;
+import com.manager.store.entity.ProductRequisition;
+import com.manager.store.entity.RequisitionProductDetails;
 import com.manager.store.service.CategoryService;
+import com.manager.store.service.ProductRequisitionService;
 import com.manager.store.service.ProductService;
-import com.manager.support.entity.McInformation;
+import com.manager.store.service.RequisitionProductDetailsService;
 
 @Controller
 public class StoreController {
@@ -31,7 +38,11 @@ public class StoreController {
 		
 		@Autowired
 		ProductService productService;
-	
+		
+		@Autowired
+		ProductRequisitionService productReqService;
+		@Autowired
+		RequisitionProductDetailsService requistionProductDetailsService;
 	//Create Product
 		@RequestMapping(value={"/store/create-product"})
 		public ModelAndView service_create(ModelMap map,HttpSession session) {
@@ -131,10 +142,48 @@ public class StoreController {
 				public ModelAndView createProductRequisition(ModelMap map,HttpSession session) {
 
 					ModelAndView view = new ModelAndView("store/product-requisition");
-					//map.addAttribute("maxId",customerService.getMaxCustomerId());
-					//map.addAttribute("customerList",customerService.getCustomerList());
+					
+					map.addAttribute("maxReqNo",productReqService.getMaxRequisitionNo());
+					map.addAttribute("productList",productService.getProductList());
 
 					return view;
+				}
+				
+				@RequestMapping(value= {"/submitProductRequisition"},method=RequestMethod.POST)
+				public @ResponseBody Map<String, Object> submitProductRequisition(ProductRequisition productRequisition,String productsString) {
+					Map<String, Object> obj = new HashMap();
+					MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					List<RequisitionProductDetails> requisitionProductList = new ArrayList<RequisitionProductDetails>() ;
+					
+					productRequisition.setEntryTime(new Timestamp(new Date().getTime()));
+					productRequisition.setEntryBy(userDetails.getId());
+					JSONObject products = new JSONObject(productsString);
+					System.out.println("list"+products.toString());
+					JSONArray productList = products.getJSONArray("list");
+					for(Object object: productList) {
+						JSONObject jObject = (JSONObject) object;
+						RequisitionProductDetails reqDetail = new RequisitionProductDetails();
+						reqDetail.setRequisitionNo(productRequisition.getRequisitionNo());
+						reqDetail.setProductId(jObject.getInt("productId"));
+						reqDetail.setProductQuantity(jObject.getInt("quantity"));
+						reqDetail.setDescription(jObject.getString("description"));
+						reqDetail.setEntryTime(new Timestamp(new Date().getTime()));
+						reqDetail.setEntryBy(userDetails.getId());
+						requisitionProductList.add(reqDetail);
+					}
+					
+					if(productReqService.saveProductRequisition(productRequisition) != null) {
+						if(requistionProductDetailsService.saveRequisitionProducts(requisitionProductList) != null) {
+							obj.put("result", "duplicate");
+						}else {
+							obj.put("result", "successfull");
+						}
+						
+					}else {
+						obj.put("result", "something wrong");
+					}
+					
+					return obj;
 				}
 				
 				//purchase product
@@ -142,7 +191,7 @@ public class StoreController {
 				public ModelAndView purchaseProuduct(ModelMap map,HttpSession session) {
 
 					ModelAndView view = new ModelAndView("store/product-purchase");
-					//map.addAttribute("maxId",customerService.getMaxCustomerId());
+					map.addAttribute("productList",productService.getProductList());
 					//map.addAttribute("customerList",customerService.getCustomerList());
 
 					return view;

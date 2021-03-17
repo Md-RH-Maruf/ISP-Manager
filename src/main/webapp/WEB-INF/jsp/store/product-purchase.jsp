@@ -5,7 +5,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card o-hidden border-0 shadow-lg my-5">
 		<div class="card-body p-0 d-flex justify-content-center">
@@ -18,7 +18,7 @@
 							<h1 class="h4 text-gray-900 mb-4">Purchase Product</h1>
 						</div>
 
-						
+
 						<div class="row my-1">
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
@@ -26,7 +26,7 @@
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
 											class='my-0' for="supplierName">Supplier Name</label></span>
 									</div>
-									<input id="supplierName" type="date" class="form-control"
+									<input id="supplierName" type="input" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
@@ -36,9 +36,9 @@
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="requisitionDate">Requisition Date</label></span>
+											class='my-0' for="purchaseDate">Purchase Date</label></span>
 									</div>
-									<input id="requisitionDate" type="date" class="form-control"
+									<input id="purchaseDate" type="date" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
@@ -47,7 +47,7 @@
 						</div>
 
 						<div class="row my-1">
-<div class='col-md-6'>
+							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
@@ -59,8 +59,8 @@
 										data-live-search="true"
 										data-style="btn-light btn-sm border-secondary form-control-sm">
 										<option value="0">Select Resource</option>
-										<c:forEach items="${resourceList}" var="resource">
-											<option value="${resource.id}">${resource.resourceName}</option>
+										<c:forEach items="${productList}" var="product">
+											<option value="${product.id}">${product.productName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -76,7 +76,7 @@
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
 							</div>
-							
+
 
 						</div>
 						<div class="row my-1">
@@ -122,12 +122,11 @@
 										<tr>
 											<th>SL</th>
 											<th>Product Name</th>
-											<th>Quantity</th>
-											<th>Description</th>
+											<th>Quantity</th>			
 										</tr>
 									</thead>
-									<tbody id="customerList">
-										<c:forEach items="${customerList}" var="ledger"
+									<tbody id="purchaseProductList">
+										<c:forEach items="${purchaseProductList}" var="ledger"
 											varStatus="counter">
 											<tr style="cursor: pointer;"
 												onclick="setCustomerData('${ledger.id}')">
@@ -142,7 +141,8 @@
 							</div>
 						</div>
 						<button type="button" onclick="submitBill()"
-							class="btn btn-primary btn-user btn-block">Submit Product Requisition</button>
+							class="btn btn-primary btn-user btn-block">Submit
+							Product Requisition</button>
 
 					</div>
 				</div>
@@ -225,4 +225,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>
+	src="${pageContext.request.contextPath}/js/store/product-purchase.js"></script>

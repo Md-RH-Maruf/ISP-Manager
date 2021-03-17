@@ -6,7 +6,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card-body">
 		<div class="row">
@@ -38,7 +38,28 @@
 					</tr>
 				</thead>
 				<tbody id="dataBody">
-
+					<tr>
+						<th>45455</th>
+						<th>01245</th>
+						<th></th>
+						<th>Mr. Robel</th>
+						<th>0148758645</th>
+						<th>House#458 Chatteshawri Road,Chattagram</th>
+						<th>Radius</th>
+						<th>69</th>
+						<th>Active</th>
+					</tr>
+					<tr>
+						<th>199433</th>
+						<th>0175698</th>
+						<th></th>
+						<th>Lucky Lungi</th>
+						<th>0148758645</th>
+						<th>Chandpur</th>
+						<th>Static</th>
+						<th>69</th>
+						<th>Active</th>
+					</tr>
 				</tbody>
 			</table>
 		</div>

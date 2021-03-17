@@ -457,8 +457,8 @@ public class SupportController {
 		}
 
 	// MC Position
-	@RequestMapping(value={"/inventory/customer-details"})
-	public ModelAndView customer_details(ModelMap map,HttpSession session) {
+	@RequestMapping(value={"/inventory/connection-details"})
+	public ModelAndView connection_details(ModelMap map,HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView view = new ModelAndView("support/customer-details");
 		map.addAttribute("customerList",customerService.getCustomerList());

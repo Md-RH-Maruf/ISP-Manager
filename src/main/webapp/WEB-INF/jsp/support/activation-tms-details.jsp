@@ -7,7 +7,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card o-hidden border-0 shadow-lg">
 		<div class="card-body px-5 py-2">

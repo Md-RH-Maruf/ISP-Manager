@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manager.security.entity.ResourceRole;
-import com.manager.security.entityModel.ResourceRoleDetails;
+import com.manager.security.entity.ResourceRoleDetails;
 import com.manager.security.repository.ResourceRoleRepository;
 
 @Service
@@ -79,5 +79,26 @@ public class ResourceRoleService {
 		em.close();
 		return resourceList;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<String> getRoleNameListByUserId(Long userId){
+		System.out.println("TEST"+emf);
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		List<String> roleList = new ArrayList<>();
+		List<Object[]> results = em.createQuery("SELECT r.roleName FROM UsersRoles ur\r\n" + 
+				"JOIN Role r\r\n" + 
+				"ON ur.roleId = r.id\r\n" + 
+				"WHERE ur.userId = '"+userId+"'").getResultList();
+		
+		for(Object[] obj:results) {
+			
+			roleList.add(obj.toString());
+		}
+		em.getTransaction().commit();
+		em.close();
+		return roleList;
 	}
 }

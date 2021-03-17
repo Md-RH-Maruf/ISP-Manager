@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import com.manager.example.entityModel.TicketDetails;
 import com.manager.inventory.entity.Customer;
 import com.manager.inventory.entity.Employee;
+import com.manager.security.entity.ResourceRoleDetails;
 import com.manager.security.entity.User;
-import com.manager.security.entityModel.ResourceRoleDetails;
 import com.manager.support.entity.ActivationTMS;
 import com.manager.support.repository.ActivationTMSRepository;
 

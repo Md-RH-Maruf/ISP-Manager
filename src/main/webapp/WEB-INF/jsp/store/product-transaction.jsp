@@ -6,7 +6,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card-body">
 		<div class="row d-flex justify-content-center">
@@ -37,7 +37,33 @@
 					</tr>
 				</thead>
 				<tbody id="dataBody">
-
+					<tr>
+						<th>1</th>
+						<th>Cat-5</th>
+						<th>5</th>
+						<th>2</th>
+						<th>3</th>
+						<th>0</th>
+						<th>4</th>
+					</tr>
+					<tr>
+						<th>2</th>
+						<th>Router</th>
+						<th>10</th>
+						<th>5</th>
+						<th>6</th>
+						<th>0</th>
+						<th>9</th>
+					</tr>
+					<tr>
+						<th>3</th>
+						<th>Switch</th>
+						<th>7</th>
+						<th>5</th>
+						<th>7</th>
+						<th>0</th>
+						<th>8</th>
+					</tr>
 				</tbody>
 			</table>
 		</div>

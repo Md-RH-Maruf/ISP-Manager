@@ -1,4 +1,4 @@
-package com.manager.security.entityModel;
+package com.manager.security.entity;
 
 import java.sql.Timestamp;
 

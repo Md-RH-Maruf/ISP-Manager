@@ -6,7 +6,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card-body">
 		<div class="row">
@@ -35,7 +35,30 @@
 					</tr>
 				</thead>
 				<tbody id="dataBody">
-
+					<tr>
+						<td>bill-201215</td>
+						<td>Hasan Chowdhury</td>
+						<td>800</td>
+						<td>0</td>
+						<td>2021-23-10 10:00</td>
+						<td><i class="fa fa-eye"></i></td>
+					</tr>
+					<tr>
+						<td>bill-201216</td>
+						<td>Nasir Hossain</td>
+						<td>750</td>
+						<td>750</td>
+						<td>2021-23-11 10:00</td>
+						<td><i class="fa fa-eye"></i></td>
+					</tr>
+					<tr>
+						<td>bill-201217</td>
+						<td>Md. Robel</td>
+						<td>400</td>
+						<td>400</td>
+						<td>2021-21-10 10:00</td>
+						<td><i class="fa fa-eye"></i></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

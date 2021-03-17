@@ -6,13 +6,20 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="card-body">
 		<div class="row">
-		<h5>Daily Work Report</h5>
-			<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">New Ticket</button> -->
+		<div class="col-md-4">
+				<h5>Daily Work Report</h5>
+			</div>
+			<div class="col-md-8">
+				<label for="fromDate">From Date</label><input id="fromDate"
+					class="form-control-sm" type="date"> <label class="ml-5"
+					for="toDate">To Date</label><input id="toDate"
+					class="form-control-sm" type="date">
+				<button type="button" class="btn btn-sm btn-primary">Search</button>
+			</div>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
@@ -32,7 +39,42 @@
 					</tr>
 				</thead>
 				<tbody id="dataBody">
-
+					<tr>
+						<th>Oxygen</th>
+						<th>218243_Jannat Store_018457645</th>
+						<th>AT-20153615</th>
+						<th>Wed Mar 3 2021 9:58AM</th>
+						<th>Azam,Shahin,Akther,Jahangir</th>
+						<th>Normal</th>
+						<th>Down Issue</th>
+						<th>Completed</th>
+						<th>10:45 am</th>
+						<th></th>
+					</tr>
+					<tr>
+						<th>Oxygen</th>
+						<th>218252_Hasan Enterprise_01748964575</th>
+						<th>AT-20153624</th>
+						<th>Wed Mar 3 2021 5:28AM</th>
+						<th>Jahangir,Azam,Shahin,Akther</th>
+						<th>Normal</th>
+						<th>Down Issue</th>
+						<th>Completed</th>
+						<th>10:55 am</th>
+						<th></th>
+					</tr>
+					<tr>
+						<th>Muradpur</th>
+						<th>218136_Ismail Hossain_0163261547</th>
+						<th>AT-20153624</th>
+						<th>Wed Mar 3 2021 5:28AM</th>
+						<th>Jahed,Shahin,Akther</th>
+						<th>Normal</th>
+						<th>Down Issue</th>
+						<th>Completed</th>
+						<th>10:55 am</th>
+						<th></th>
+					</tr>
 				</tbody>
 			</table>
 		</div>

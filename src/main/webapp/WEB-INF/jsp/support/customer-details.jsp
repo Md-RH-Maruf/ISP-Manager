@@ -31,6 +31,9 @@
 			</p>
 		</div>
 		<input type="hidden" id="pppoeAutoId" value="0">
+		<div class="text-center">
+							<h1 class="h4 text-gray-900 mb-4">Connection Details</h1>
+		</div>
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12  px-0">
 				<div class="card-box">

@@ -39,8 +39,14 @@ public class PrimaryController {
 	
 	@RequestMapping(value={"/dashboard"})
 	public ModelAndView dashboard(ModelMap map,HttpSession session) {
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		ModelAndView view = new ModelAndView("common/dashboard");
+		ModelAndView view = view = new ModelAndView("common/dashboard");;
+		if(userDetails.getUserType() == 1) {
+			view = new ModelAndView("common/customer-dashboard");
+		}else {
+			view = new ModelAndView("common/dashboard");
+		}
 		
 		return view;
 	}

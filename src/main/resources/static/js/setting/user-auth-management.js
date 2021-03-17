@@ -13,7 +13,8 @@ function setUserData(userId){
           userId : userId
         },
         success: function (data) {
-          successAlert("Edit Successfully...");
+          //successAlert("Edit Successfully...");
+          console.log(data);
           $("#resourceRoleList").empty()
           data.resourceRoleDetails.forEach((row,index)=>{
             $("#resourceRoleList").append(`<tr>

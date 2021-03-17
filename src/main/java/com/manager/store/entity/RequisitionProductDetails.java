@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_product_requisition")
+@Table(name="tb_requisition_product_details")
 public class RequisitionProductDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class RequisitionProductDetails {
 	private int productQuantity;
 	private String description;
 	private Timestamp entryTime;
-	private Date entryBy;
+	private long entryBy;
 	
 	
 	public RequisitionProductDetails() {
@@ -63,10 +63,10 @@ public class RequisitionProductDetails {
 	public void setEntryTime(Timestamp entryTime) {
 		this.entryTime = entryTime;
 	}
-	public Date getEntryBy() {
+	public long getEntryBy() {
 		return entryBy;
 	}
-	public void setEntryBy(Date entryBy) {
+	public void setEntryBy(long entryBy) {
 		this.entryBy = entryBy;
 	}
 	

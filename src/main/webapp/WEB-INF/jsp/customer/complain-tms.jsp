@@ -1,3 +1,6 @@
+<%@page import="com.manager.example.shareModel.ComplainType"%>
+<%@page import="com.manager.example.shareModel.Priority"%>
+<%@page import="com.manager.example.shareModel.Packages"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
@@ -15,9 +18,28 @@
 				<div class="col-md-12 ">
 					<div class="p-5">
 						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Customer Monthly Invoice</h1>
+							<h1 class="h4 text-gray-900 mb-4">Complain Ticket</h1>
 						</div>
 
+						<div class="row my-1">
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="customerId">Customer Id</label></span>
+									</div>
+									<input id="customerId" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm" value="${memberId}">
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="button" onclick="searchAction()">
+											<i class="fas fa-search fa-sm"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr class="mt-1">
 						<div class="row my-1">
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
@@ -27,22 +49,23 @@
 									</div>
 									<input id="customerName" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm" value="${userName}">
+
 								</div>
 							</div>
+
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="customerId">Customer Id</label></span>
+											class='my-0' for="contactNumber">Contact Number</label></span>
 									</div>
-									<input id="customerId" type="text" class="form-control"
+									<input id="contactNumber" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
+
 								</div>
 							</div>
-						</div>
-						<div class="row my-1">
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
@@ -52,6 +75,7 @@
 									<input id="area" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
+
 								</div>
 							</div>
 
@@ -59,83 +83,176 @@
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="billDate">Bill Date</label></span>
+											class='my-0' for="address">Address</label></span>
 									</div>
-									<input id="billDate" type="date" class="form-control"
+									<textarea id="address" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-
-						</div>
-
-						<div class="row my-1">
-
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="package">Package</label></span>
-									</div>
-									<input id="package" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="activeDate">Active Date</label></span>
-									</div>
-									<input id="activeDate" type="date" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-						</div>
-						
-						<div class="row my-1">
-
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="price">Price</label></span>
-									</div>
-									<input id="price" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="amount">Amount</label></span>
-									</div>
-									<input id="amount" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm"></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="row my-1">
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Present Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Total Complain</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Fiber Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											internet Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Slow Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-3 ">
+								<div class="card border-left-primary shadow py-0">
+									<div class="card-body p-1">
+										<div
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Last Month Ticket</div>
+										<div class="mb-0 font-weight-bold">
+											<strong><span id="presentTicket">0</span></strong>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row my-1">
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="accountStatus">Account Status</label></span>
+									</div>
+									<input id="accountStatus" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm" readonly>
+
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="connectionStatus">Connection Status</label></span>
+									</div>
+									<input id="connectionStatus" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm" readonly>
+
+								</div>
+							</div>
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="problemType">problem Type</label></span>
+									</div>
+									<select class="form-control" id="problemType">
+										<%
+											for (ComplainType complain : ComplainType.values()) {
+										%>
+
+										<option value="<%=complain.getType()%>"><%=complain.name()%></option>
+										<%
+											}
+										%>
+									</select>
+
+								</div>
+							</div>
 							
-							<div class="col-md-6 ">
-								<button type="button" id="btnAdd" class="btn btn-primary btn-sm"
-									onclick="addAction()">Submit Invoice</button>
-
-								<button type="button" id="btnEdit"
-									class="btn btn-success btn-sm" onclick="editAction()"
-									style="display: none;">Edit</button>
-								<button type="button" id="btnRefresh"
-									class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
-
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="priority">Priority</label></span>
+									</div>
+									<select class="form-control" id="priority">
+										<%
+											for (Priority priority : Priority.values()) {
+										%>
+										<option value="<%=priority.name()%>"><%=priority.name()%></option>
+										<%
+											}
+										%>
+									</select>
+								</div>
 							</div>
-
+							
+							<div class='col-md-6'>
+								<div class="input-group input-group-sm mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-sm"><label
+											class='my-0' for="complainDetails">Complain Details</label></span>
+									</div>
+									<textarea id="complainDetails" type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-sm"></textarea>
+								</div>
+							</div>
 						</div>
-
 						<div class="alert alert-success alert-dismissible fade show"
 							style="display: none;">
 							<p id="successAlert" class="mb-0">
@@ -155,8 +272,9 @@
 								<strong>Wrong!</strong> Something Wrong...
 							</p>
 						</div>
-
-						
+						<button type="button" onclick="submitComplain()"
+							class="btn btn-primary btn-user btn-block">Submit
+							Complain</button>
 
 					</div>
 				</div>
@@ -239,4 +357,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>
+	src="${pageContext.request.contextPath}/js/support/complain-tms.js"></script>

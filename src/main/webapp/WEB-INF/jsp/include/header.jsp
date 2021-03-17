@@ -1,5 +1,6 @@
 <%@page import="com.manager.security.entityModel.MyUserDetails"%>
-<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page
+	import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page import="com.manager.security.entity.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -16,26 +17,31 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>ISP Solution</title>
+<title>ISP Center</title>
 
 <!-- Custom fonts for this template-->
-<link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
+<link
+	href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/css/bootstrap-select.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/bootstrap-select.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css"
+	rel="stylesheet" type="text/css">
 </head>
 <%
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	MyUserDetails userDetals = (MyUserDetails)principal;
-	String username= ((MyUserDetails)principal).getUsername();
-	
+	MyUserDetails userDetals = (MyUserDetails) principal;
+	String username = ((MyUserDetails) principal).getUsername();
 %>
 <body id="page-top">
 
@@ -48,21 +54,25 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="${pageContext.request.contextPath}/dashboard">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-wifi"></i>
 				</div>
-				<div class="sidebar-brand-text mx-1">ISP Solution</div>
+				<div class="sidebar-brand-text mx-1">ISP Center</div>
 			</a>
 
+			<%
+				if (userDetals.getUserType() == 2) {
+			%>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="${pageContext.request.contextPath}/dashboard"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a>
-			</li>
+				href="${pageContext.request.contextPath}/dashboard"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -80,10 +90,15 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/support/activation-tms">Activation Ticket</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/support/complain-tms">Complain Ticket</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/support/activation-ticket-list">Activation Ticket List</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/support/complain-ticket-list">Complain Ticket List</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/activation-tms">Activation
+							Ticket</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/complain-tms">Complain
+							Ticket</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/activation-ticket-list">Activation
+							Ticket List</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/complain-ticket-list">Complain
+							Ticket List</a>
 					</div>
 				</div></li>
 
@@ -95,19 +110,28 @@
 				<div id="collapseSupport" class="collapse"
 					aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<!-- <h6 class="collapse-header">Custom Components:</h6> -->	
-					<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/customer">Customer</a>
-					<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/customer-details">Customer Details</a>										
-					<a class="collapse-item" href="${pageContext.request.contextPath}/support/connection-point">Connection Point</a> 
-					<a class="collapse-item" href="${pageContext.request.contextPath}/support/olt-information">OLT Position Info</a>
-					<a class="collapse-item" href="${pageContext.request.contextPath}/support/mc-information">MC Information</a>
-					<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/reseller-information">Reseller Information</a>
-					<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/service-create">Service Create</a>
-					<a class="collapse-item" href="${pageContext.request.contextPath}/support/customer-pppoe-id-password">Customer PPPoE ID & Password</a>
+						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/customer">Customer</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/connection-details">Connection
+							Details</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/connection-point">Connection
+							Point</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/olt-information">OLT
+							Position Info</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/mc-information">MC
+							Information</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/reseller-information">Reseller
+							Information</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/service-create">Service
+							Create</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/support/customer-pppoe-id-password">Customer
+							PPPoE ID & Password</a>
 					</div>
 				</div></li>
-				
-				<!-- Nav Item - Pages Collapse Menu -->
+
+			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseStore"
 				aria-expanded="true" aria-controls="collapseStore"> <i
@@ -117,16 +141,24 @@
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!--  <h6 class="collapse-header">Login Screens:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/store/create-product">New Product Create</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/store/create-product-requisition">Product Requisition</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/store/purchase-product">Purchase Product</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/store/product-requisition-list">Product Requisition List</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/store/issue-product">Issue Product</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/store/create-product">New
+							Product Create</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/store/create-product-requisition">Product
+							Requisition</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/store/purchase-product">Purchase
+							Product</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/store/product-requisition-list">Product
+							Requisition List</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/store/issue-product">Issue
+							Product</a>
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Report:</h6>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/store/product-stock">Product
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/store/product-stock">Product
 							Stock</a> <a class="collapse-item"
-							href="${pageContext.request.contextPath}/store/product-transaction">Product Transaction</a>
+							href="${pageContext.request.contextPath}/store/product-transaction">Product
+							Transaction</a>
 					</div>
 				</div></li>
 			<!-- Nav Item - Charts -->
@@ -138,27 +170,30 @@
 			<li class="nav-item"><a class="nav-link" href="tables.html">
 					<i class="fas fa-fw fa-table"></i> <span>Tables</span>
 			</a></li> --%>
-				
+
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
 			<!-- Heading -->
 			<div class="sidebar-heading">Management</div>
-			
+
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseAdmin"
 				aria-expanded="true" aria-controls="collapseAdmin"> <i
 					class="fas fa-fw fa-cog"></i> <span>Admin</span>
 			</a>
-				<div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo"
-					data-parent="#accordionSidebar">
+				<div id="collapseAdmin" class="collapse"
+					aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/pending-bill">Pending Bills</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/inventory/employee">Employee Info</a>
-						
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/pending-bill">Pending
+							Bills</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/inventory/employee">Employee
+							Info</a>
+
 					</div>
 				</div></li>
 
@@ -172,17 +207,22 @@
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!--  <h6 class="collapse-header">Login Screens:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/create-ledger">Create
-							Ledger</a>  <a class="collapse-item" href="${pageContext.request.contextPath}/accounts/cash-transaction">Cash Transaction</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/create-ledger">Create
+							Ledger</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/cash-transaction">Cash
+							Transaction</a>
 
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Report:</h6>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/customer-bill-info">Customer
-							billing Info</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/customer-monthly-invoice">Customer Monthly Invoice</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/customer-bill-info">Customer
+							billing Info</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/customer-monthly-invoice">Customer
+							Monthly Invoice</a>
 					</div>
 				</div></li>
-<li class="nav-item"><a class="nav-link collapsed" href="#"
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseBill"
 				aria-expanded="true" aria-controls="collapseBill"> <i
 					class="fas fa-fw fa-cog"></i> <span>Bill Operation</span>
@@ -191,46 +231,69 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/create-bill">Bill Create</a>  
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/pending-bill">Pending Bills</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/approved-bill">Approved Bills</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/accounts/not-approved-bill">Not Approved Bills</a>
-						
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/create-bill">Bill
+							Create</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/pending-bill">Pending
+							Bills</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/approved-bill">Approved
+							Bills</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/accounts/not-approved-bill">Not
+							Approved Bills</a>
+
 					</div>
 				</div></li>
 
-<li class="nav-item"><a class="nav-link collapsed" href="#"
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseReport"
 				aria-expanded="true" aria-controls="collapseReport"> <i
 					class="fas fa-fw fa-cog"></i> <span>Reports</span>
 			</a>
-				<div id="collapseReport" class="collapse" aria-labelledby="headingTwo"
-					data-parent="#accordionSidebar">
+				<div id="collapseReport" class="collapse"
+					aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/report/daily-work-report">Daily Work Report</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/report/sales-report">Sales Report</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/report/activation-report">Activation Report</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/report/transaction-report">Transaction Report</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/report/daily-work-report">Daily
+							Work Report</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/report/sales-report">Sales
+							Report</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/report/activation-report">Activation
+							Report</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/report/transaction-report">Transaction
+							Report</a>
 					</div>
 				</div></li>
-				<%if(userDetals.getUsername().equalsIgnoreCase("maruf")){ %>
-				<li class="nav-item"><a class="nav-link collapsed" href="#"
+
+			<%
+				}
+				if (userDetals.getUserType() == 1) {
+			%>
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseCustomer"
 				aria-expanded="true" aria-controls="collapseCustomer"> <i
 					class="fas fa-fw fa-cog"></i> <span>Menus</span>
 			</a>
-				<div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo"
-					data-parent="#accordionSidebar">
+				<div id="collapseCustomer" class="collapse"
+					aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/customer/complain-ticket">Complain Ticket</a> 
-						<a class="collapse-item" href="${pageContext.request.contextPath}/customer/invoices">Invoices</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/customer/online-payment">Online Payment</a>
-						<a class="collapse-item" href="${pageContext.request.contextPath}/customer/payment-history">Payment History</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/customer/complain-ticket">Complain
+							Ticket</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/customer/invoices">Invoices</a>
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/customer/online-payment">Online
+							Payment</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/customer/payment-history">Payment
+							History</a>
 					</div>
 				</div></li>
-			<%} %>
+			<%
+				}
+				if (userDetals.getUserType() == 2) {
+			%>
+
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseUtilities"
@@ -241,12 +304,18 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-						<a class="collapse-item" href="${pageContext.request.contextPath}/user-authentication-management">User Authentication</a> 	
-						<a class="collapse-item" href="${pageContext.request.contextPath}/role-management">Role Management</a>
-						
+						<a class="collapse-item"
+							href="${pageContext.request.contextPath}/user-authentication-management">User
+							Authentication</a> <a class="collapse-item"
+							href="${pageContext.request.contextPath}/role-management">Role
+							Management</a>
+
 					</div>
 				</div></li>
 
+			<%
+				}
+			%>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -384,7 +453,8 @@
 								<h6 class="dropdown-header">Message Center</h6>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="${pageContext.request.contextPath}/img/undraw_profile_1.svg"
+										<img class="rounded-circle"
+											src="${pageContext.request.contextPath}/img/undraw_profile_1.svg"
 											alt="">
 										<div class="status-indicator bg-success"></div>
 									</div>
@@ -395,7 +465,8 @@
 									</div>
 								</a> <a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="${pageContext.request.contextPath}/img/undraw_profile_2.svg"
+										<img class="rounded-circle"
+											src="${pageContext.request.contextPath}/img/undraw_profile_2.svg"
 											alt="">
 										<div class="status-indicator"></div>
 									</div>
@@ -406,7 +477,8 @@
 									</div>
 								</a> <a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="${pageContext.request.contextPath}/img/undraw_profile_3.svg"
+										<img class="rounded-circle"
+											src="${pageContext.request.contextPath}/img/undraw_profile_3.svg"
 											alt="">
 										<div class="status-indicator bg-warning"></div>
 									</div>
@@ -439,7 +511,8 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=username%></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=username%></span>
+								<img class="img-profile rounded-circle"
 								src="${pageContext.request.contextPath}/img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
