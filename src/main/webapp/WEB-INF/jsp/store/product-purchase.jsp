@@ -140,7 +140,7 @@
 								</table>
 							</div>
 						</div>
-						<button type="button" onclick="submitBill()"
+						<button type="button" onclick="submitPurchaseProduct()"
 							class="btn btn-primary btn-user btn-block">Submit
 							Product Requisition</button>
 

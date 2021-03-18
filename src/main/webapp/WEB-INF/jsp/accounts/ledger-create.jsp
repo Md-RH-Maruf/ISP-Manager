@@ -28,7 +28,7 @@
 				<strong>Wrong!</strong> Something Wrong...
 			</p>
 		</div>
-		<input type="hidden" id="customerAutoId" value="0">
+		<input type="hidden" id="headId" value="0">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="card-box">
@@ -47,20 +47,6 @@
 									<div class="input-group input-group-sm mb-1">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-sm"><label
-												class='my-0' for="headId">Head ID</label></span>
-										</div>
-										<input id="headId" type="text" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" value="${maxId }"
-											readonly>
-									</div>
-								</div>
-							</div>
-							<div class="row my-1">
-								<div class='col-md-12 px-1'>
-									<div class="input-group input-group-sm mb-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-sm"><label
 												class='my-0' for="parentName">Parent Name</label></span>
 										</div>
 										<select id="parentName" class="form-control selectpicker"
@@ -68,9 +54,9 @@
 											aria-describedby="inputGroup-sizing-sm"
 											data-live-search="true"
 											data-style="btn-light btn-sm border-secondary form-control-sm">
-											<option value="0">Select Resource</option>
-											<c:forEach items="${resourceList}" var="resource">
-												<option value="${resource.id}">${resource.resourceName}</option>
+											<option value="0">Select Head</option>
+											<c:forEach items="${ledgerHeadList}" var="head">
+												<option value="${head.id}">${head.headName}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -93,14 +79,14 @@
 
 							<div class="row">
 								<div class="col-md-12">
-									<button type="button" id="btnSave"
-										class="btn btn-primary btn-sm" onclick="saveAction()">Save</button>
+									<button type="button" id="btnHeadSave"
+										class="btn btn-primary btn-sm" onclick="headSaveAction()">Save</button>
 
-									<button type="button" id="btnEdit"
-										class="btn btn-success btn-sm" onclick="editAction()"
+									<button type="button" id="btnHeadEdit"
+										class="btn btn-success btn-sm" onclick="headEditAction()"
 										style="display: none;">Edit</button>
 									<button type="button" id="btnRefresh"
-										class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
+										class="btn btn-secondary btn-sm" onclick="headRefreshAction()">Refresh</button>
 
 								</div>
 							</div>
@@ -109,17 +95,9 @@
 
 								<div class="col-md-12">
 									<ul id="tree1">
-										<li style="cursor: pointer;">Accounts
-											<ul>
-												<li style="cursor: pointer;">Asset
-													<ul>
-														<li style="cursor: pointer;">Fixed Asset</li>
-														<li style="cursor: pointer;">Operating Asset</li>
-													</ul>
-												</li>
-												<li style="cursor: pointer;">Liability</li>
-												<li style="cursor: pointer;">Revenue</li>
-												<li style="cursor: pointer;">Expense</li>
+										<li id="cat-0" style="cursor: pointer;">Accounts
+											<ul id="ul-0">
+
 											</ul>
 										</li>
 									</ul>
@@ -132,18 +110,7 @@
 								<div class="col-md-12">
 
 									<div class="row my-1">
-										<div class='col-md-6 px-1'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="ledgerId">Ledger ID</label></span>
-												</div>
-												<input id="ledgerId" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm" value="${maxId }"
-													readonly>
-											</div>
-										</div>
+
 										<div class='col-md-6 px-1'>
 											<div class="input-group input-group-sm mb-1">
 												<div class="input-group-prepend">
@@ -156,9 +123,9 @@
 													aria-describedby="inputGroup-sizing-sm"
 													data-live-search="true"
 													data-style="btn-light btn-sm border-secondary form-control-sm">
-													<option value="0">Select Resource</option>
-													<c:forEach items="${resourceList}" var="resource">
-														<option value="${resource.id}">${resource.resourceName}</option>
+													<option value="0">Select Head</option>
+													<c:forEach items="${ledgerHeadList}" var="head">
+														<option value="${head.id}">${head.headName}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -206,12 +173,16 @@
 											</div>
 										</div>
 										<div class="col-md-6 px-1">
-									<button type="button" id="btnSave" class="btn btn-primary btn-sm" onclick="saveAction()">Save</button>
+											<button type="button" id="btnLedgerSave"
+												class="btn btn-primary btn-sm" onclick="ledgerSaveAction()">Save</button>
 
-									<button type="button" id="btnEdit" class="btn btn-success btn-sm" onclick="editAction()" style="display: none;">Edit</button>
-									<button type="button" id="btnRefresh" class="btn btn-secondary btn-sm" onclick="refreshAction()">Refresh</button>
+											<button type="button" id="btnLedgerEdit"
+												class="btn btn-success btn-sm" onclick="ledgerEditAction()"
+												style="display: none;">Edit</button>
+											<button type="button" id="btnRefresh"
+												class="btn btn-secondary btn-sm" onclick="ledgerRefreshAction()">Refresh</button>
 
-								</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -234,19 +205,19 @@
 											<tr>
 												<th>Ledger Id</th>
 												<th>Ledger Name</th>
-												<th>Ledger Type</th>
+												<th>Opening Balance</th>
 												<th>Status</th>
 											</tr>
 										</thead>
-										<tbody id="customerList">
-											<c:forEach items="${customerList}" var="ledger"
+										<tbody id="ledgerList">
+											<c:forEach items="${ledgerList}" var="ledger"
 												varStatus="counter">
 												<tr style="cursor: pointer;"
-													onclick="setCustomerData('${ledger.id}')">
-													<td>${ledger.customerId}</td>
-													<td>${ledger.name}</td>
-													<td>${ledger.customerType }</td>
-													<td>${ledger.status }</td>
+													onclick="setLedgerData('${ledger.id}')">
+													<td>${ledger.id}</td>
+													<td>${ledger.ledgerName}</td>
+													<td>${ledger.openingBalance }</td>
+													<td>${ledger.activeStatus }</td>
 												</tr>
 											</c:forEach>
 										</tbody>

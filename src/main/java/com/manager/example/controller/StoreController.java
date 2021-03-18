@@ -29,6 +29,9 @@ import com.manager.store.service.CategoryService;
 import com.manager.store.service.ProductRequisitionService;
 import com.manager.store.service.ProductService;
 import com.manager.store.service.RequisitionProductDetailsService;
+import com.manager.support.entity.ActivationTMS;
+import com.manager.support.services.ActivationTMSService;
+import com.manager.support.services.ComplainTMSService;
 
 @Controller
 public class StoreController {
@@ -38,6 +41,11 @@ public class StoreController {
 		
 		@Autowired
 		ProductService productService;
+		
+		@Autowired
+		ActivationTMSService activationTmsService;
+		@Autowired
+		ComplainTMSService complainTmsSercice;
 		
 		@Autowired
 		ProductRequisitionService productReqService;
@@ -171,18 +179,20 @@ public class StoreController {
 						reqDetail.setEntryBy(userDetails.getId());
 						requisitionProductList.add(reqDetail);
 					}
-					
-					if(productReqService.saveProductRequisition(productRequisition) != null) {
-						if(requistionProductDetailsService.saveRequisitionProducts(requisitionProductList) != null) {
-							obj.put("result", "duplicate");
+					if(activationTmsService.getActivationTMSByTmsNo(productRequisition.getTicketId()) != null || complainTmsSercice.getComplainTMSByTmsNo(productRequisition.getTicketId()) != null) {
+						if(productReqService.saveProductRequisition(productRequisition) != null) {
+							if(requistionProductDetailsService.saveRequisitionProducts(requisitionProductList) != null) {
+								obj.put("result", "successfull");
+							}else {
+								obj.put("result", "duplicate");
+							}	
 						}else {
-							obj.put("result", "successfull");
-						}
-						
+							obj.put("result", "something wrong");
+						}		
 					}else {
 						obj.put("result", "something wrong");
-					}
-					
+						obj.put("message", "Ticket id not valid");
+					}	
 					return obj;
 				}
 				

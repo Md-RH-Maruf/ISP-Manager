@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan({"com.manager"})
 @EntityScan("com.manager")
-@EnableJpaRepositories({"com.manager.security.repository","com.manager.inventory.repository","com.manager.support.repository","com.manager.store.repository"})
+@EnableJpaRepositories({"com.manager.security.repository","com.manager.inventory.repository","com.manager.support.repository","com.manager.store.repository","com.manager.accounts.repository"})
 public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override

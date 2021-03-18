@@ -1,13 +1,15 @@
 
-function addAction(){
+function addAction() {
     let productId = $("#productName").val();
     let productName = $("#productName option:selected").text();
     let quantity = $("#quantity").val();
     let description = $("#description").val();
 
-    let length = $("#requisitionProductList tr").length+1;
+    if (productId != 0) {
+        if (quantity != '') {
+            let length = $("#requisitionProductList tr").length + 1;
 
-    let row = `<tr id='row-${length}' data-id='${length}' data-product-id='${productId}'>
+            let row = `<tr id='row-${length}' data-id='${length}' data-product-id='${productId}'>
                 <td>${length}</td>
                 <td id='productName-${length}'>${productName}</td>
                 <td id='quantity-${length}'>${quantity}</td>
@@ -15,16 +17,25 @@ function addAction(){
                 <td><i class="fa fa-trash" style="cursor:pointer;" onclick='deleteRow("${length}")'> </i></td>
             </tr>`;
 
-    $("#requisitionProductList").append(row);
+            $("#requisitionProductList").append(row);
+        } else {
+            warningAlert("Quantity is empty... Please Enter Quantity");
+            $("#quantity").focus();
+        }
+    } else {
+        warningAlert("Product Not Selected");
+        $("#productName").focus();
+    }
+
 }
 
 
-function deleteRow(id){
-    $("#row-"+id).remove();
+function deleteRow(id) {
+    $("#row-" + id).remove();
 }
 
 
-function submitProductRequisition(){
+function submitProductRequisition() {
     let requisitionNo = $("#requisitionNo").val();
     let ticketId = $("#ticketId").val();
     let requisitionDate = $("#requisitionDate").val();
@@ -35,23 +46,23 @@ function submitProductRequisition(){
     let rowList = $("#requisitionProductList tr");
 
 
-    if(rowList.length>0){
-        if(ticketId != ''){
-            if(requisitionDate){
+    if (rowList.length > 0) {
+        if (ticketId != '') {
+            if (requisitionDate) {
 
-                rowList.each((index,row) => {
+                rowList.each((index, row) => {
                     let id = row.getAttribute('data-id');
                     let product = {
-                        productId : row.getAttribute('data-product-id'),
-                        productName : $("#productName-"+id).text(),
-                        quantity : $("#quantity-"+id).text(),
-                        description : $("#description-"+id).text()
+                        productId: row.getAttribute('data-product-id'),
+                        productName: $("#productName-" + id).text(),
+                        quantity: $("#quantity-" + id).text(),
+                        description: $("#description-" + id).text()
                     }
 
                     products.list.push(product);
                 });
                 console.log(products);
-                if(confirm("Are you Sure to submit?")){
+                if (confirm("Are you Sure to submit?")) {
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
@@ -64,21 +75,28 @@ function submitProductRequisition(){
                             productsString: JSON.stringify(products)
                         },
                         success: function (data) {
-                            alert(data.result);
+                            if (data.result == 'successfull') {
+                                alert("Requisition Submit Successfully");
+                                let url = "http://localhost:8080/store/product-requisition-list";
+                                window.open(url, '_self');
+                            } else {
+                                warningAlert(data.message);
+                            }
+
                         }
-                      });
+                    });
                 }
-                
-            }else{
-            warningAlert("Please Select Requisition Date");
-        }
-        }else{
+
+            } else {
+                warningAlert("Please Select Requisition Date");
+            }
+        } else {
             warningAlert("Please Enter Ticket Id");
-        }   
-    }else{
+        }
+    } else {
         warningAlert("Please Enter Any Product");
     }
-    
+
 }
 
 

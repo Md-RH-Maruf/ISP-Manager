@@ -14,7 +14,7 @@ public class LedgerHead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long paentId;
+	private Long parentId;
 	private String headName;
 	private Timestamp entryTime;
 	private Long entryBy;
@@ -28,11 +28,11 @@ public class LedgerHead {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getPaentId() {
-		return paentId;
+	public Long getParentId() {
+		return parentId;
 	}
-	public void setPaentId(Long paentId) {
-		this.paentId = paentId;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 	public String getHeadName() {
 		return headName;

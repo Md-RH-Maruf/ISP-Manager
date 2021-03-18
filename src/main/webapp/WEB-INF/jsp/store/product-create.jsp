@@ -55,7 +55,7 @@
 											aria-describedby="inputGroup-sizing-sm"
 											data-live-search="true"
 											data-style="btn-light btn-sm border-secondary form-control-sm">
-											<option value="0">Select Resource</option>
+											<option value="0">Select Category</option>
 											<c:forEach items="${categoryList}" var="category">
 												<option value="${category.id}">${category.categoryName}</option>
 											</c:forEach>

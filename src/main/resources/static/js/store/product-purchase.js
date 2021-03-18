@@ -5,16 +5,27 @@ function addAction(){
     let quantity = $("#quantity").val();
     //let description = $("#description").val();
 
-    let length = $("#purchaseProductList tr").length+1;
+    if(productId != 0){
+        if(quantity != ''){
+            let length = $("#purchaseProductList tr").length+1;
 
-    let row = `<tr id='row-${length}' data-id='${length}' data-product-id='${productId}'>
-                <td>${length}</td>
-                <td id='productName-${length}'>${productName}</td>
-                <td id='quantity-${length}'>${quantity}</td>
-                <td><i class="fa fa-trash" style="cursor:pointer;" onclick='deleteRow("${length}")'> </i></td>
-            </tr>`;
-
-    $("#purchaseProductList").append(row);
+            let row = `<tr id='row-${length}' data-id='${length}' data-product-id='${productId}'>
+                        <td>${length}</td>
+                        <td id='productName-${length}'>${productName}</td>
+                        <td id='quantity-${length}'>${quantity}</td>
+                        <td><i class="fa fa-trash" style="cursor:pointer;" onclick='deleteRow("${length}")'> </i></td>
+                    </tr>`;
+        
+            $("#purchaseProductList").append(row);
+        }else{
+            warningAlert("Quantity is empty... Please Enter Quantity");
+            $("#quantity").focus();
+        }
+    }else{
+        warningAlert("Product Not Selected");
+        $("#productName").focus();
+    }
+   
 }
 
 
@@ -23,20 +34,20 @@ function deleteRow(id){
 }
 
 
-function submitProductRequisition(){
-    let requisitionNo = $("#requisitionNo").val();
-    let ticketId = $("#ticketId").val();
-    let requisitionDate = $("#requisitionDate").val();
+function submitPurchaseProduct(){
+    let supplierName = $("#supplierName").val();
+    //let ticketId = $("#ticketId").val();
+    let purchaseDate = $("#purchaseDate").val();
 
     let products = {};
     products['list'] = [];
 
-    let rowList = $("#requisitionProductList tr");
+    let rowList = $("#purchaseProductList tr");
 
 
     if(rowList.length>0){
-        if(ticketId != ''){
-            if(requisitionDate){
+        if(supplierName != ''){
+            if(purchaseDate){
 
                 rowList.each((index,row) => {
                     let id = row.getAttribute('data-id');
@@ -44,7 +55,6 @@ function submitProductRequisition(){
                         productId : row.getAttribute('data-product-id'),
                         productName : $("#productName-"+id).text(),
                         quantity : $("#quantity-"+id).text(),
-                        description : $("#description-"+id).text()
                     }
 
                     products.list.push(product);
@@ -54,7 +64,7 @@ function submitProductRequisition(){
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
-                        url: '/submitProductRequisition',
+                        url: '/submitPurchaseProduct',
                         data: {
                             requisitionNo: requisitionNo,
                             ticketId: ticketId,
@@ -69,10 +79,10 @@ function submitProductRequisition(){
                 }
                 
             }else{
-            warningAlert("Please Select Requisition Date");
+            warningAlert("Please Select Purchase Date");
         }
         }else{
-            warningAlert("Please Enter Ticket Id");
+            warningAlert("Please Enter Supplier Name");
         }   
     }else{
         warningAlert("Please Enter Any Product");
