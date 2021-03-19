@@ -10,41 +10,154 @@
 
 	<div class="card-body">
 		<div class="row">
-		<div class="col-md-4">
-				<h5>Payment Histoyr</h5>
-			</div>
-			<div class="col-md-8">
-				<label for="fromDate">From Date</label><input id="fromDate"
-					class="form-control-sm" type="date"> <label class="ml-5"
-					for="toDate">To Date</label><input id="toDate"
-					class="form-control-sm" type="date">
-				<button type="button" class="btn btn-sm btn-primary">Search</button>
-			</div>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				 onclick="location.href='${pageContext.request.contextPath}/customer/complain-ticket'">New Complain</button>
 		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%"
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation"><a
+				class="nav-link active" id="open-tab" data-toggle="tab" href="#open"
+				role="tab" aria-controls="open" aria-selected="true">Open</a></li>
+			<!-- <li class="nav-item" role="presentation"><a class="nav-link"
+				id="processing-tab" data-toggle="tab" href="#processing" role="tab"
+				aria-controls="processing" aria-selected="false">Processing</a></li>
+			<li class="nav-item" role="presentation"><a class="nav-link"
+				id="closed-tab" data-toggle="tab" href="#closed" role="tab"
+				aria-controls="closed" aria-selected="false">Closed</a></li>
+			<li class="nav-item" role="presentation"><a class="nav-link"
+				id="deleted-tab" data-toggle="tab" href="#deleted" role="tab"
+				aria-controls="deleted" aria-selected="false">Deleted</a></li> -->
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="open" role="tabpanel"
+				aria-labelledby="open-tab"><div class="table-responsive">
+			<table class="table table-bordered" id="openDataTable" width="100%"
 				cellspacing="0">
 				<thead>
 					<tr>
-						<th>SL</th>
-						<th>Paymnet Date</th>
-						<th>Amount</th>
-						<th>Payment Type</th>
+						<th>TMS NO</th>
+						<th>Subject</th>
+						<th>Date & Time</th>
+						<th>Follow up Time</th>
+						<th>Status</th>
+						<th>Priority</th>
+						<th>Owner</th>
+						<th>Action</th>
 					</tr>
 				</thead>
-				<tbody id="dataBody">
-				<c:forEach items="${billList}" var="bill" varStatus="counter">
-					<tr>
-						<td>${counter.count}</td>
-						<td>${bill.billDate}</td>
-						<td>${bill.totalAmount}</td>
-						<td>Cash</td>
-					</tr>
-				</c:forEach>
-					
+				<tbody id="openDataBody">
+<c:forEach items="${ticketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/complain-ticket-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
 				</tbody>
 			</table>
+		</div></div>
+			<div class="tab-pane fade" id="processing" role="tabpanel"
+				aria-labelledby="profile-tab"><div class="table-responsive">
+			<table class="table table-bordered" id="processingDataTable" width="100%"
+				cellspacing="0">
+				<thead>
+					<tr>
+						<th>TMS NO</th>
+						<th>Subject</th>
+						<th>Date & Time</th>
+						<th>Follow up Time</th>
+						<th>Status</th>
+						<th>Priority</th>
+						<th>Owner</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody id="processingDataBody">
+<c:forEach items="${processingTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/complain-ticket-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
+				</tbody>
+			</table>
+		</div></div>
+			<div class="tab-pane fade" id="closed" role="tabpanel"
+				aria-labelledby="closed-tab"><div class="table-responsive">
+			<table class="table table-bordered" id="closedDataTable" width="100%"
+				cellspacing="0">
+				<thead>
+					<tr>
+						<th>TMS NO</th>
+						<th>Subject</th>
+						<th>Date & Time</th>
+						<th>Follow up Time</th>
+						<th>Status</th>
+						<th>Priority</th>
+						<th>Owner</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody id="closedDataBody">
+<c:forEach items="${closedTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/complain-ticket-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
+				</tbody>
+			</table>
+		</div></div>
+				<div class="tab-pane fade" id="deleted" role="tabpanel"
+				aria-labelledby="deleted-tab"><div class="table-responsive">
+			<table class="table table-bordered" id="deletedDataTable" width="100%"
+				cellspacing="0">
+				<thead>
+					<tr>
+						<th>TMS NO</th>
+						<th>Subject</th>
+						<th>Date & Time</th>
+						<th>Follow up Time</th>
+						<th>Status</th>
+						<th>Priority</th>
+						<th>Owner</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody id="deletedDataBody">
+<c:forEach items="${deletedTicketList}" var="ticket">
+						<tr>
+						    <td>${ticket.tmsNo }</td>
+						    <td>${ticket.subject }</td>
+						    <td>${ticket.date }</td>
+						    <td>${ticket.followUpTime } ${ticket.followUpBy }</td>
+						    <td>${ticket.status }</td>
+						    <td>${ticket.priority }</td>
+						    <td>${ticket.owner }</td>
+						    <td><a href="/complain-ticket-details/${ticket.tmsNo}"><i class="fas fa-eye"></i> View</a></td>
+						</tr>									
+					</c:forEach>
+				</tbody>
+			</table>
+		</div></div>
 		</div>
+		
 	</div>
 
 </div>
@@ -56,7 +169,7 @@
 			<div class="modal-header">
 				<h5 class="modal-title">Resources</h5>
 				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" >
+					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -386,4 +499,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/tms-report-list.js"></script>
+	src="${pageContext.request.contextPath}/js/support/complain-ticket-list.js"></script>

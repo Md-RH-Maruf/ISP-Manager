@@ -15,7 +15,10 @@ public interface BillRepository extends JpaRepository<Bill, Long>{
 	public String getMaxBillNo(String yearMonth);
 	
 	public Bill findByBillNo(String billNo);
+	public List<Bill> findByBillTypeAndCustomerId(int billType,String customerId);
 	
 	public List<Bill> findByStatus(int status);
+	
+	
 	
 }

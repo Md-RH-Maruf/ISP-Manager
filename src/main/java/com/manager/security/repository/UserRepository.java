@@ -11,4 +11,6 @@ import com.manager.security.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	User findByUsername(String username);
+	
+	User findByMemberId(String memebrId);
 }

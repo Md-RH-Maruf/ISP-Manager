@@ -65,6 +65,10 @@ public class BillService {
 		return billRepo.findByStatus(Integer.valueOf(status));
 	}
 	
+	public List<Bill> getBillsBillTypeAndCustomerId(int billType,String customerId){
+		return billRepo.findByBillTypeAndCustomerId(billType, customerId);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<RequisitionInfo> getBillListByStatus(String status){

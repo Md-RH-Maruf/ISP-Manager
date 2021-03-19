@@ -58,4 +58,8 @@ public class MyUserDetailsService implements UserDetailsService {
 	public User findById(Long id) {
 		return userRepo.findById(id).orElse(null);
 	}
+	
+	public User findByMemberId(String memberId) {
+		return userRepo.findByMemberId(memberId);
+	}
 }

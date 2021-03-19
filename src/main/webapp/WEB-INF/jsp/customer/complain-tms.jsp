@@ -357,4 +357,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/complain-tms.js"></script>
+	src="${pageContext.request.contextPath}/js/customer/complain-tms.js"></script>

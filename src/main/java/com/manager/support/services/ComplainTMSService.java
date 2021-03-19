@@ -94,4 +94,40 @@ public class ComplainTMSService {
 		return ticketList;
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<TicketDetails> getTicketListByCustomerId(String customerId){
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		List<TicketDetails> ticketList = new ArrayList<>();
+		//SELECT tat.id,tat.tmsNo,tat.customerId,tat.subject,c.area,tat.status,tat.priority,tat.entryTime AS date,lfu.username AS followupBy,tat.lastFollowupTime,:emp.firstName  '' as firstNames
+		List<Object[]> results = em.createQuery("SELECT tat,c,lfu,emp \r\n" + 
+				"FROM ComplainTMS tat \r\n" + 
+				"LEFT JOIN Customer c\r\n" + 
+				"on tat.customerId = c.customerId\r\n"
+				+ "LEFT JOIN User lfu\r\n" + 
+				"ON tat.lastFollowupBy = lfu.id\r\n" +
+				"LEFT OUTER JOIN Employee emp\r\n" + 
+				"ON tat.owner = emp.id\r\n" +
+				"WHERE tat.customerId = '"+customerId+"'").getResultList();
+		
+		for(Object[] obj:results) {
+			ComplainTMS tms = (ComplainTMS)obj[0];
+			Customer customer = (Customer)obj[1];
+			User lastFollowUpUser = (User)obj[2];
+			Employee emp = (Employee)obj[3];
+			
+			if(emp == null) {
+				emp = new Employee();
+				emp.setFirstName("");
+				emp.setLastName("");
+			}
+			ticketList.add(new TicketDetails(tms.getId(), tms.getTmsNo(), tms.getCustomerId(), tms.getSubject(), customer.getArea(), tms.getStatus(), tms.getPriority(), tms.getEntryTime().toString(), lastFollowUpUser.getUsername(), tms.getLastFollowupTime().toString(), emp.getFirstName()+" "+emp.getLastName()));
+		}
+		em.getTransaction().commit();
+		em.close();
+		return ticketList;
+		
+	}
 }

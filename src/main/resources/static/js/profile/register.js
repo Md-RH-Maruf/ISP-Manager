@@ -24,13 +24,13 @@ function register() {
                                 userType : memberType
                             },
                             success: function (data) {
-                                console.log(data);
+                                
                                 if(data.result == "success"){
                                     successAlert("User Create Successfully")
                                     var url = "login";
                                     window.open(url, '_self');
                                 }else{
-                                    dangerAlert(data.result);
+                                    dangerAlert(data.message);
                                 }
                             }
                         });

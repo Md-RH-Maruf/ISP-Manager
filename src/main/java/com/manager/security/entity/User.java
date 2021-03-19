@@ -21,6 +21,7 @@ public class User {
 	private String password;
 	private boolean enabled = true;
 	private Integer userType;
+	private String userRole;
 	private Timestamp entryTime;
 	private Long entryBy;
 	
@@ -75,6 +76,20 @@ public class User {
 	}
 	public void setUserType(int userType) {
 		this.userType = userType;
+	}
+	
+	
+	public String getUserRole() {
+		return userRole;
+	}
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+	public void setEntryBy(Long entryBy) {
+		this.entryBy = entryBy;
 	}
 	@Override
 	public String toString() {

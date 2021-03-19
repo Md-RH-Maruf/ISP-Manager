@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.manager.example.shareModel.Designations;
+import com.manager.inventory.entity.Employee;
+import com.manager.inventory.services.CustomerService;
+import com.manager.inventory.services.EmployeeService;
 import com.manager.security.entity.Role;
 import com.manager.security.entity.User;
 import com.manager.security.entityModel.MyUserDetails;
@@ -30,6 +34,10 @@ public class PrimaryController {
 	BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 	@Autowired
 	MyUserDetailsService userService;
+	@Autowired
+	CustomerService customerService;
+	@Autowired
+	EmployeeService employeeService;
 	
 	@RequestMapping(value= {"/"})	
 	public ModelAndView firstPage(ModelMap map,HttpSession session) {
@@ -79,10 +87,44 @@ public class PrimaryController {
 	public @ResponseBody Map<String, Object> registerNewUser(User user) {
 		Map<String, Object> obj = new HashMap();
 		user.setEntryTime(new Timestamp(new Date().getTime()));
-		//user.setRole(user.getUserType()==1?"ROLE_CUSTOMER":"ROLE_EMPLOYE");
 		user.setEntryBy(1);
 		user.setPassword(bCrypt.encode(user.getPassword()));
-		obj.put("result", userService.saveUser(user));
+		
+		
+		//user.setRole(user.getUserType()==1?"ROLE_CUSTOMER":"ROLE_EMPLOYE");
+		if(user.getUserType() == 1) {
+			if(customerService.findByCustomerId(user.getMemberId()) != null) {
+				if(userService.findByMemberId(user.getMemberId())==null) {
+					user.setUserRole("ROLE_CUSROMER");
+					obj.put("user", userService.saveUser(user));
+					obj.put("result","success");
+				}else {
+					obj.put("result","something worng");
+					obj.put("message","This Customer Already Have an Account");
+				}
+			}else {
+				obj.put("result","something worng");
+				obj.put("message","Customer ID is Invalid");
+			}
+		}else if(user.getUserType() == 2) {
+			Employee employee = employeeService.findByEmployeeId(user.getMemberId());
+			if(employee != null) {
+				if(userService.findByMemberId(user.getMemberId())==null) {
+					String role = "ROLE_"+Designations.values()[employee.getDesignation()-1].name();
+					user.setUserRole(role);
+					obj.put("user", userService.saveUser(user));
+					obj.put("result","success");
+				}else {
+					obj.put("result","something worng");
+					obj.put("message","This Customer Already Have an Account");
+				}
+			}else {
+				obj.put("result","something worng");
+				obj.put("message","Employee ID is Invalid");
+			}
+		}
+		
+		
 		
 		return obj;
 	}
