@@ -27,7 +27,7 @@
 									</div>
 									<input id="billNo" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm" value="${maxId}" readonly="readonly">
 								</div>
 							</div>
 							
@@ -57,8 +57,8 @@
 													data-live-search="true"
 													data-style="btn-light btn-sm border-secondary form-control-sm">
 													<option value="0">Select Resource</option>
-													<c:forEach items="${resourceList}" var="resource">
-														<option value="${resource.id}">${resource.resourceName}</option>
+													<c:forEach items="${ledgerList}" var="ledger">
+														<option value="${ledger.id}">${ledger.ledgerName}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -147,7 +147,7 @@
 												<th>Description</th>
 											</tr>
 										</thead>
-										<tbody id="customerList">
+										<tbody id="ledgerList">
 											<c:forEach items="${customerList}" var="ledger"
 												varStatus="counter">
 												<tr style="cursor: pointer;"
@@ -173,77 +173,7 @@
 	</div>
 
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div
-		class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Resources</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" onclick="resourceModalCloseAction()">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
 
-			<div class="modal-body">
-
-				<div class="row">
-					<div class="col-md-12">
-
-						<div class="input-group">
-							<input id="resourceName" type="text" aria-label="First name"
-								class="form-control" placeholder="*Resource Name"> <input
-								id="resourceLink" type="text" aria-label="Last name"
-								class="form-control" placeholder="*Resource Link">
-						</div>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-md-12">
-						<table class="table table-hover table-bordered table-sm">
-							<thead>
-								<tr>
-									<th>Resource Name</th>
-									<th>Resource Link</th>
-									<th><i class="fa fa-edit"> </i></th>
-								</tr>
-							</thead>
-							<tbody id="resourceTableList">
-								<c:forEach items="${resourceList}" var="resource"
-									varStatus="counter">
-									<tr>
-										<td id='resourceName${resource.id}'>${resource.resourceName}</td>
-										<td id='resourceLink${resource.id}'>${resource.resourceLink}</td>
-										<td><i class="fa fa-edit"
-											onclick="setResourceData(${resource.id})"> </i></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary btn-sm"
-					data-dismiss="modal" onclick="resourceModalCloseAction()">
-					<i class="fa fa-close"></i> Close
-				</button>
-				<button type="button" id="btnResourceSave"
-					class="btn btn-primary btn-sm" onclick="resourceSaveAction()">
-					<i class="fas fa-save"></i> Save as Resource
-				</button>
-				<button type="button" id="btnResourceEdit"
-					class="btn btn-success btn-sm" onclick="resourceEditAction()"
-					style="display: none;">
-					<i class="fa fa-pencil-square"></i> Edit Resource Name
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/support/activation-tms.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/accounts/bill-create.js"></script>

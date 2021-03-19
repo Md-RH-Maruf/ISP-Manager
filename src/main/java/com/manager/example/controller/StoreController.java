@@ -15,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.manager.example.shareModel.RequisitionStatus;
 import com.manager.security.entityModel.MyUserDetails;
 import com.manager.store.entity.Category;
 import com.manager.store.entity.Product;
@@ -213,10 +215,54 @@ public class StoreController {
 				public ModelAndView prouductRequisitionList(ModelMap map,HttpSession session) {
 
 					ModelAndView view = new ModelAndView("store/product-requisition-list");
-					//map.addAttribute("maxId",customerService.getMaxCustomerId());
+					System.out.println(productReqService.getProductRequisitionListByStatus(String.valueOf(RequisitionStatus.PENDING.getType())).toString());
+					map.addAttribute("pendingRequisitionList",productReqService.getProductRequisitionListByStatus(String.valueOf(RequisitionStatus.PENDING.getType())));
+					map.addAttribute("approvedRequisitionList",productReqService.getProductRequisitionListByStatus(String.valueOf(RequisitionStatus.APPROVED.getType())));
+					map.addAttribute("notApprovedRequisitionList",productReqService.getProductRequisitionListByStatus(String.valueOf(RequisitionStatus.NOT_APPROVED.getType())));
+					
+					return view;
+				}
+				
+				//Product Requisition Details
+				@RequestMapping(value={"/store/product-requisition/{requisitionNo}"})
+				public ModelAndView productRequisition(ModelMap map,HttpSession session,@PathVariable("requisitionNo") String requisitionNo) {
+
+					ModelAndView view = new ModelAndView("store/product-requisition-view");
+					session.setAttribute("requisitionInfo",productReqService.findByRequisitionNo(requisitionNo));
+					map.addAttribute("productList",requistionProductDetailsService.getRequisitionProducts(requisitionNo));
 					//map.addAttribute("customerList",customerService.getCustomerList());
 
 					return view;
+				}
+				
+				@RequestMapping(value={"/store/approved-product-requisition/{requisitionNo}"})
+				public ModelAndView approveProductRequisition(ModelMap map,HttpSession session,@PathVariable("requisitionNo") String requisitionNo) {
+
+					ModelAndView view = new ModelAndView("store/approved-product-requisition-view");
+					session.setAttribute("requisitionInfo",productReqService.findByRequisitionNo(requisitionNo));
+					map.addAttribute("productList",requistionProductDetailsService.getRequisitionProducts(requisitionNo));
+					//map.addAttribute("customerList",customerService.getCustomerList());
+
+					return view;
+				}
+				
+				@RequestMapping(value={"/updateProudctRequsition"},method=RequestMethod.POST)
+				public @ResponseBody Map<String, Object> updateproductRequisition(String requisitionNo,String status) {
+					Map<String, Object> obj = new HashMap();
+					MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+					
+					ProductRequisition productRequisition =  productReqService.findByRequisitionNo(requisitionNo);				
+					productRequisition.setStatus(Integer.valueOf(status));
+					productRequisition.setApprovedBy((int)userDetails.getId());
+					productRequisition.setApprovedDate(new java.sql.Date(new Date().getTime()) );
+					if(productReqService.saveProductRequisition(productRequisition) != null) {
+						obj.put("result", "successfull");
+					}else {
+						obj.put("result", "something wrong");
+					}
+
+					return obj;
 				}
 				
 				//Issue Product
@@ -229,6 +275,26 @@ public class StoreController {
 
 					return view;
 				}
+				
+				@RequestMapping(value={"/issueProudctRequsition"},method=RequestMethod.POST)
+				public @ResponseBody Map<String, Object> issueProductRequisition(String requisitionNo,String status) {
+					Map<String, Object> obj = new HashMap();
+					MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+					
+					ProductRequisition productRequisition =  productReqService.findByRequisitionNo(requisitionNo);				
+					productRequisition.setStatus(Integer.valueOf(status));
+					productRequisition.setIssuedBy((int)userDetails.getId());
+					productRequisition.setIssuedDate(new java.sql.Date(new Date().getTime()) );
+					if(productReqService.saveProductRequisition(productRequisition) != null) {
+						obj.put("result", "successfull");
+					}else {
+						obj.put("result", "something wrong");
+					}
+
+					return obj;
+				}
+				
 				
 				//product stock
 				@RequestMapping(value={"/store/product-stock"})

@@ -204,7 +204,7 @@ function ledgerEditAction() {
     let ledgerId = $("#ledgerId").val();
     let headId = $("#ledgerHeadName").val();
     let ledgerName = $("#ledgerName").val();
-    let brandName = $("#brandName").val();
+    let openingBalance = $("#openingBalance").val()==''?0:$("#openingBalance").val();
     let activeStatus = $("#activeStatus").val();
 
     if (headId != 0) {
@@ -219,7 +219,7 @@ function ledgerEditAction() {
                         id: ledgerId,
                         headId: headId,
                         ledgerName: ledgerName,
-                        brandName: brandName,
+                        openingBalance: openingBalance,
                         activeStatus: activeStatus
                     },
                     success: function (data) {
@@ -269,9 +269,9 @@ function setLedgerData(ledgerId) {
         success: function (data) {
             let ledger = data.ledgerInfo;
             $("#ledgerId").val(ledger.id);
-            $("#ledgerHeadName").val(ledger.headId);
+            $("#ledgerHeadName").val(ledger.headId).change();
             $("#ledgerName").val(ledger.ledgerName);
-            $("#brandName").val(ledger.brandName);
+            $("#openingBalance").val(ledger.openingBalance);
             $("#activeStatus").val(ledger.activeStatus);
             $("#btnLedgerSave").hide();
             $("#btnLedgerEdit").show();
@@ -295,11 +295,12 @@ function drawLedgerTable(data) {
     for (let i = 0; i < length; i++) {
         let ledger = data[i];
         rows += `<tr style="cursor: pointer;"
-      onclick="setLedgerData('${ledger.id}')">
-      <td>${ledger.ledgerName}</td>
-      <td>${ledger.brandName}</td>
-      <td>${ledger.activeStatus}</td>
-  </tr>`;
+                    onclick="setLedgerData('${ledger.id}')">
+                    <td>${ledger.id}</td>
+                    <td>${ledger.ledgerName}</td>
+                    <td>${ledger.openingBalance}</td>
+                    <td>${ledger.activeStatus}</td>
+                </tr>`;
     }
 
     return rows;

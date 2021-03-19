@@ -12,386 +12,119 @@
 		<div class="row my-1">
 			<h5>Product Requisition List</h5>
 		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%"
-				cellspacing="0">
-				<thead>
-					<tr>
-						<th>Requisition No</th>
-						<th>Requisition Date</th>
-						<th>Ticket ID</th>
-						<th>Product Quantity</th>
-						<th>Create By</th>
-						<th>View</th>
-					</tr>
-				</thead>
-				<tbody id="dataBody">
-					<tr>
-						<th>PRQ-20201003</th>
-						<th>2021-02-10</th>
-						<th>TMS-32483</th>
-						<th>3</th>
-						<th>Jahed</th>
-						<th><i class='fa fa-eye' style="cursor: pointer;"></i></th>
-					</tr>
-					<tr>
-						<th>PRQ-20201002</th>
-						<th>2021-02-10</th>
-						<th>TMS-32482</th>
-						<th>5</th>
-						<th>Jahed</th>
-						<th><i class='fa fa-eye' style="cursor: pointer;"></i></th>
-					</tr>
-					<tr>
-						<th>PRQ-20201001</th>
-						<th>2021-02-10</th>
-						<th>TMS-32481</th>
-						<th>6</th>
-						<th>Jahed</th>
-						<th><i class='fa fa-eye' style="cursor: pointer;"></i></th>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div
-		class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Resources</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" >
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<div class="modal-body">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation"><a
-						class="nav-link active" id="new-connection-tab" data-toggle="tab"
-						href="#newConnection" role="tab" aria-controls="new connection"
-						aria-selected="true">New Connection</a></li>
-					<li class="nav-item" role="presentation"><a class="nav-link"
-						id="complain-tab" data-toggle="tab" href="#complain" role="tab"
-						aria-controls="complain" aria-selected="false">Complain</a></li>
-
-				</ul>
-				<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active" id="newConnection"
-						role="tabpanel" aria-labelledby="new-connection-tab">
-						<div class="row">
-
-							<div class="col-md-12 ">
-								<div class="p-5">
-									<div class="text-center">
-										<h1 class="h4 text-gray-900 mb-4">Activation TMS</h1>
-									</div>
-
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="newCustomerName">Customer Name</label></span>
-												</div>
-												<input id="newCustomerName" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="area">Area</label></span>
-												</div>
-												<select id="area" class="form-control selectpicker"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm"
-													data-live-search="true"
-													data-style="btn-light btn-sm border-secondary form-control-sm">
-													<option value="0">Select Area</option>
-													<c:forEach items="${buyerList}" var="buyer">
-														<option value="${buyer.buyerid}">${buyer.buyername}</option>
-													</c:forEach>
-												</select>
-
-											</div>
-										</div>
-
-									</div>
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="contactPerson">Contact Person</label></span>
-												</div>
-												<input id="contactPerson" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="contactNo">Contact No</label></span>
-												</div>
-												<input id="contactNo" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-											</div>
-										</div>
-									</div>
-
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="address">Address</label></span>
-												</div>
-												<textarea id="address" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm"></textarea>
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="address">Address</label></span>
-												</div>
-												<textarea id="address" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="package">Package</label></span>
-												</div>
-												<select class="form-control" id="package">
-
-												</select>
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="otc">OTC</label></span>
-												</div>
-												<input id="otc" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-											</div>
-										</div>
-									</div>
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="mrc">MRC</label></span>
-												</div>
-												<input id="mrc" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="promiseDate">Promise Date</label></span>
-												</div>
-												<input id="promiseDate" type="date" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-											</div>
-										</div>
-									</div>
-									<div class="alert alert-success alert-dismissible fade show"
-										style="display: none;">
-										<p id="successAlert" class="mb-0">
-											<strong>Success!</strong> Unit Name Save Successfully..
-										</p>
-									</div>
-									<div class="alert alert-warning alert-dismissible fade show"
-										style="display: none;">
-										<p id="warningAlert" class="mb-0">
-											<strong>Warning!</strong> Unit Name Empty.Please Enter Unit
-											Name...
-										</p>
-									</div>
-									<div class="alert alert-danger alert-dismissible fade show"
-										style="display: none;">
-										<p id="dangerAlert" class="mb-0">
-											<strong>Wrong!</strong> Something Wrong...
-										</p>
-									</div>
-									<button type="button" onclick="submitRequest()"
-										class="btn btn-primary btn-user btn-block">Submit TMS</button>
-
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="complain" role="tabpanel"
-						aria-labelledby="complain-tab">
-						<div class="row">
-
-							<div class="col-md-12 ">
-								<div class="p-5">
-									<div class="text-center">
-										<h1 class="h4 text-gray-900 mb-4">Complain TMS</h1>
-									</div>
-
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="customerId">Customer Id</label></span>
-												</div>
-												<input id="customerId" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-												<div class="input-group-append">
-													<button class="btn btn-primary" type="button">
-														<i class="fas fa-search fa-sm"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="problemType">problem Type</label></span>
-												</div>
-												<select id="problemType" class="form-control selectpicker"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm"
-													data-live-search="true"
-													data-style="btn-light btn-sm border-secondary form-control-sm">
-													<option value="0">Select Buyer</option>
-													<c:forEach items="${buyerList}" var="buyer">
-														<option value="${buyer.buyerid}">${buyer.buyername}</option>
-													</c:forEach>
-												</select>
-
-											</div>
-										</div>
-
-									</div>
-
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="customerName">Customer Name</label></span>
-												</div>
-												<input id="customerName" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="area">Area</label></span>
-												</div>
-												<input id="area" type="text" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm">
-
-											</div>
-										</div>
-									</div>
-									<div class="row my-1">
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="complainDetails">Complain
-															Details</label></span>
-												</div>
-												<textarea id="complainDetails" type="text"
-													class="form-control" aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm"></textarea>
-											</div>
-										</div>
-										<div class='col-md-6'>
-											<div class="input-group input-group-sm mb-1">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="inputGroup-sizing-sm"><label
-														class='my-0' for="priority">Priority</label></span>
-												</div>
-												<select class="form-control" id="package">
-													<%
-														for (Priority priority : Priority.values()) {
-													%>
-
-													<option value="<%=priority.getType()%>"><%=priority.name()%></option>
-													<%
-														}
-													%>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="alert alert-success alert-dismissible fade show"
-										style="display: none;">
-										<p id="successAlert" class="mb-0">
-											<strong>Success!</strong> Unit Name Save Successfully..
-										</p>
-									</div>
-									<div class="alert alert-warning alert-dismissible fade show"
-										style="display: none;">
-										<p id="warningAlert" class="mb-0">
-											<strong>Warning!</strong> Unit Name Empty.Please Enter Unit
-											Name...
-										</p>
-									</div>
-									<div class="alert alert-danger alert-dismissible fade show"
-										style="display: none;">
-										<p id="dangerAlert" class="mb-0">
-											<strong>Wrong!</strong> Something Wrong...
-										</p>
-									</div>
-									<button type="button" onclick="submitComplain()"
-										class="btn btn-primary btn-user btn-block">Submit
-										Complain</button>
-
-								</div>
-							</div>
-						</div>
-					</div>
-
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation"><a
+				class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending"
+				role="tab" aria-controls="pending" aria-selected="true">Pending</a></li>
+			<li class="nav-item" role="presentation"><a class="nav-link"
+				id="approved-tab" data-toggle="tab" href="#approved" role="tab"
+				aria-controls="approved" aria-selected="false">Approved</a></li>
+			<li class="nav-item" role="presentation"><a class="nav-link"
+				id="not-approved-tab" data-toggle="tab" href="#not-approved" role="tab"
+				aria-controls="not-approved" aria-selected="false">Not Approved</a></li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="pending" role="tabpanel"
+				aria-labelledby="pending-tab">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="pendingDataTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>Requisition No</th>
+								<th>Requisition Date</th>
+								<th>Ticket ID</th>
+								<th>Product Quantity</th>
+								<th>Create By</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody id="pendingDataBody">
+						<c:forEach items="${pendingRequisitionList}" var="requisition">
+							<tr>
+								<th>${requisition.requisitionNo}</th>
+								<th>${requisition.requisitionDate}</th>
+								<th><a href="" onclick='viewTicket("${requisition.ticketId}",event)'>${requisition.ticketId}</a></th>
+								<th>${requisition.productQuantity}</th>
+								<th>${requisition.createdBy}</th>
+								<th><a href=""  onclick='viewRequisition("${requisition.requisitionNo}",event)'><i class='fa fa-eye'></i>View</a></th>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
 				</div>
-
-
-
 			</div>
-
+			<div class="tab-pane fade" id="approved" role="tabpanel"
+				aria-labelledby="approved-tab">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="approvedDataTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>Requisition No</th>
+								<th>Requisition Date</th>
+								<th>Ticket ID</th>
+								<th>Product Quantity</th>
+								<th>Create By</th>
+								<th>Approved By</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody id="approvedDataBody">
+							<c:forEach items="${approvedRequisitionList}" var="requisition">
+							<tr>
+								<th>${requisition.requisitionNo}</th>
+								<th>${requisition.requisitionDate}</th>
+								<th><a href="" onclick='viewTicket("${requisition.ticketId}",event)'>${requisition.ticketId}</a></th>
+								<th>${requisition.productQuantity}</th>
+								<th>${requisition.createdBy}</th>
+								<th>${requisition.approvedBy}</th>
+								<th><a href=""  onclick='viewApprovedRequisition("${requisition.requisitionNo}",event)'><i class='fa fa-eye'></i>View</a></th>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="not-approved" role="tabpanel"
+				aria-labelledby="not-approved-tab">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="notApprovedDataTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>Requisition No</th>
+								<th>Requisition Date</th>
+								<th>Ticket ID</th>
+								<th>Product Quantity</th>
+								<th>Create By</th>
+								<th>Rejected By</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody id="notApprovedDataBody">
+							<c:forEach items="${notApprovedRequisitionList}" var="requisition">
+							<tr>
+								<th>${requisition.requisitionNo}</th>
+								<th>${requisition.requisitionDate}</th>
+								<th><a href="" onclick='viewTicket("${requisition.ticketId}",event)'>${requisition.ticketId}</a></th>
+								<th>${requisition.productQuantity}</th>
+								<th>${requisition.createdBy}</th>
+								<th>${requisition.approvedBy}</th>
+								<th><a href=""  onclick='viewRequisition("${requisition.requisitionNo}",event)'><i class='fa fa-eye'></i>View</a></th>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
+
 	</div>
+
 </div>
+
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/tms-report-list.js"></script>
+	src="${pageContext.request.contextPath}/js/store/requisition-product-list.js"></script>

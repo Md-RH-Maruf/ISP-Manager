@@ -1,15 +1,12 @@
 package com.manager.example.controller;
 
-import java.rmi.activation.ActivateFailedException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.manager.example.shareModel.ConnectionStatus;
 import com.manager.example.shareModel.ShareMethods;
 import com.manager.example.shareModel.Status;
 import com.manager.inventory.entity.Customer;
-import com.manager.inventory.entity.Employee;
 import com.manager.inventory.services.CustomerService;
 import com.manager.inventory.services.EmployeeService;
 import com.manager.inventory.services.PackageService;

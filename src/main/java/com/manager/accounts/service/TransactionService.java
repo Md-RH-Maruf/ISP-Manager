@@ -1,4 +1,4 @@
-package com.manager.store.service;
+package com.manager.accounts.service;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.manager.accounts.entity.Transaction;
+import com.manager.accounts.repository.TransactionRepository;
 import com.manager.security.entity.User;
 import com.manager.store.entity.Product;
 import com.manager.store.entity.ProductRequisition;
@@ -24,7 +26,7 @@ import com.manager.store.repository.ProductRequisitionRepository;
 import com.manager.store.repository.RequisitionProductDetailsRepository;
 
 @Service
-public class RequisitionProductDetailsService {
+public class TransactionService {
 
 	DecimalFormat df = new DecimalFormat("00");
 	@Autowired
@@ -32,29 +34,29 @@ public class RequisitionProductDetailsService {
 	@PersistenceContext
 	EntityManager em;
 	@Autowired
-	RequisitionProductDetailsRepository requiPrductRepo;
+	TransactionRepository transactionRepo;
 	
-	public RequisitionProductDetails saveRequisitionProduct(RequisitionProductDetails requisitionProduct) {
-		return requiPrductRepo.save(requisitionProduct);
+	public Transaction saveTransaction(Transaction transaction) {
+		return transactionRepo.save(transaction);
 	}
 	
-	public List<RequisitionProductDetails> saveRequisitionProducts(List<RequisitionProductDetails> requisitionProducts) {
-		return requiPrductRepo.saveAll(requisitionProducts);
-	}
-	
-	
-	public List<RequisitionProductDetails> findByRequisitionNo(String requisitionNo) {
-		return requiPrductRepo.findByRequisitionNo(requisitionNo);
+	public List<Transaction> saveTransactions(List<Transaction> transactions) {
+		return transactionRepo.saveAll(transactions);
 	}
 	
 	
-	public List<RequisitionProductDetails> getProductRequisitionList(){
-		return requiPrductRepo.findAll();
+	public List<Transaction> findByBillNo(String billNo) {
+		return transactionRepo.findByBillNo(billNo);
+	}
+	
+	
+	public List<Transaction> getTransactionList(){
+		return transactionRepo.findAll();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<RequisitionInfo> getProductRequisitionListByStatus(String status){
+	public List<RequisitionInfo> getTransactionListByLedgerId(String status){
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
 		List<RequisitionInfo> requistionList = new ArrayList<RequisitionInfo>();
@@ -90,14 +92,14 @@ public class RequisitionProductDetailsService {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<RequisitionProduct> getRequisitionProducts(String requisitionNo){
+	public List<RequisitionProduct> getTransactions(String billNo){
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
 		List<RequisitionProduct> productList = new ArrayList<RequisitionProduct>();
 		//SELECT tat.id,tat.tmsNo,tat.customerId,tat.subject,c.area,tat.status,tat.priority,tat.entryTime AS date,lfu.username AS followupBy,tat.lastFollowupTime,:emp.firstName  '' as firstNames
 		List<Object[]> results = em.createQuery("SELECT rpd,p FROM RequisitionProductDetails rpd \r\n"
 				+ "join Product p on rpd.productId = p.id \r\n"
-				+ "WHERE rpd.requisitionNo = '"+requisitionNo+"'").getResultList();
+				+ "WHERE rpd.requisitionNo = '"+billNo+"'").getResultList();
 		
 		for(Object[] obj:results) {
 			RequisitionProductDetails rpd = (RequisitionProductDetails)obj[0];
@@ -106,7 +108,7 @@ public class RequisitionProductDetailsService {
 			
 			if(rpd != null) {
 				
-				productList.add(new RequisitionProduct((long)rpd.getId(), requisitionNo, String.valueOf(rpd.getProductId()), p.getProductName(), (long)rpd.getProductQuantity(), rpd.getDescription()));
+				productList.add(new RequisitionProduct((long)rpd.getId(), billNo, String.valueOf(rpd.getProductId()), p.getProductName(), (long)rpd.getProductQuantity(), rpd.getDescription()));
 			}
 			
 		}

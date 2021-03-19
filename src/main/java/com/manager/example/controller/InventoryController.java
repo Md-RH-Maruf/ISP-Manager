@@ -38,6 +38,7 @@ public class InventoryController {
 	ResellerService resellerService;
 	@Autowired
 	PackageService packageService;
+	
 
 	@RequestMapping(value={"/inventory/customer"})
 	public ModelAndView customer(ModelMap map,HttpSession session) {
@@ -78,6 +79,17 @@ public class InventoryController {
 	public @ResponseBody Map<String, Object> getCustomer(String id){
 		Map<String, Object> obj = new HashMap();
 		obj.put("customerInfo",customerService.findById(Long.valueOf(id)));
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/getCustomerInfo"},method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getCustomerInfo(String customerId){
+		Map<String, Object> obj = new HashMap();
+		Customer customer = customerService.findByCustomerId(customerId);
+		Service service = packageService.findById((long)customer.getPackageId());
+		obj.put("customerInfo",customer);
+		obj.put("serviceInfo",service);
+		
 		return obj;
 	}
 	

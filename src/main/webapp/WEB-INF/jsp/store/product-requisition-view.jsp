@@ -1,3 +1,4 @@
+<%@page import="com.manager.store.entity.ProductRequisition"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
@@ -5,6 +6,9 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Begin Page Content -->
 
+<%
+	ProductRequisition productRequisition = (ProductRequisition) session.getAttribute("requisitionInfo");
+%>
 <div class="container-fluid">
 
 	<div class="card o-hidden border-0 shadow-lg my-5">
@@ -15,7 +19,7 @@
 				<div class="col-md-12 ">
 					<div class="p-5">
 						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Customer Monthly Invoice</h1>
+							<h1 class="h4 text-gray-900 mb-4">Product Requisition</h1>
 						</div>
 
 						<div class="row my-1">
@@ -23,114 +27,83 @@
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="customerName">Customer Name</label></span>
+											class='my-0' for="requistionNo">Requisition No</label></span>
 									</div>
-									<input id="customerName" type="text" class="form-control"
+									<input id="requistionNo" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm"
+										value="<%=productRequisition.getRequisitionNo()%>"
+										readonly="readonly">
+
 								</div>
 							</div>
+
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="customerId">Customer Id</label></span>
+											class='my-0' for="ticketId">Ticket Id</label></span>
 									</div>
-									<input id="customerId" type="text" class="form-control"
+									<input id="ticketId" type="text" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-									<div class="input-group-append">
-										<button class="btn btn-primary" type="button"
-											onclick="searchAction()">
-											<i class="fas fa-search fa-sm"></i>
-										</button>
-									</div>
+										aria-describedby="inputGroup-sizing-sm"
+										value="<%=productRequisition.getTicketId()%>"
+										readonly="readonly">
 								</div>
 							</div>
 						</div>
 						<div class="row my-1">
-							<div class='col-md-6'>
+							<%-- <div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="area">Area</label></span>
+											class='my-0' for="productName">Product Name</label></span>
 									</div>
-									<input id="area" type="text" class="form-control"
+									<select id="productName" class="form-control selectpicker"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm"
+										data-live-search="true"
+										data-style="btn-light btn-sm border-secondary form-control-sm">
+										<option value="0">Select Resource</option>
+										<c:forEach items="${productList}" var="product">
+											<option value="${product.id}">${product.productName}</option>
+										</c:forEach>
+									</select>
 								</div>
-							</div>
+							</div> --%>
 
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="billDate">Bill Date</label></span>
+											class='my-0' for="requistionDate">Requisition Date</label></span>
 									</div>
-									<input id="billDate" type="date" class="form-control"
+									<input id="requistionDate" type="date" class="form-control"
 										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
+										aria-describedby="inputGroup-sizing-sm"
+										value="<%=productRequisition.getRequisitionDate()%>">
 								</div>
 							</div>
 
 						</div>
-
-						<div class="row my-1">
-
+						<%-- <div class="row my-1">
 							<div class='col-md-6'>
 								<div class="input-group input-group-sm mb-1">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="package">Package</label></span>
+											class='my-0' for="quantity">Quantity</label></span>
 									</div>
-									<input id="package" type="text" class="form-control"
+									<input id="quantity" type="text" class="form-control"
 										aria-label="Sizing example input"
 										aria-describedby="inputGroup-sizing-sm">
 								</div>
 							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="activeDate">Active Date</label></span>
-									</div>
-									<input id="activeDate" type="date" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-						</div>
+						</div> --%>
 
-						<div class="row my-1">
-
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="price">Price</label></span>
-									</div>
-									<input id="price" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-							<div class='col-md-6'>
-								<div class="input-group input-group-sm mb-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-sm"><label
-											class='my-0' for="amount">Amount</label></span>
-									</div>
-									<input id="amount" type="text" class="form-control"
-										aria-label="Sizing example input"
-										aria-describedby="inputGroup-sizing-sm">
-								</div>
-							</div>
-						</div>
-						<div class="row my-1">
-
-							<div class="col-md-6 ">
+						<!-- <div class="row my-1">
+							<div class="col-md-12 ">
 								<button type="button" id="btnAdd" class="btn btn-primary btn-sm"
-									onclick="submitInvoice()">Submit Invoice</button>
+									onclick="addAction()">Add</button>
 
 								<button type="button" id="btnEdit"
 									class="btn btn-success btn-sm" onclick="editAction()"
@@ -140,7 +113,7 @@
 
 							</div>
 
-						</div>
+						</div> -->
 
 						<div class="alert alert-success alert-dismissible fade show"
 							style="display: none;">
@@ -160,6 +133,45 @@
 							<p id="dangerAlert" class="mb-0">
 								<strong>Wrong!</strong> Something Wrong...
 							</p>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12"
+								style="overflow: auto; max-height: 400px;">
+								<table class="table table-hover table-bordered table-sm">
+									<thead>
+										<tr>
+											<th>SL</th>
+											<th>Product Name</th>
+											<th>Quantity</th>
+											<th>Description</th>
+										</tr>
+									</thead>
+									<tbody id="prductList">
+										<c:forEach items="${productList}" var="product"
+											varStatus="counter">
+											<tr style="cursor: pointer;"
+												onclick="setCustomerData('${product.id}')">
+												<td>${counter.count}</td>
+												<td>${product.productName}</td>
+												<td>${product.quantity}</td>
+												<td>${product.description }</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<div class='col-md-6'>
+								<button type="button" onclick="approvedRequisition()"
+									class="btn btn-primary btn-user btn-block">Approved</button>
+							</div>
+							<div class='col-md-6'>
+								<button type="button" onclick="notApprovedRequisition()"
+									class="btn btn-primary btn-user btn-block">Not
+									Approved</button>
+							</div>
 						</div>
 
 
@@ -245,4 +257,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/accounts/customer-monthly-invoice.js"></script>
+	src="${pageContext.request.contextPath}/js/store/product-requisition-info.js"></script>

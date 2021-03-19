@@ -1,4 +1,4 @@
-package com.manager.store.service;
+package com.manager.accounts.service;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.manager.accounts.entity.Bill;
+import com.manager.accounts.repository.BillRepository;
 import com.manager.example.entityModel.TicketDetails;
 import com.manager.inventory.entity.Customer;
 import com.manager.inventory.entity.Employee;
@@ -25,7 +27,7 @@ import com.manager.store.repository.ProductRequisitionRepository;
 import com.manager.support.entity.ActivationTMS;
 
 @Service
-public class ProductRequisitionService {
+public class BillService {
 
 	DecimalFormat df = new DecimalFormat("00");
 	
@@ -35,37 +37,37 @@ public class ProductRequisitionService {
 	EntityManager em;
 	
 	@Autowired
-	ProductRequisitionRepository productReqRepo;
+	BillRepository billRepo;
 	
-	public String getMaxRequisitionNo() {
+	public String getMaxBillNo() {
 		LocalDate currentdate = LocalDate.now();
-		String yearMonth = "PRQ-"+currentdate.getYear()+""+df.format(currentdate.getMonthValue());
-		return yearMonth+productReqRepo.getMaxRequisitionNo(yearMonth);
+		String yearMonth = "BN-"+currentdate.getYear()+""+df.format(currentdate.getMonthValue());
+		return yearMonth+billRepo.getMaxBillNo(yearMonth);
 	}
 	
-	public ProductRequisition saveProductRequisition(ProductRequisition productRequisition) {
-		return productReqRepo.save(productRequisition);
+	public Bill saveBill(Bill bill) {
+		return billRepo.save(bill);
 	}
 	
-	public ProductRequisition findById(long id) {
-		return productReqRepo.findById(id).orElse(null);
+	public Bill findById(long id) {
+		return billRepo.findById(id).orElse(null);
 	}
 	
-	public ProductRequisition findByRequisitionNo(String requisitionNo) {
-		return productReqRepo.findByRequisitionNo(requisitionNo);
+	public Bill findByBillNo(String billNo) {
+		return billRepo.findByBillNo(billNo);
 	}
 	
-	public List<ProductRequisition> getProductRequisitionList(){
-		return productReqRepo.findAll();
+	public List<Bill> getBillList(){
+		return billRepo.findAll();
 	}
 	
-	public List<ProductRequisition> getProductRequisitionsByStatus(String status){
-		return productReqRepo.findByStatus(Integer.valueOf(status));
+	public List<Bill> getBillsByStatus(String status){
+		return billRepo.findByStatus(Integer.valueOf(status));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<RequisitionInfo> getProductRequisitionListByStatus(String status){
+	public List<RequisitionInfo> getBillListByStatus(String status){
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
 		List<RequisitionInfo> requistionList = new ArrayList<RequisitionInfo>();

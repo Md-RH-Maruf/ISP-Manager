@@ -18,12 +18,15 @@ public class Bill {
 	private String billNo;
 	private int billType;
 	private String ticketId;
+	private String customerId;
 	private Date billDate;
 	private double totalAmount;
 	private double approveAmount;
 	private int status;
 	private int approveBy;
 	private Date approveDate;
+	private int rejectedBy;
+	private String rejectedCause;
 	private Timestamp entryTime;
 	private Long entryBy;
 	
@@ -102,6 +105,24 @@ public class Bill {
 	}
 	public void setEntryBy(Long entryBy) {
 		this.entryBy = entryBy;
+	}
+	public int getRejectedBy() {
+		return rejectedBy;
+	}
+	public void setRejectedBy(int rejectedBy) {
+		this.rejectedBy = rejectedBy;
+	}
+	public String getRejectedCause() {
+		return rejectedCause;
+	}
+	public void setRejectedCause(String rejectedCause) {
+		this.rejectedCause = rejectedCause;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	
 	

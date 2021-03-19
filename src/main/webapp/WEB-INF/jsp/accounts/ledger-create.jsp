@@ -29,6 +29,7 @@
 			</p>
 		</div>
 		<input type="hidden" id="headId" value="0">
+		<input type="hidden" id="ledgerId" value="0">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="card-box">

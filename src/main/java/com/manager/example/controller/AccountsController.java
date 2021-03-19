@@ -1,12 +1,16 @@
 package com.manager.example.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,21 +20,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.manager.accounts.entity.Bill;
 import com.manager.accounts.entity.Ledger;
 import com.manager.accounts.entity.LedgerHead;
+import com.manager.accounts.entity.Transaction;
+import com.manager.accounts.service.BillService;
 import com.manager.accounts.service.LedgerHeadService;
 import com.manager.accounts.service.LedgerService;
+import com.manager.accounts.service.TransactionService;
+import com.manager.example.shareModel.BillType;
+import com.manager.inventory.services.CustomerService;
 import com.manager.security.entityModel.MyUserDetails;
+import com.manager.store.entity.ProductRequisition;
+import com.manager.store.entity.RequisitionProductDetails;
+import com.manager.support.services.ActivationTMSService;
+import com.manager.support.services.ComplainTMSService;
 
 
 @Controller
 public class AccountsController {
 
-	
+	@Autowired
+	ActivationTMSService activationTmsService;
+	@Autowired
+	ComplainTMSService complainTmsSercice;
 	@Autowired
 	LedgerHeadService ledgerHeadService;
 	@Autowired
+	TransactionService transactionService;
+	@Autowired
 	LedgerService ledgerService;
+	@Autowired
+	BillService billService;
+	@Autowired
+	CustomerService customerService;
 	
 	//Create Ledger
 	@RequestMapping(value={"/accounts/create-ledger"})
@@ -130,10 +153,50 @@ public class AccountsController {
 	public ModelAndView create_bill(ModelMap map,HttpSession session) {
 
 		ModelAndView view = new ModelAndView("accounts/create-bill");
-		//map.addAttribute("maxId",customerService.getMaxCustomerId());
-		//map.addAttribute("customerList",customerService.getCustomerList());
+		map.addAttribute("maxId",billService.getMaxBillNo());
+		map.addAttribute("ledgerList",ledgerService.getLedgerList());
 
 		return view;
+	}
+	
+	@RequestMapping(value= {"/submitBill"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> submitBill(Bill bill,String billLedgers) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Transaction> requisitionBillList = new ArrayList<Transaction>() ;
+		
+		bill.setEntryTime(new Timestamp(new Date().getTime()));
+		bill.setEntryBy(userDetails.getId());
+		JSONObject products = new JSONObject(billLedgers);
+		System.out.println("list"+products.toString());
+		JSONArray productList = products.getJSONArray("list");
+		for(Object object: productList) {
+			JSONObject jObject = (JSONObject) object;
+			Transaction transaction = new Transaction();
+			transaction.setBillNo(bill.getBillNo());
+			transaction.setDebitLedger(jObject.getString("ledgerId"));
+			transaction.setCreditLedger("3");
+			transaction.setAmount(jObject.getInt("amount"));
+			transaction.setDescription(jObject.getString("description"));
+			transaction.setEntryTime(new Timestamp(new Date().getTime()));
+			transaction.setEntryBy(userDetails.getId());
+			requisitionBillList.add(transaction);
+		}
+		if(activationTmsService.getActivationTMSByTmsNo(bill.getTicketId()) != null || complainTmsSercice.getComplainTMSByTmsNo(bill.getTicketId()) != null) {
+			if(billService.saveBill(bill) != null) {
+				if(transactionService.saveTransactions(requisitionBillList) != null) {
+					obj.put("result", "successfull");
+				}else {
+					obj.put("result", "duplicate");
+				}	
+			}else {
+				obj.put("result", "something wrong");
+			}		
+		}else {
+			obj.put("result", "something wrong");
+			obj.put("message", "Ticket id not valid");
+		}	
+		return obj;
 	}
 
 
@@ -203,5 +266,47 @@ public class AccountsController {
 					//map.addAttribute("customerList",customerService.getCustomerList());
 
 					return view;
+				}
+				
+				@RequestMapping(value= {"/submitMonthlyInvoice"},method=RequestMethod.POST)
+				public @ResponseBody Map<String, Object> submitMonthlyInvoice(String customerId,String amount,String activeDate) {
+					Map<String, Object> obj = new HashMap();
+					MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					Transaction transaction = new Transaction() ;
+					Bill bill = new Bill();
+					
+					bill.setBillNo(billService.getMaxBillNo());
+					bill.setBillType(BillType.Monthly_Invoice.getType());
+					bill.setCustomerId(customerId);
+					bill.setBillDate(new java.sql.Date(new Date().getTime()));
+					bill.setTotalAmount(Double.valueOf(amount));
+					bill.setStatus(1);
+					bill.setEntryTime(new Timestamp(new Date().getTime()));
+					bill.setEntryBy(userDetails.getId());
+					
+					transaction.setBillNo(bill.getBillNo());
+					transaction.setTransactionType(BillType.Monthly_Invoice.getType());
+					transaction.setDebitLedger("7");
+					transaction.setCreditLedger("0");
+					transaction.setAmount(Double.valueOf(amount));
+					transaction.setStatus(1);
+					transaction.setEntryTime(new Timestamp(new Date().getTime()));
+					transaction.setEntryBy(userDetails.getId());
+					
+					if(customerService.findByCustomerId(customerId) != null ) {
+						if(billService.saveBill(bill) != null) {
+							if(transactionService.saveTransaction(transaction) != null) {
+								obj.put("result", "successfull");
+							}else {
+								obj.put("result", "duplicate");
+							}	
+						}else {
+							obj.put("result", "something wrong");
+						}		
+					}else {
+						obj.put("result", "something wrong");
+						obj.put("message", "Ticket id not valid");
+					}	
+					return obj;
 				}
 }

@@ -269,7 +269,7 @@ function setProductData(productId) {
         success: function (data) {
             let product = data.productInfo;
             $("#productId").val(product.id);
-            $("#productCategoryName").val(product.categoryId);
+            $("#productCategoryName").val(product.categoryId).change();
             $("#productName").val(product.productName);
             $("#brandName").val(product.brandName);
             $("#activeStatus").val(product.activeStatus);
