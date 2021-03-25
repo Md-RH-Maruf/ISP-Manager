@@ -28,6 +28,7 @@ import com.manager.accounts.service.BillService;
 import com.manager.accounts.service.LedgerHeadService;
 import com.manager.accounts.service.LedgerService;
 import com.manager.accounts.service.TransactionService;
+import com.manager.example.shareModel.BillStatus;
 import com.manager.example.shareModel.BillType;
 import com.manager.inventory.services.CustomerService;
 import com.manager.security.entityModel.MyUserDetails;
@@ -164,7 +165,7 @@ public class AccountsController {
 		Map<String, Object> obj = new HashMap();
 		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Transaction> requisitionBillList = new ArrayList<Transaction>() ;
-		
+		bill.setBillType(BillType.Create_Bill.getType());
 		bill.setEntryTime(new Timestamp(new Date().getTime()));
 		bill.setEntryBy(userDetails.getId());
 		JSONObject products = new JSONObject(billLedgers);
@@ -205,7 +206,7 @@ public class AccountsController {
 	public ModelAndView pending_bill(ModelMap map,HttpSession session) {
 
 		ModelAndView view = new ModelAndView("accounts/pending-bill");
-		//map.addAttribute("maxId",customerService.getMaxCustomerId());
+		map.addAttribute("billList",billService.getBillsBillTypeAndStatus(BillType.Monthly_Invoice.getType(), BillStatus.PENDING.getType()));
 		//map.addAttribute("customerList",customerService.getCustomerList());
 
 		return view;
@@ -240,13 +241,103 @@ public class AccountsController {
 	public ModelAndView cash_transaction(ModelMap map,HttpSession session) {
 
 		ModelAndView view = new ModelAndView("accounts/cash-transaction");
-		//map.addAttribute("maxId",customerService.getMaxCustomerId());
-		//map.addAttribute("customerList",customerService.getCustomerList());
+		map.addAttribute("maxId",billService.getMaxBillNo());
+		map.addAttribute("ledgerList",ledgerService.getLedgerList());
 
 		return view;
 	}
 	
-	//Cash Transaction
+	@RequestMapping(value= {"/submitPaymentTransaction"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> submitPaymentTransaction(Bill bill,String billLedgers) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Transaction> requisitionBillList = new ArrayList<Transaction>() ;
+		bill.setBillType(BillType.Cash_Payment.getType());
+		bill.setEntryTime(new Timestamp(new Date().getTime()));
+		bill.setEntryBy(userDetails.getId());
+		double totalAmount = 0;
+		JSONObject products = new JSONObject(billLedgers);
+		System.out.println("list"+products.toString());
+		JSONArray productList = products.getJSONArray("list");
+		for(Object object: productList) {
+			JSONObject jObject = (JSONObject) object;
+			Transaction transaction = new Transaction();
+			transaction.setBillNo(bill.getBillNo());
+			transaction.setDebitLedger(jObject.getString("ledgerId"));
+			transaction.setCreditLedger("3");
+			transaction.setAmount(jObject.getInt("amount"));
+			totalAmount += jObject.getInt("amount");
+			transaction.setDescription(jObject.getString("description"));
+			transaction.setEntryTime(new Timestamp(new Date().getTime()));
+			transaction.setEntryBy(userDetails.getId());
+			requisitionBillList.add(transaction);
+		}
+		
+		bill.setTotalAmount(totalAmount);
+		
+		if(bill.getTicketId().isEmpty() || activationTmsService.getActivationTMSByTmsNo(bill.getTicketId()) != null || complainTmsSercice.getComplainTMSByTmsNo(bill.getTicketId()) != null) {
+			if(billService.saveBill(bill) != null) {
+				if(transactionService.saveTransactions(requisitionBillList) != null) {
+					obj.put("result", "successfull");
+				}else {
+					obj.put("result", "duplicate");
+				}	
+			}else {
+				obj.put("result", "something wrong");
+			}		
+		}else {
+			obj.put("result", "something wrong");
+			obj.put("message", "Ticket id not valid");
+		}	
+		return obj;
+	}
+	
+	@RequestMapping(value= {"/submitReceiveTransaction"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> submitReceiveTransaction(Bill bill,String billLedgers) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Transaction> requisitionBillList = new ArrayList<Transaction>() ;
+		bill.setBillType(BillType.Cash_Payment.getType());
+		bill.setEntryTime(new Timestamp(new Date().getTime()));
+		bill.setEntryBy(userDetails.getId());
+		double totalAmount = 0;
+		JSONObject products = new JSONObject(billLedgers);
+		System.out.println("list"+products.toString());
+		JSONArray productList = products.getJSONArray("list");
+		for(Object object: productList) {
+			JSONObject jObject = (JSONObject) object;
+			Transaction transaction = new Transaction();
+			transaction.setBillNo(bill.getBillNo());
+			transaction.setDebitLedger(jObject.getString("ledgerId"));
+			transaction.setCreditLedger("3");
+			transaction.setAmount(jObject.getInt("amount"));
+			totalAmount += jObject.getInt("amount");
+			transaction.setDescription(jObject.getString("description"));
+			transaction.setEntryTime(new Timestamp(new Date().getTime()));
+			transaction.setEntryBy(userDetails.getId());
+			requisitionBillList.add(transaction);
+		}
+		
+		bill.setTotalAmount(totalAmount);
+		
+		if(bill.getTicketId().isEmpty() || activationTmsService.getActivationTMSByTmsNo(bill.getTicketId()) != null || complainTmsSercice.getComplainTMSByTmsNo(bill.getTicketId()) != null) {
+			if(billService.saveBill(bill) != null) {
+				if(transactionService.saveTransactions(requisitionBillList) != null) {
+					obj.put("result", "successfull");
+				}else {
+					obj.put("result", "duplicate");
+				}	
+			}else {
+				obj.put("result", "something wrong");
+			}		
+		}else {
+			obj.put("result", "something wrong");
+			obj.put("message", "Ticket id not valid");
+		}	
+		return obj;
+	}
+	
+	//Customer Monthly Invoice
 		@RequestMapping(value={"/accounts/customer-monthly-invoice"})
 		public ModelAndView customer_monthly_invoice(ModelMap map,HttpSession session) {
 

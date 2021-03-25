@@ -1,5 +1,5 @@
 window.onload = () => {
-  document.title = "Activation Ticket List";
+  document.title = "Complain Ticket List";
 
 //   $('#openDataTable').dataTable().fnDestroy();
 // $('#openDataTable').DataTable(({ 

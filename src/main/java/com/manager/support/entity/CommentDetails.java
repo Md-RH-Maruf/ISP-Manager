@@ -1,4 +1,4 @@
-package com.manager.accounts.entity;
+package com.manager.support.entity;
 
 import java.sql.Timestamp;
 

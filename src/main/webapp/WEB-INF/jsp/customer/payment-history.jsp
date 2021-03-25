@@ -11,7 +11,7 @@
 	<div class="card-body">
 		<div class="row">
 		<div class="col-md-4">
-				<h5>Payment Histoyr</h5>
+				<h5>Payment History</h5>
 			</div>
 			<div class="col-md-8">
 				<label for="fromDate">From Date</label><input id="fromDate"

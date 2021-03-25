@@ -31,7 +31,21 @@
 					</tr>
 				</thead>
 				<tbody id="dataBody">
-					<tr>
+					<c:forEach items="${billList}" var="bill" varStatus="counter">
+												<tr>
+
+													<td>${bill.billNo}</td>
+													<td>${bill.billDate}</td>
+													<td>${bill.entryBy}</td>
+													<td>${bill.ticketId }</td>
+													<td></td>
+													<td></td>
+													<td>${bill.totalAmount}</td>
+													<td>Pending</td>
+													<th><a href="">Action</a></th>
+												</tr>
+											</c:forEach>
+					<!-- <tr>
 						<th>Bill-10</th>
 						<th>2021-10-02</th>
 						<th>Jahed</th>
@@ -63,7 +77,7 @@
 						<th>150</th>
 						<th>Pending</th>
 						<th><a href="">Action</a></th>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 		</div>

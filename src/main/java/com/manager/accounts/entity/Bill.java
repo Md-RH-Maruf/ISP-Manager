@@ -27,6 +27,7 @@ public class Bill {
 	private Date approveDate;
 	private int rejectedBy;
 	private String rejectedCause;
+	private String receiverTakenFrom;
 	private Timestamp entryTime;
 	private Long entryBy;
 	
@@ -123,6 +124,12 @@ public class Bill {
 	}
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
+	}
+	public String getReceiverTakenFrom() {
+		return receiverTakenFrom;
+	}
+	public void setReceiverTakenFrom(String receiverTakenFrom) {
+		this.receiverTakenFrom = receiverTakenFrom;
 	}
 	
 	

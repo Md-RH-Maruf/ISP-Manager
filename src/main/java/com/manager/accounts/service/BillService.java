@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manager.accounts.entity.Bill;
+import com.manager.accounts.entity.BillInfo;
 import com.manager.accounts.repository.BillRepository;
 import com.manager.example.entityModel.TicketDetails;
 import com.manager.inventory.entity.Customer;
@@ -69,18 +70,21 @@ public class BillService {
 		return billRepo.findByBillTypeAndCustomerId(billType, customerId);
 	}
 	
+	public List<Bill> getBillsBillTypeAndStatus(int billType,int status){
+		return billRepo.findByBillTypeAndStatus(billType,status);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<RequisitionInfo> getBillListByStatus(String status){
+	public List<BillInfo> getBillListByStatus(String status){
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		List<RequisitionInfo> requistionList = new ArrayList<RequisitionInfo>();
+		List<BillInfo> billList = new ArrayList<BillInfo>();
 		//SELECT tat.id,tat.tmsNo,tat.customerId,tat.subject,c.area,tat.status,tat.priority,tat.entryTime AS date,lfu.username AS followupBy,tat.lastFollowupTime,:emp.firstName  '' as firstNames
-		List<Object[]> results = em.createQuery("SELECT pr,\r\n" + 
-				"(SELECT SUM(rpd.productQuantity) FROM RequisitionProductDetails rpd WHERE rpd.requisitionNo = pr.requisitionNo) AS productQuantity,u,issueU,approveU \r\n"
-				+ "FROM ProductRequisition pr\r\n" + 
-				"JOIN User u\r\n" + 
-				"ON pr.entryBy = u.id\r\n" + 
+		List<Object[]> results = em.createQuery("SELECT bill, \r\n" 
+				+ "FROM Bill bill\r\n" + 
+				"JOIN Transaction t\r\n" + 
+				"ON bill.billNo = u.id\r\n" + 
 				"LEFT JOIN User issueU\r\n" + 
 				"ON pr.issuedBy = issueU.id\r\n" + 
 				"LEFT JOIN User approveU\r\n" + 
@@ -94,23 +98,23 @@ public class BillService {
 			User issueUser = (User)obj[3];
 			User approveUser = (User)obj[4];
 			if(pr != null) {
-				RequisitionInfo requisitionInfo = new RequisitionInfo((long) pr.getId(), pr.getRequisitionNo(), pr.getRequisitionDate().toString(), pr.getTicketId(), quantity, user.getUsername());
+				BillInfo requisitionInfo = new BillInfo();
 				if(issueUser != null) {
-					requisitionInfo.setIssuedBy(issueUser.getUsername());
-					requisitionInfo.setIssuedDate(pr.getIssuedDate());
+					//requisitionInfo.setIssuedBy(issueUser.getUsername());
+					//requisitionInfo.setIssuedDate(pr.getIssuedDate());
 				}
 				if(approveUser != null) {
 					requisitionInfo.setApprovedBy(approveUser.getUsername());
-					requisitionInfo.setApprovedDate(pr.getApprovedDate());
+					//requisitionInfo.setApprovedDate(pr.getApprovedDate());
 				}
-				requistionList.add(requisitionInfo);
+				billList.add(requisitionInfo);
 				
 			}
 			
 		}
 		em.getTransaction().commit();
 		em.close();
-		return requistionList;
+		return billList;
 		
 	}
 }

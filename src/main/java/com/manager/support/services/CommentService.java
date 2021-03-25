@@ -13,9 +13,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.manager.accounts.entity.CommentDetails;
 import com.manager.example.entityModel.TicketDetails;
 import com.manager.support.entity.Comment;
+import com.manager.support.entity.CommentDetails;
 import com.manager.support.entity.McInformation;
 import com.manager.support.entity.WorkTeam;
 import com.manager.support.repository.CommentRepository;
