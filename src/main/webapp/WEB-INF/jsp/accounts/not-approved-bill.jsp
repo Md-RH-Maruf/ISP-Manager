@@ -20,16 +20,31 @@
 				<thead>
 					<tr>
 						<th>Bill NO</th>
-						<th>User</th>
+						<th>Create By</th>
 						<th>Bill Date</th>
+						<th>Ticket Id</th>
 						<th>Bill Head</th>
 						<th>Total Amount</th>
-						<th>Not Approve Cause</th>
+						<th>Rejected Cause</th>
+						<th>Reject By</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody id="dataBody">
+<c:forEach items="${billList}" var="bill" varStatus="counter">
+												<tr>
 
+													<td>${bill.billNo}</td>
+													<td>${bill.createdBy}</td>
+													<td>${bill.billDate}</td>
+													<td>${bill.ticketId}</td>
+													<td>${bill.billHead}</td>
+													<td>${bill.totalAmount}</td>
+													<td>${bill.rejectedCause}</td>
+													<td>${bill.rejectedBy}</td>
+													<th><a href="" onclick="viewBillDetails('${bill.billNo}',event)">Action</a></th>
+												</tr>
+											</c:forEach>
 				</tbody>
 			</table>
 		</div>

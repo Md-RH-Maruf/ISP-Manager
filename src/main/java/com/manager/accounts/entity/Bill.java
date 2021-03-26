@@ -27,6 +27,7 @@ public class Bill {
 	private Date approveDate;
 	private int rejectedBy;
 	private String rejectedCause;
+	private Date rejectedDate;
 	private String receiverTakenFrom;
 	private Timestamp entryTime;
 	private Long entryBy;
@@ -130,6 +131,12 @@ public class Bill {
 	}
 	public void setReceiverTakenFrom(String receiverTakenFrom) {
 		this.receiverTakenFrom = receiverTakenFrom;
+	}
+	public Date getRejectedDate() {
+		return rejectedDate;
+	}
+	public void setRejectedDate(Date rejectedDate) {
+		this.rejectedDate = rejectedDate;
 	}
 	
 	

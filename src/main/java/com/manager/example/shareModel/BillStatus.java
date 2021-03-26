@@ -4,7 +4,7 @@ public enum BillStatus {
 
 	PENDING(1),
 	APPROVED(2),
-	NOTAPPROVED(3),
+	NOT_APPROVED(3),
 	DELETED(4);
 	private int type;
 	private BillStatus(int type) {

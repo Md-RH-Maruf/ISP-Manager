@@ -2,7 +2,7 @@ package com.manager.accounts.entity;
 
 public class BillInfo {
 	
-	String id;
+	long id;
 	String billNo;
 	String billDate;
 	String createdBy;
@@ -13,17 +13,19 @@ public class BillInfo {
 	double approveAmount;
 	String billStatus;
 	String approvedBy;
+	String approvedDate;
 	String rejectedBy;
+	String rejectedDate;
 	String rejectedCause;
 	
 	
 	public BillInfo() {
 		super();
 	}
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getBillNo() {
@@ -100,6 +102,17 @@ public class BillInfo {
 	}
 	
 	
-	
+	public String getApprovedDate() {
+		return approvedDate;
+	}
+	public void setApprovedDate(String approvedDate) {
+		this.approvedDate = approvedDate;
+	}
+	public String getRejectedDate() {
+		return rejectedDate;
+	}
+	public void setRejectedDate(String rejectedDate) {
+		this.rejectedDate = rejectedDate;
+	}
 
 }

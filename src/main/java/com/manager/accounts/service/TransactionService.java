@@ -14,7 +14,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.manager.accounts.entity.Ledger;
 import com.manager.accounts.entity.Transaction;
+import com.manager.accounts.entity.TransactionInfo;
 import com.manager.accounts.repository.TransactionRepository;
 import com.manager.security.entity.User;
 import com.manager.store.entity.Product;
@@ -56,6 +58,51 @@ public class TransactionService {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<TransactionInfo> getTransactionInfoListByBillNo(String billNo){
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		List<TransactionInfo> requistionList = new ArrayList<TransactionInfo>();
+		//SELECT tat.id,tat.tmsNo,tat.customerId,tat.subject,c.area,tat.status,tat.priority,tat.entryTime AS date,lfu.username AS followupBy,tat.lastFollowupTime,:emp.firstName  '' as firstNames
+		List<Object[]> results = em.createQuery("SELECT t,dl,cl \r\n" 
+				+ "FROM Transaction t\r\n" + 
+				"LEFT JOIN Ledger dl \r\n"+
+				"ON t.debitLedger = dl.id \r\n"+
+				"LEFT JOIN Ledger cl \r\n"+
+				"ON t.creditLedger = cl.id \r\n"+
+				"WHERE t.billNo = '"+billNo+"'").getResultList();
+		
+		
+		for(Object[] obj:results) {
+			Transaction t = (Transaction)obj[0];
+			Ledger dl = (Ledger)obj[1];
+			Ledger cl = (Ledger)obj[2];
+			
+			if(t != null) {
+				TransactionInfo ti = new TransactionInfo();
+				ti.setId(t.getId());
+				ti.setBillNo(t.getBillNo());
+				ti.setStatus(t.getStatus());
+				ti.setTransactionType(t.getTransactionType());
+				if(dl != null) { ti.setDebitLedger(dl.getLedgerName());
+					ti.setDebitLedgerId(t.getDebitLedger());
+				}
+				if(cl != null) {ti.setCreditLedger(cl.getLedgerName());
+					ti.setCreditLedgerId(t.getCreditLedger());
+				}
+				ti.setDescription(t.getDescription());
+				ti.setAmount(t.getAmount());
+				requistionList.add(ti);
+			}
+			
+		}
+		em.getTransaction().commit();
+		em.close();
+		return requistionList;
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<RequisitionInfo> getTransactionListByLedgerId(String status){
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -74,12 +121,7 @@ public class TransactionService {
 			User user = (User)obj[2];
 			
 			if(pr != null) {
-				JSONObject object = new JSONObject();
-				object.put("requisitionNo", pr.getRequisitionNo());
-				object.put("requisitionDate", pr.getRequisitionDate());
-				object.put("ticketId", pr.getTicketId());
-				object.put("productQuantity", quantity);
-				object.put("createdBy", user.getUsername());
+				
 				requistionList.add(new RequisitionInfo((long) pr.getId(), pr.getRequisitionNo(), pr.getRequisitionDate().toString(), pr.getTicketId(), quantity, user.getUsername()));
 			}
 			
@@ -107,7 +149,6 @@ public class TransactionService {
 			Product p = (Product)obj[1];
 			
 			if(rpd != null) {
-				
 				productList.add(new RequisitionProduct((long)rpd.getId(), billNo, String.valueOf(rpd.getProductId()), p.getProductName(), (long)rpd.getProductQuantity(), rpd.getDescription()));
 			}
 			

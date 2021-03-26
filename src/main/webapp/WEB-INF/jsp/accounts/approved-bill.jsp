@@ -10,7 +10,7 @@
 
 	<div class="card-body">
 		<div class="row">
-		<h5>Approved Bill</h5>
+			<h5>Approved Bill</h5>
 			<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#exampleModal">New Ticket</button> -->
 		</div>
@@ -20,16 +20,32 @@
 				<thead>
 					<tr>
 						<th>Bill NO</th>
-						<th>User</th>
+						<th>Create By</th>
 						<th>Bill Date</th>
+						<th>Ticket Id</th>
 						<th>Bill Head</th>
 						<th>Total Amount</th>
+						<th>Approved Amount</th>
 						<th>Approved By</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody id="dataBody">
+					<c:forEach items="${billList}" var="bill" varStatus="counter">
+						<tr>
 
+							<td>${bill.billNo}</td>
+							<td>${bill.createdBy}</td>
+							<td>${bill.billDate}</td>
+							<td>${bill.ticketId}</td>
+							<td>${bill.billHead}</td>
+							<td>${bill.totalAmount}</td>
+							<td>${bill.approveAmount}</td>
+							<td>${bill.approvedBy}</td>
+							<th><a href=""
+								onclick="issueBillAmount('${bill.billNo}',event)">Action</a></th>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -44,7 +60,7 @@
 			<div class="modal-header">
 				<h5 class="modal-title">Resources</h5>
 				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" >
+					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
