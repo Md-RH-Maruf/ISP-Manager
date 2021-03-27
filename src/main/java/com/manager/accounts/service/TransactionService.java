@@ -1,7 +1,6 @@
 package com.manager.accounts.service;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +22,6 @@ import com.manager.store.entity.ProductRequisition;
 import com.manager.store.entity.RequisitionInfo;
 import com.manager.store.entity.RequisitionProduct;
 import com.manager.store.entity.RequisitionProductDetails;
-import com.manager.store.repository.ProductRequisitionRepository;
-import com.manager.store.repository.RequisitionProductDetailsRepository;
 
 @Service
 public class TransactionService {

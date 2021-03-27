@@ -285,6 +285,58 @@ public class AccountsController {
 
 		return view;
 	}
+	
+	@RequestMapping(value={"/accounts/approved-bill-details/{billNo}"})
+	public ModelAndView approved_bill_details(ModelMap map,HttpSession session,@PathVariable("billNo") String billNo) {
+
+		ModelAndView view = new ModelAndView("accounts/approved-bill-details");
+		Bill bill = billService.findByBillNo(billNo);
+		//map.addAttribute("billList",billService.getBillsByBillTypeAndStatus(BillType.Create_Bill.getType(), BillStatus.PENDING.getType()));
+		session.setAttribute("billInfo",bill);
+		session.setAttribute("createdBy",userDetailsService.findById(bill.getEntryBy()).getUsername());
+		map.addAttribute("billDetails",transactionService.getTransactionInfoListByBillNo(billNo));
+
+		return view;
+	}
+	
+	@RequestMapping(value= {"/issueBillAmount"},method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> issueBillAmount(String billNo) {
+		Map<String, Object> obj = new HashMap();
+		MyUserDetails userDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Bill  bill = billService.findByBillNo(billNo);
+		bill.setStatus(BillStatus.ISSUED.getType());
+		List<Transaction> newTransactionList = new ArrayList<Transaction>();
+		if(billService.saveBill(bill) != null) {
+			List<Transaction> transactionList = transactionService.findByBillNo(billNo);
+			for(Transaction transaction:transactionList) {
+				Transaction newTransaction = new Transaction();
+				newTransaction.setBillNo(transaction.getBillNo());
+				newTransaction.setTransactionType(BillType.Issued_Bill.getType());
+				newTransaction.setDebitLedger(transaction.getDebitLedger());
+				newTransaction.setCreditLedger(transaction.getCreditLedger());
+				newTransaction.setAmount(transaction.getAmount());
+				newTransaction.setDescription("Issued acctual Amount");
+				newTransaction.setStatus(BillStatus.ISSUED.getType());
+				newTransaction.setEntryTime(new java.sql.Timestamp(new Date().getTime()));
+				newTransaction.setEntryBy(userDetails.getId());
+				
+				newTransactionList.add(newTransaction);
+			}
+			if(transactionService.saveTransactions(newTransactionList) != null) {
+				obj.put("result","successfull");
+			}else {
+				obj.put("result","something wrong");
+				obj.put("message","something wrong");
+			}
+		}else {
+			obj.put("result","something wrong");
+			obj.put("message","something wrong");
+		}
+
+
+		return obj;
+	}
+
 
 	//Not Approved Bill
 	@RequestMapping(value={"/accounts/not-approved-bill"})

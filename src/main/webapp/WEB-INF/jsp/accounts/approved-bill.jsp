@@ -390,4 +390,4 @@
 <!-- /.container-fluid -->
 <jsp:include page="../include/footer.jsp" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/support/tms-report-list.js"></script>
+	src="${pageContext.request.contextPath}/js/accounts/approved-bill.js"></script>
